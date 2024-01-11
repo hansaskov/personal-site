@@ -1,0 +1,114 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TimeLineElement from "../components/cv/TimeLine.astro";
+---
+
+<BaseLayout title="Resume" sideBarActiveItemID="cv">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Profile</div>
+  </div>
+
+  <div class="mb-10 text-justify">
+    My name is Hans Askov and i'm currently in my first semester of my masters,
+    working towards a degree in Software Engineering. I'm passionate about
+    Machine learning, fullstack web applications, large distributed systems and
+    much more.
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Education</div>
+  </div>
+
+  <div class="time-line-container grid gap-4 mb-10">
+    <TimeLineElement
+      title="MSc in Software Engineering, Odense - Southern university of Denmark"
+      subtitle="September 2023 - July 2025 (expected)"
+    >
+      Creating and working with software has always been the highligt of my
+      robotics studies, which is why i made the decision to do my masters in
+      software engineering, my current focus is specialicing in becoming a
+      Backend Engineer with a focus on distibuted systems
+    </TimeLineElement>
+    <TimeLineElement
+      title="BEng in Robotic Systems, Odense - Southern university of Denmark"
+      subtitle="August 2019 - Feburary 2023"
+    >
+      Robotics have tought me the importance of good collaboration, and to have
+      a proactive and solution-focused mindset. As it is necessary to manage
+      unexpected situations that often arise in large-scale projects. For
+      instance, I successfully programmed a UR5 robot to grasp and throw objects
+      with collision detection.
+    </TimeLineElement>
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Experience</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    <TimeLineElement
+      title="Novo Nordisk, Hillerød – Bachelor thesis in Robotics"
+      subtitle="September 2022 - February 2023"
+    >
+      At Novo Nordisk I developed and implemented a pipeline to render
+      synthetically generated images which were used to train two deep learning
+      models for object detection and 6DoF pose estimation for components in a
+      bin. An open-source recreation is available here
+      <a class="text-blue-600" href="https://github.com/hansaskov/BlenderBin"
+        >https://github.com/hansaskov/BlenderBin</a
+      >
+    </TimeLineElement>
+    <TimeLineElement
+      title="EFFIMAT, Odense – Software Developer"
+      subtitle="February 2022 – February 2023"
+    >
+      As a member of the Effimat team, I honed my skills within the field of
+      Internet of Things, by working with data collection and analysis of
+      distributed systems. A website was then developed to show real-time data,
+      which was used to gain insight of their products.
+    </TimeLineElement>
+    <TimeLineElement
+      title="SDU, Odense – Mathematics Instructor"
+      subtitle="May 2021 - June 2021"
+    >
+      I worked as an instructor in the SDU event "Mat Spurten" which deals with
+      refreshing 3.g students for the Mathematics A exam. It is a task that
+      requires patience and dissemination of complicated subjects.
+    </TimeLineElement>
+    <TimeLineElement
+      title="Coloplast, Espergærde– Machine operator of catheter"
+      subtitle="January 2019 - June 2019"
+    >
+      At Coloplast i got Practical work experience with automated production
+      lines for mass production of catheters. This tought me the necessity of
+      reliable and intuitive systems for the end user.
+    </TimeLineElement>
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Skills</div>
+  </div>
+
+  <ul class="list-disc md:columns-5  columns-2 mx-6">
+    <li>Node.js</li>
+    <li>Express.js</li>
+    <li>Machine Learing</li>
+    <li>Backend</li>
+    <li>Fullstack</li>
+    <li>React.js</li>
+    <li>Computer vision</li>
+    <li>Big data</li>
+    <li>Kafka</li>
+    <li>SQL</li>
+    <li>Rust</li>
+    <li>C++</li>
+    <li>Typescript</li>
+    <li>MongoDB</li>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>Javascript</li>
+    <li>Next.js</li>
+    <li>Cypersecurity</li>
+    <li>Unit testing</li>
+  </ul>
+</BaseLayout>
