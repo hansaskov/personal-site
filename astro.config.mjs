@@ -7,8 +7,8 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  site: undefined,
+  site: 'https://hans.askov.dk',
   integrations: [mdx(), sitemap(), tailwind()],
-  output: "server",
-  adapter: vercel()
+  output: "hybrid",
+  adapter: vercel(),
 });
