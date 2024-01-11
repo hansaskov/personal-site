@@ -1,6 +1,7 @@
 # build output
 dist/
 .cache
+.vercel
 # dependencies
 node_modules/
 
