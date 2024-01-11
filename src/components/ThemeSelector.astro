@@ -16,7 +16,7 @@ const themes: Theme[] = [
     {
         title: "colorful",
         name: "cupcake",
-    }
+    },
 ];
 ---
 
@@ -85,17 +85,28 @@ const themes: Theme[] = [
 </div>
 
 <script is:inline>
-    function setTheme(doc) {
-        const theme_selectors = doc.querySelectorAll(
-            "#theme-selector div[data-theme]",
-        );
-        const theme = window.localStorage.getItem("data-theme");
+    
+    function getSavedTheme() {
+        return window.localStorage.getItem("data-theme") || "lofi";
+    }
 
-        if (theme) {
-            updateTheme(doc, theme);
-        } else {
-            updateTheme(doc, "lofi");
-        }
+    function applyOutlineClass(doc, theme) {
+        const themeDivs = doc.querySelectorAll(
+            "#theme-selector div[data-set-theme]",
+        );
+        themeDivs.forEach((div) => {
+            if (div.dataset.setTheme === theme) {
+                div.classList.add("outline");
+            } else {
+                div.classList.remove("outline");
+            }
+        });
+    }
+
+    function setTheme(doc) {
+        const theme = getSavedTheme();
+        updateTheme(doc, theme);
+        applyOutlineClass(doc, theme);
     }
 
     function updateTheme(doc, newTheme) {
@@ -109,7 +120,9 @@ const themes: Theme[] = [
         );
         theme_selectors.forEach((selector) => {
             selector.addEventListener("click", () => {
-                updateTheme(doc, selector.getAttribute("data-theme"));
+                const selectedTheme = selector.getAttribute("data-theme");
+                updateTheme(doc, selectedTheme);
+                applyOutlineClass(doc, selectedTheme);
             });
         });
     }
