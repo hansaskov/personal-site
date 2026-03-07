@@ -13,6 +13,9 @@ export interface Props {
 const { title, description, image = '/personal-site.webp', ogType = 'website' } = Astro.props;
 ---
 
+<!-- Preload profile image to prevent flicker on page navigation -->
+<link rel="preload" as="image" href="/profile.webp" />
+
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
