@@ -1,14 +1,11 @@
-import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import tailwind from "@astrojs/tailwind";
-
-import vercel from "@astrojs/vercel/static";
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://hans.askov.dk',
-  integrations: [mdx(), sitemap(), tailwind()],
+  site: "https://hans.askov.dk",
   output: "static",
-  adapter: vercel(),
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
