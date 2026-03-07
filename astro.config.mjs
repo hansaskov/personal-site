@@ -5,6 +5,13 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://hans.askov.dk",
   output: "static",
+  build: {
+    inlineStylesheets: "always",
+  },
+  prefetch: {
+    defaultStrategy: "load",
+    prefetchAll: true,
+  },
   vite: {
     plugins: [tailwindcss()],
   },
