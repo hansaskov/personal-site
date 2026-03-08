@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SideBar from "../components/SideBar.astro";
+import { ClientRouter } from "astro:transitions";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 
 const {
@@ -16,8 +17,9 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="cupcake">
+<html lang="en" data-theme="cupcake" transition:animate="none">
     <head>
+        <ClientRouter />
         <BaseHead
             title={title}
             description={description}
