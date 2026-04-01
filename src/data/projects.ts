@@ -13,7 +13,7 @@ export const projects: Project[] = [
     img: "/askov.webp",
     desc: "A small static website made for my parents. It's main use is showing pictures of our cats and a link to a personal wishlist. Check out the pictures at the bottom, they are so cute.",
     url: "https://askov.dk",
-    badge: "NEW",
+    badge: "Website",
   },
   {
     title: "Hjemmet.net",
