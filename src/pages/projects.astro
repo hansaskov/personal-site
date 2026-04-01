@@ -4,15 +4,17 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 import { projects } from "../data/projects";
 ---
 
-<BaseLayout title="Projects" sideBarActiveItemID="projects">
-  <div>
-    <div class="text-3xl w-full font-bold mb-5">My projects</div>
-  </div>
+<BaseLayout title="Projects">
+    <div>
+        <div class="text-3xl w-full font-bold mb-5">My projects</div>
+    </div>
 
-  {projects.map((project, i) => (
-    <>
-      {i > 0 && <div class="divider my-0"></div>}
-      <HorizontalCard {...project} />
-    </>
-  ))}
+    {
+        projects.map((project, i) => (
+            <>
+                {i > 0 && <div class="divider my-0" />}
+                <HorizontalCard {...project} />
+            </>
+        ))
+    }
 </BaseLayout>
