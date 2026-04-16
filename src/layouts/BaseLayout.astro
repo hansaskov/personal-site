@@ -11,8 +11,8 @@ const {
     title = SITE_TITLE,
     description = SITE_DESCRIPTION,
     includeSidebar = true,
-    sideBarActiveItemID,
-    ogType,
+    px = 12,
+    ogType
 } = Astro.props;
 ---
 
@@ -34,7 +34,7 @@ const {
                 <Header title={SITE_TITLE} />
                 <div class="md:flex md:justify-center">
                     <main
-                        class="p-6 px-12 pt-10 lg:max-w-[900px] max-w-[100vw]"
+                        class={`p-6 px-${px} pt-10 lg:max-w-[900px] max-w-[100vw]`}
                     >
                         <slot />
                     </main>
@@ -43,7 +43,7 @@ const {
             </div>
             {
                 includeSidebar && (
-                    <SideBar sideBarActiveItemID={sideBarActiveItemID} />
+                    <SideBar />
                 )
             }
         </div>
