@@ -18,8 +18,8 @@ export default defineConfig({
   image: {
     service: {
       config: {
-        webp: { effort: import.meta.env.PROD ? 10 : 1 },
-        avif: { effort: import.meta.env.PROD ? 10 : 1 },
+        webp: { effort: import.meta.env.PROD ? 6 : 0 }, // Run highest effort in prod
+        avif: { effort: import.meta.env.PROD ? 9 : 0 }, // Run highest effort in prod
       },
     },
   },
