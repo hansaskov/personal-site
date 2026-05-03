@@ -15,4 +15,12 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  image: {
+    service: {
+      config: {
+        webp: { effort: import.meta.env.PROD ? 10 : 1 },
+        avif: { effort: import.meta.env.PROD ? 10 : 1 },
+      },
+    },
+  },
 });

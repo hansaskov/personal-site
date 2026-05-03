@@ -1,7 +1,8 @@
 ---
 import SideBarFooter from "./SideBarFooter.astro";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 import SideBarMenu from "./SideBarMenu.astro";
+import ProfilePicture from "../media/profile.webp"
 ---
 
 <div class="drawer-side z-40">
@@ -15,12 +16,12 @@ import SideBarMenu from "./SideBarMenu.astro";
                     class="avatar transition ease-in-out hover:scale-[102%] block m-auto"
                 >
                     <div class="w-[8.5rem] h-[8.5rem]">
-                        <Image
+                        <Picture
                             class="mask mask-circle"
-                            format="webp"
-                            width={300}
-                            height={300}
-                            src="/profile.webp"
+                            width={512}
+                            height={512}
+                            src={ProfilePicture}
+                            formats={['avif', 'webp']}
                             alt="Profile image"
                             fetchpriority="high"
                         />
