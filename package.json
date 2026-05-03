@@ -11,16 +11,22 @@
     "astro": "astro",
     "lint": "oxlint --fix",
     "format": "oxfmt",
-    "check": "oxfmt && oxlint --fix"
+    "check": "oxfmt && oxlint --fix",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.3.0",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "6.2.1",
     "daisyui": "^5.5.19",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.1",
+    "wrangler": "^4.87.0"
   },
   "devDependencies": {
     "oxfmt": "^0.43.0",
     "oxlint": "^1.58.0"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }

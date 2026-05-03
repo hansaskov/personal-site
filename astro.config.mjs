@@ -15,6 +15,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  
   image: {
     service: {
       config: {
