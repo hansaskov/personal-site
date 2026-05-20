@@ -25,6 +25,7 @@ const {
             image={image}
             ogType={ogType}
         />
+        <slot name="head" />
     </head>
     <body>
         <div class="bg-base-100 drawer lg:drawer-open">
@@ -48,3 +49,21 @@ const {
         </div>
     </body>
 </html>
+
+<script type="speculationrules">
+  {
+    "prefetch": [{
+      "urls": ["cv", "projects"],
+      "eagerness": "immediate"
+    }],
+    "prerender": [{
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": {"href_matches": "/logout"}}
+        ]
+      },
+      "eagerness": "eager"
+    }]
+  }
+</script>
