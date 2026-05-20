@@ -9,13 +9,12 @@ export default defineConfig({
     inlineStylesheets: "always",
   },
   prefetch: {
-    defaultStrategy: "load",
     prefetchAll: true,
   },
   vite: {
     plugins: [tailwindcss()],
   },
-  
+
   image: {
     service: {
       config: {
