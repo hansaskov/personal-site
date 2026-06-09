@@ -1,6 +1,10 @@
 ---
-const { title, img, desc, url, badge, target = "_blank" } = Astro.props;
+import type { Project } from "../data/projects";
 import { Picture } from "astro:assets";
+
+type Props = Project
+
+const { title, desc, img, url, badge, target = "_blank", year } = Astro.props;
 ---
 
 <div class="rounded-lg bg-base-100 hover:shadow-xl transition ease-in-out hover:scale-[102%]">
@@ -20,8 +24,10 @@ import { Picture } from "astro:assets";
         <h1 class="text-xl font-bold">
           {title}
           {badge && <div class="badge badge-secondary mx-2">{badge}</div>}
-        </h1>
+        </h1> 
+        <p class="my-1 text-sm font-light">{year}</p>
         <p class="py-1 text-1xl">{desc}</p>
+
       </div>
     </div>
   </a>
