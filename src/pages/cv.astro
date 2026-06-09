@@ -6,143 +6,123 @@ const includeSidebar = true
 
 ---
 
-<BaseLayout title="CV" description="Hans askov's CV" {prefetchUrls} {includeSidebar}>
-  <div class="mb-4 px-4">
-    <div class="text-3xl w-full font-bold">Profile</div>
+<BaseLayout class="space-y-8" title="CV" description="Hans askov's CV" {prefetchUrls} {includeSidebar}>
+  <div class="space-y-1" >
+    <h1 class="text-5xl font-bold">Hans Askov</h1>
+    <p class="text-xl">Software Engineer</p>
+    <p class="text-lg font-light">Odense C, Region of Southern Denmark, Denmark</p>
   </div>
-
-  <div class="mb-8 text-pretty">
-    <p class="mb-4 px-4">
+    
+  <div class="text-pretty">
+    <p>
       My name is Hans Askov and i'm half way through my masters, working towards
       a degree in Software Engineering. I'm passionate about Machine learning,
       fullstack web applications, large distributed systems and much more. In my
       free time i like to play Volleyball at DSIO as well as going for runs in
       Munke Mose. I am currently looking for a part time job and a company to
       write my Masters Thesis with. My thesis will begin September 2024, so if
-      you interested in working with me, please send me an email at <a
-        class="text-blue-600">hans@askov.dk</a
-      >
+      you interested in working with me, please send me an email at <a class="text-blue-600">hans@askov.dk</a>
     </p>
-
-  </div>
-  <div class="mb-4">
-    <div class="text-3xl w-full font-bold px-4">Education</div>
   </div>
 
-  <div class="time-line-container grid gap-4 mb-8">
-    <TimeLineElement
-      title="MSc in Software Engineering, Odense - Southern University of Denmark"
-      subtitle="September 2023 - July 2025 (expected)"
-    >
-      Software Engineering is crucial for my continued improvements to become
-      the best possible Backend Engineer working with distributed systems and
-      fullstack applications.
-    </TimeLineElement>
-    <TimeLineElement
-      title="BEng in Robotic Systems, Odense - Southern University of Denmark"
-      subtitle="August 2019 - Feburary 2023"
-    >
-      Robotics have tought me the importance of good collaboration, and to have
-      a proactive and solution-focused mindset. As it is necessary to manage
-      unexpected situations that often arise in large-scale projects. For
-      instance, I successfully programmed a UR5 robot to detect, grasp and throw
-      objects with collision detection.
-    </TimeLineElement>
-  </div>
 
-  <div class="mb-4 px-4">
-    <div class="text-3xl w-full font-bold">Experience</div>
-  </div>
-
-  <div class="time-line-container mb-8">
-    <TimeLineElement
-      title="Bachelor thesis in Robotics, Hillerød – Novo Nordisk "
-      subtitle="September 2022 - February 2023"
-    >
-      At Novo Nordisk I developed and implemented a pipeline to render
-      synthetically generated images which were used to train two deep learning
-      models for object detection and 6DoF pose estimation for components in a
-      bin. An open-source recreation is available here
-      <a class="text-blue-600" href="https://github.com/hansaskov/BlenderBin"
-        >https://github.com/hansaskov/BlenderBin</a
+  <div class="space-y-4">
+    <div class="pt-4 text-3xl w-full font-bold">Experience</div>
+    <div class="space-y-4">
+      <TimeLineElement
+        title="Bachelor thesis in Robotics, Hillerød – Novo Nordisk "
+        subtitle="September 2022 - February 2023"
       >
-    </TimeLineElement>
-    <TimeLineElement
-      title="Software Developer, Odense – EFFIMAT"
-      subtitle="February 2022 – February 2023"
-    >
-      As a member of the Effimat team, I honed my skills within the field of
-      Internet of Things, by working with data collection and analysis of
-      distributed systems. A website was then developed to show real-time data,
-      which was used to gain insight of their products.
-    </TimeLineElement>
-    <TimeLineElement
-      title="Mathematics Instructor, Odense – Southern University of Denmark"
-      subtitle="May 2021 - June 2021"
-    >
-      I worked as an instructor in the SDU event "Mat Spurten" which deals with
-      refreshing 3.g students for the Mathematics A exam. It is a task that
-      requires patience and dissemination of complicated subjects.
-    </TimeLineElement>
-    <TimeLineElement
-      title="Machine operator of catheter, Espergærde – Coloplast"
-      subtitle="January 2019 - June 2019"
-    >
-      At Coloplast i got Practical work experience with automated production
-      lines for mass production of catheters. This tought me the necessity of
-      reliable and intuitive systems for the end user.
-    </TimeLineElement>
+        At Novo Nordisk I developed and implemented a pipeline to render
+        synthetically generated images which were used to train two deep learning
+        models for object detection and 6DoF pose estimation for components in a
+        bin. An open-source recreation is available here
+        <a class="text-blue-600" href="https://github.com/hansaskov/BlenderBin"
+          >https://github.com/hansaskov/BlenderBin</a
+        >
+      </TimeLineElement>
+      <TimeLineElement
+        title="Software Developer, Odense – EFFIMAT"
+        subtitle="February 2022 – February 2023"
+      >
+        As a member of the Effimat team, I honed my skills within the field of
+        Internet of Things, by working with data collection and analysis of
+        distributed systems. A website was then developed to show real-time data,
+        which was used to gain insight of their products.
+      </TimeLineElement>
+      <TimeLineElement
+        title="Mathematics Instructor, Odense – Southern University of Denmark"
+        subtitle="May 2021 - June 2021"
+      >
+        I worked as an instructor in the SDU event "Mat Spurten" which deals with
+        refreshing 3.g students for the Mathematics A exam. It is a task that
+        requires patience and dissemination of complicated subjects.
+      </TimeLineElement>
+      <TimeLineElement
+        title="Machine operator of catheter, Espergærde – Coloplast"
+        subtitle="January 2019 - June 2019"
+        last={true}
+      >
+        At Coloplast i got Practical work experience with automated production
+        lines for mass production of catheters. This tought me the necessity of
+        reliable and intuitive systems for the end user.
+      </TimeLineElement>
+    </div>
   </div>
 
-  <div class="mb-4 px-4">
-    <div class="text-3xl w-full font-bold">Other Experience</div>
+  
+  <div class="space-y-4">
+    <div class="pt-4 text-3xl w-full font-bold ">Education</div>
+    <div class="time-line-container grid gap-4">
+      <TimeLineElement
+        title="MSc in Software Engineering, Odense - Southern University of Denmark"
+        subtitle="September 2023 - July 2025 (expected)"
+      >
+        Software Engineering is crucial for my continued improvements to become
+        the best possible Backend Engineer working with distributed systems and
+        fullstack applications.
+      </TimeLineElement>
+      <TimeLineElement
+        title="BEng in Robotic Systems, Odense - Southern University of Denmark"
+        subtitle="August 2019 - Feburary 2023"
+        last={true}
+      >
+        Robotics have tought me the importance of good collaboration, and to have
+        a proactive and solution-focused mindset. As it is necessary to manage
+        unexpected situations that often arise in large-scale projects. For
+        instance, I successfully programmed a UR5 robot to detect, grasp and throw
+        objects with collision detection.
+      </TimeLineElement>
+    </div>
   </div>
+  
 
-  <div class="time-line-container mb-8">
-    <TimeLineElement
-      title="Volleyball Comettee, Odense – DSIO Volleyball"
-      subtitle="February 2024 - Now"
-    >
-      To give back to the volleyball community, I chose to volunteer for the
-      committee. My role involves managing the website and assisting new members
-      in joining
-    </TimeLineElement>
-    <TimeLineElement
-      title="Scout, Espergærde – Espergærde Spejderne"
-      subtitle="Febuary 2005 - July 2017"
-    >
-      From the young age of 6, I have enjoyed being part of the scout community.
-      It has taught me the importance of teamwork and clear communication to
-      ensure the best outcome.
-    </TimeLineElement>
-  </div>
-
-  <div class="mb-4 px-4">
+  
+  <div class="">
     <div class="text-3xl w-full font-bold">Skills</div>
+    <ul class="list-disc md:columns-5 columns-2 mx-6">
+      <li>Fullstack</li>
+      <li>Backend</li>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>Typescript</li>
+      <li>Node.js</li>
+      <li>React.js</li>
+      <li>SQL</li>
+      <li>Python</li>
+      <li>Pytorch</li>
+      <li>Segmentation</li>
+      <li>Detection</li>
+      <li>Large Language Models</li>
+      <li>Big-data</li>
+      <li>Robotics</li>
+      <li>IoT</li>
+      <li>Digital Twin</li>
+      <li>Kafka</li>
+      <li>Rust</li>
+      <li>C++</li>
+      <li>Cypersecurity</li>
+      <li>Unit Testing</li>
+    </ul>
   </div>
-
-  <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>Fullstack</li>
-    <li>Backend</li>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>Typescript</li>
-    <li>Node.js</li>
-    <li>React.js</li>
-    <li>SQL</li>
-    <li>Python</li>
-    <li>Pytorch</li>
-    <li>Segmentation</li>
-    <li>Detection</li>
-    <li>Large Language Models</li>
-    <li>Big-data</li>
-    <li>Robotics</li>
-    <li>IoT</li>
-    <li>Digital Twin</li>
-    <li>Kafka</li>
-    <li>Rust</li>
-    <li>C++</li>
-    <li>Cypersecurity</li>
-    <li>Unit Testing</li>
-  </ul>
 </BaseLayout>
