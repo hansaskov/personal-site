@@ -4,7 +4,7 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 import { projects } from "../data/projects";
 
 const featuredProjects = projects.slice(0, 3);
-const prefetchUrls =["./", "./cv", "./projects"]
+const prefetchUrls =["/", "/cv", "/projects"]
 const includeSidebar = true
 ---
 <BaseLayout class="space-y-10" title="Home" description="The homepage" {prefetchUrls} {includeSidebar}>
