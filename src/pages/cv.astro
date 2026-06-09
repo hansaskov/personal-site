@@ -1,9 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
+const prefetchUrls =["./", "./cv", "./projects"]
+const includeSidebar = true
+
 ---
 
-<BaseLayout title="CV" px=8 >
+<BaseLayout title="CV" description="Hans askov's CV" {prefetchUrls} {includeSidebar}>
   <div class="mb-4 px-4">
     <div class="text-3xl w-full font-bold">Profile</div>
   </div>
