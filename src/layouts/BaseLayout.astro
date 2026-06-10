@@ -24,7 +24,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" data-theme={theme} transition:animate="none">
+<html lang="en" data-theme={theme}>
     <head>
         <BaseHead {title} {description} {ogType} />
         <slot name="head" />
@@ -35,13 +35,13 @@ const {
             <div class="drawer-content bg-base-100">
                 <Header {includeSidebar} {theme} />
                 <div class="md:flex md:justify-center">
-                    <main class:list={["p-6 px-12 pt-10 lg:max-w-[900px] max-w-[100vw]", Astro.props.class]}>
-                        <slot />
+                    <main transition:animate="none" class:list={["p-6 px-12 pt-10 lg:max-w-[900px] max-w-[100vw]", Astro.props.class]}>
+                        <slot  />
                     </main>
                 </div>
                 <Footer />
             </div>
-            <SideBar />    
+            {includeSidebar && <SideBar />}
         </div>
     </body>
 </html>
