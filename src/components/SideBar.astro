@@ -1,6 +1,6 @@
 ---
 import SideBarFooter from "./SideBarFooter.astro";
-import { getImage, Picture } from "astro:assets";
+import { getImage, Image } from "astro:assets";
 import SideBarMenu from "./SideBarMenu.astro";
 import ProfilePicture from "../media/profile.jpg"
 
@@ -22,15 +22,13 @@ const hero = await getImage({ src: ProfilePicture, format: "webp", width: 384, h
                     class="avatar transition ease-in-out hover:scale-[102%] block m-auto"
                 >
                     <div class="w-32 h-32">
-                        <Picture
+                        <img
                             class="mask mask-circle"
                             width={384}
                             height={384}
-                            formats={["avif", "webp"]}
-                            src={ProfilePicture}
+                            src={hero.src}
                             alt="Profile image of Hans Askov drinking from a glass looking to the left out of a window."
                             fetchpriority="high"
-                            
                         />
                     </div>
                 </div>
