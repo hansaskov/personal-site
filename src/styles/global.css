@@ -2,6 +2,7 @@
 @plugin "daisyui" {
   themes: cupcake, black;
 }
+@plugin "@tailwindcss/typography";
 
 @plugin "daisyui/theme" {
   name: "cupcake";

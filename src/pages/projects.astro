@@ -6,17 +6,18 @@ const prefetchUrls =["/", "/cv", "/projects"]
 const includeSidebar = true
 ---
 
-<BaseLayout title="Projects" description="List of all the projects i have worked on" {prefetchUrls} {includeSidebar}  >
-    <div>
-        <div class="text-3xl w-full font-bold mb-5">My projects</div>
-    </div>
+<BaseLayout class="prose prose-sm md:prose-base space-y-8" title="Projects" description="List of all the projects i have worked on" {prefetchUrls} {includeSidebar}  >
+    
+    <h1 class="text-3xl w-full font-bold">My projects</h1>
 
+    <div class="space-y-4">
     {
         projects.map((project, i) => (
             <>
-                {i > 0 && <div class="divider my-0" />}
+                {i > 0 && <div class="divider" />}
                 <HorizontalCard {...project} />
             </>
         ))
     }
+    </div>
 </BaseLayout>

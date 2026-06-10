@@ -2,59 +2,53 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
 import { projects } from "../data/projects";
+import NameIntro from "@components/NameIntro.astro";
 
 const featuredProjects = projects.slice(0, 3);
 const prefetchUrls =["/", "/cv", "/projects"]
 const includeSidebar = true
 ---
-<BaseLayout class="space-y-10" title="Home" description="The homepage" {prefetchUrls} {includeSidebar}>
-    <div class="space-y-1" >
-      <h1 class="text-5xl font-bold">Hans Askov</h1>
-      <p class="text-xl">Software Engineer</p>
-      <p class="text-lg font-light">Odense C, Region of Southern Denmark, Denmark</p>
-    </div>
+<BaseLayout class="prose prose-sm md:prose-base space-y-8" title="Home" description="The homepage" {prefetchUrls} {includeSidebar}>
+    <NameIntro/>
     <div class="flex gap-8 justify-between sm:justify-start  md:justify-start">
       <a class="btn w-full sm:w-40 shrink" href="/cv">CV</a>
       <a class="btn w-full sm:w-40 shrink btn-outline" href="/projects">Projects</a>
     </div>
 
-  <div class="space-y-4">
-    <h2 class="text-2xl w-full font-bold">About Me</h2>
-    <p>
-      My name is Hans Askov and i'm currently in my first semester of my masters,
-      working towards a degree in Software Engineering. I'm passionate about
-      Machine learning, fullstack web applications, large distributed systems and
-      much more
-    </p>
+    <div class="space-y-4">
+      <h2 class="text-2xl w-full font-bold">About Me</h2>
+      <p>
+        I'm Hans, a software engineer who I specialize in fullstack web development 
+        and building systems that hold up under real load.
+      </p>
+      <p>
+        I care deeply about reducing complexity and about the developer experience. 
+        I have tried many frontend frameworks like, React, Vue and Svelte, but in my 
+        experience, they all suffer from the same issue of logic being dublicated in 
+        the frontend and backend. If you are unafmiliar with what i am talking about 
+        i highly suggest <a class="text-blue-600" href="https://htmx.org/essays/hypermedia-on-whatever-youd-like/">this post</a> post. 
+      </p>
+      <p>
+        To put my money where my mouth is, this website uses zero javascript and achieves instant page navigations using modern browser api's like the speculations api. 
+        Currenctly this is only available in chrome, but is expected to come to safari and firefox over the years.     
+      </p>
 
-    <p>
-      During my Bachelor thesis at Novo Nordisk, implementing a 6DoF pose
-      estimation method for robotic bin picking. This experience exposed me to
-      cutting-edge technology in computer vision and robotics, where precision is
-      key.
-    </p>
-
-    <p>
-      Besides machine learning, I also have a passion for full-stack web
-      applications and have created side projects in React with Next and Svelte
-      with SvelteKit. The aim of these projects are to establish a feature-driven
-      environment, empowering developers to be confident when making changes
-      between the frontend and backend. This confidence is ensured by implementing
-      type-safety between the frontend and backend, as well as incorporating
-      appropriate unit tests and end-to-end tests. The projects are then hosted in
-      a serverless environment, releaving the burden of self hosting and allowing
-      the developers to focus on new features.
-    </p>
-  </div>
-
+      <p>
+        These days I'm looking for a backend or fullstack role where
+        engineering quality and cost discipline actually matter. If that's
+        the kind of team you're building, the inbox is open.
+      </p>
+    </div>
   <div>
-  <h2 class="text-2xl w-full font-bold mb-2 text-balance">Latest projects {"</>"}</h2>
+  <h2 class="text-2xl w-full font-bold text-balance">Latest projects {"</>"}</h2>
 
+  <div class="space-y-4">
   {featuredProjects.map((project, i) => (
     <>
-      {i > 0 && <div class="divider my-0"></div>}
+      {i > 0 && <div class="divider"></div>}
       <HorizontalCard {...project} />
     </>
   ))}
+  </div>
   </div>
 </BaseLayout>

@@ -16,7 +16,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: "Pi.trivision.io",
-    desc: "At TriVision I was the lead developer who developed the fourth version of their software as a service called Production Intelligence. The software is used by factory owners to gain insights into their production, with the platform having multiple customers and currently stores more than 420M product inspections",
+    desc: "At TriVision I was the lead developer on Production Intelligence V4, a SaaS platform where factory owners get real-time insight into their production lines.",
     img: ProductionIntelligenceV4,
     url: "https://trivision.io/production-intelligence/",
     badge: "Big Data",
