@@ -1,25 +1,31 @@
 ---
 import type { Project } from "../data/projects";
-import { Picture } from "astro:assets";
+import { getImage, Picture } from "astro:assets";
 
 type Props = Project
 
 const { title, desc, img, url, badge, target = "_blank", year } = Astro.props;
+
+const hero = await getImage({ src: img, format: "webp", width: 750, height: 422 });
+
 ---
+
+<Fragment slot="head">
+  <link rel="preload" as="image" href={hero.src} fetchpriority="high" />
+</Fragment>
 
 <div class="not-prose rounded-lg bg-base-100 hover:shadow-xl transition ease-in-out hover:scale-[102%]">
   <a href={url} target={target}>
     <div class="hero-content flex-col md:flex-row">
-      {img && (
-        <Picture
-          src={img}
+      
+        <img
+          class="max-w-full md:max-w-52 rounded-lg"  
+          src={hero.src}
           width={750}
           height={422}
-          formats={['avif', 'webp']}
           alt={title}
-          class="max-w-full md:max-w-52 rounded-lg"
         />
-      )}
+      
       <div class="grow w-full">
         <h1 class="text-xl font-bold">
           {title}
