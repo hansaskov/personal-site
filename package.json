@@ -18,13 +18,13 @@
     "@astrojs/cloudflare": "13.6.0",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "6.4.2",
-    "daisyui": "^5.5.20",
+    "daisyui": "^5.5.23",
     "tailwindcss": "^4.3.0",
-    "wrangler": "^4.95.0"
+    "wrangler": "^4.99.0"
   },
   "devDependencies": {
     "oxfmt": "^0.52.0",
-    "oxlint": "^1.67.0"
+    "oxlint": "^1.69.0"
   },
   "overrides": {
     "vite": "^7"
