@@ -4,42 +4,32 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SideBar from "../components/SideBar.astro";
 import type { ComponentProps } from "astro/types";
+import SpeculationsAPI from "@components/SpeculationsAPI.astro";
 
 interface Props
   extends
     ComponentProps<typeof BaseHead>,
     ComponentProps<typeof Header>,
-    ComponentProps<typeof SideBar> {
-  prefetchUrls: string[];
-  eagerness?: "immediate" | "eager" | "moderate" | "conservative";
+    ComponentProps<typeof SideBar>,
+    ComponentProps<typeof SpeculationsAPI> {
   class?: string;
-  theme?: string;
+  theme?: "cupcake" | "black";
 }
 
-const {
-  title,
-  description,
-  ogType,
-  includeSidebar,
-  prefetchUrls,
-  download_button,
-  image,
-  theme = "cupcake",
-  eagerness = "immediate",
-} = Astro.props;
+const props = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" data-theme={theme}>
+<html lang="en" data-theme={props.theme ?? "cupcake"}>
   <head>
-    <BaseHead {title} {description} {ogType} />
+    <BaseHead {...props} />
     <slot name="head" />
   </head>
   <body>
     <div class="bg-base-100 drawer lg:drawer-open">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content bg-base-100">
-        <Header {includeSidebar} />
+        <Header {...props} />
         <div class="md:flex md:justify-center">
           <main
             class:list={[
@@ -52,27 +42,9 @@ const {
         </div>
         <Footer />
       </div>
-      {includeSidebar && <SideBar {download_button} />}
+      {props.includeSidebar && <SideBar {...props} />}
     </div>
   </body>
 </html>
 
-<script
-  type="speculationrules"
-  set:html={JSON.stringify({
-    prefetch: [
-      {
-        urls: import.meta.env.PROD ? prefetchUrls : [], // Only apply prefetch in prod
-        eagerness: eagerness,
-      },
-    ],
-    prerender: [
-      {
-        where: {
-          and: [{ href_matches: "/*" }, { not: { href_matches: "/logout" } }],
-        },
-        eagerness: "eager",
-      },
-    ],
-  })}
-/>
+<SpeculationsAPI {...props} />

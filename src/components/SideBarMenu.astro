@@ -1,9 +1,35 @@
 ---
-const pathname = Astro.url.pathname;
+const pathname = Astro.url.pathname
+const pages = [
+    {
+        url: "/",
+        name: "Home",
+    },
+    {
+        url: "/projects",
+        name: "Projects",
+    },
+    {
+        url: "/cv",
+        name: "CV",
+    },
+];
 ---
 
 <ul class="menu grow shrink menu-md overflow-y-auto w-full space-y-2">
-    <li><a class:list={["pl-4 py-3 text-base", { "bg-base-300": pathname === "/" }]} href="/">Home</a></li>
-    <li><a class:list={["pl-4 py-3 text-base", { "bg-base-300": pathname.startsWith("/projects") }]} href="/projects">Projects</a></li>
-    <li><a class:list={["pl-4 py-3 text-base", { "bg-base-300": pathname.startsWith("/cv") }]} href="/cv">CV</a></li>
+    {
+        pages.map(({ name, url }) => (
+            <li>
+                <a
+                    class:list={[
+                        "pl-4 py-3 text-base",
+                        { "bg-base-300": pathname === url },
+                    ]}
+                    href={url}
+                >
+                    {name}
+                </a>
+            </li>
+        ))
+    }
 </ul>
