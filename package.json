@@ -14,19 +14,19 @@
     "generate-types": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "13.6.0",
+    "@astrojs/cloudflare": "13.7.0",
     "@tailwindcss/vite": "^4.3.0",
-    "astro": "6.4.2",
+    "astro": "6.4.6",
     "daisyui": "^5.5.23",
     "tailwindcss": "^4.3.0",
-    "wrangler": "^4.99.0"
+    "wrangler": "^4.100.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.20",
-    "oxfmt": "^0.52.0",
+    "oxfmt": "^0.54.0",
     "oxlint": "^1.69.0",
-    "sharp": "^0.35.0"
+    "sharp": "^0.35.1"
   },
   "overrides": {
     "vite": "^7"
