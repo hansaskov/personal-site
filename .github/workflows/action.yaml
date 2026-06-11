@@ -41,6 +41,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add playwright/hans-askov-cv.pdf
+          git add public/hans-askov-cv.pdf
           git diff --staged --quiet || git commit -m "chore: update CV PDF [skip ci]"
           git push
