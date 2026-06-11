@@ -1,8 +1,11 @@
 ---
 interface Props {
-    download_button_url?: string;
+    download_button?: {
+        url: string,
+        title: string,
+    };
 }
-const { download_button_url } = Astro.props;
+const { download_button } = Astro.props;
 ---
 
 <div
@@ -68,13 +71,13 @@ const { download_button_url } = Astro.props;
         >
     </a>
     {
-        download_button_url && (
+        download_button && (
             <a
-                href={download_button_url}
+                href={download_button.url}
                 download
                 class="btn btn-square btn-ghost"
-                aria-label="Download CV"
-                title="Download CV"
+                aria-label={download_button.title}
+                title={download_button.title}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
