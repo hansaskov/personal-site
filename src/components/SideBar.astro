@@ -9,7 +9,7 @@ const hero = await getImage({ src: ProfilePicture, format: "webp", width: 384, h
 
 interface Props extends ComponentProps<typeof SideBarFooter> {}
 
-const { download_button_url } = Astro.props;
+const { download_button } = Astro.props;
 
 ---
 
@@ -41,7 +41,7 @@ const { download_button_url } = Astro.props;
             </a>
         </div>
         <SideBarMenu />
-        <SideBarFooter {download_button_url} />
+        <SideBarFooter {download_button} />
     </aside>
 </div>
 
