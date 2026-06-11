@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# Source & assets
+!src/
+!public/
+
+# Package management
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+
+# Config
+!astro.config.mjs
+!tsconfig.json
+!wrangler.jsonc

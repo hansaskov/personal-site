@@ -23,9 +23,11 @@
     "wrangler": "^4.99.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.20",
     "oxfmt": "^0.52.0",
-    "oxlint": "^1.69.0"
+    "oxlint": "^1.69.0",
+    "sharp": "^0.35.0"
   },
   "overrides": {
     "vite": "^7"
