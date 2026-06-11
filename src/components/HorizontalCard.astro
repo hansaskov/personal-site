@@ -4,9 +4,12 @@ import { getImage, Picture } from "astro:assets";
 
 type Props = Project
 
+const width = 375
+const height = 211
+
 const { title, desc, img, url, badge, target = "_blank", year } = Astro.props;
 
-const hero = await getImage({ src: img, format: "webp", width: 750, height: 422 });
+const hero = await getImage({ src: img, format: "webp", width: width, height: height,  });
 
 ---
 
@@ -21,8 +24,8 @@ const hero = await getImage({ src: img, format: "webp", width: 750, height: 422 
         <img
           class="max-w-full md:max-w-52 rounded-lg"  
           src={hero.src}
-          width={750}
-          height={422}
+          width={width}
+          height={height}
           alt={title}
         />
       
