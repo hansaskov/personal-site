@@ -1,5 +1,5 @@
 ---
-const pathname = Astro.url.pathname
+const pathname = Astro.url.pathname;
 const pages = [
     {
         url: "/",
@@ -15,7 +15,7 @@ const pages = [
     },
 ];
 
-console.log(pathname)
+console.log(pathname);
 ---
 
 <ul class="menu grow shrink menu-md overflow-y-auto w-full space-y-2">
@@ -25,9 +25,12 @@ console.log(pathname)
                 <a
                     class:list={[
                         "pl-4 py-3 text-base",
-                        { "bg-base-300": url === "/"
-                                ? pathname === url
-                                : pathname.startsWith(url) },
+                        {
+                            "bg-base-300":
+                                url === "/"
+                                    ? pathname === url
+                                    : pathname.startsWith(url),
+                        },
                     ]}
                     href={url}
                 >
