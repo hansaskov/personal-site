@@ -2,15 +2,18 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
 import { projects } from "../data/projects";
-const prefetchUrls =["/", "/cv", "/projects"]
-const includeSidebar = true
+const prefetchUrls = ["/", "/cv", "/projects"];
+const includeSidebar = true;
 ---
 
-<BaseLayout class="prose prose-sm md:prose-base space-y-8" title="Projects" description="List of all the projects i have worked on" {prefetchUrls} {includeSidebar}  >
-    
+<BaseLayout
+    class="prose prose-sm md:prose-base space-y-8"
+    title="Projects"
+    description="List of all the projects i have worked on"
+    {prefetchUrls}
+    {includeSidebar}
+>
     <h1 class="text-3xl w-full font-bold">My projects</h1>
-
-    <div class="space-y-4">
     {
         projects.map((project, i) => (
             <>
@@ -19,5 +22,4 @@ const includeSidebar = true
             </>
         ))
     }
-    </div>
 </BaseLayout>

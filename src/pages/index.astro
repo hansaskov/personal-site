@@ -5,50 +5,74 @@ import { projects } from "../data/projects";
 import NameIntro from "@components/NameIntro.astro";
 
 const featuredProjects = projects.slice(0, 3);
-const prefetchUrls =["/", "/cv", "/projects"]
-const includeSidebar = true
+const prefetchUrls = ["/", "/cv", "/projects"];
+const includeSidebar = true;
 ---
-<BaseLayout class="prose prose-sm md:prose-base space-y-8" title="Home" description="The homepage" {prefetchUrls} {includeSidebar}>
-    <NameIntro/>
-    <div class="flex gap-8 justify-between sm:justify-start  md:justify-start">
-      <a class="btn w-full sm:w-40 shrink" href="/cv">CV</a>
-      <a class="btn w-full sm:w-40 shrink btn-outline" href="/projects">Projects</a>
-    </div>
 
-    <div class="space-y-4">
-      <h2 class="text-2xl w-full font-bold">About Me</h2>
-      <p>
-        I'm Hans, a software engineer who specialize in fullstack web development 
-        and building systems that hold up under real load.
-      </p>
-      <p>
-        I care deeply about reducing complexity and about the developer experience. 
-        I have tried many frontend frameworks like, React, Vue and Svelte, but in my 
-        experience, they all suffer from the same issue of logic being dublicated in 
-        the frontend and backend. If you are unafmiliar with what i am talking about 
-        i highly suggest <a class="text-blue-600" href="https://htmx.org/essays/hypermedia-on-whatever-youd-like/">this post</a> post. 
-      </p>
-      <p>
-        To put my money where my mouth is, this website uses zero javascript and achieves instant page navigations using modern browser api's like the speculations api. 
-        Currenctly this is only available in chrome, but is expected to come to safari and firefox over the years.     
-      </p>
-
-      <p>
-        These days I'm looking for a backend or fullstack role where
-        engineering quality and cost discipline actually matter. If that's
-        the kind of team you're building, the inbox is open.
-      </p>
-    </div>
-  <div>
-  <h2 class="text-2xl w-full font-bold text-balance">Latest projects {"</>"}</h2>
+<BaseLayout
+  class="prose prose-sm md:prose-base space-y-8"
+  title="Home"
+  description="The homepage"
+  {prefetchUrls}
+  {includeSidebar}
+>
+  <NameIntro />
+  <div class="flex gap-8 justify-between sm:justify-start md:justify-start">
+    <a class="btn w-full sm:w-40 shrink" href="/cv">CV</a>
+    <a class="btn w-full sm:w-40 shrink btn-outline" href="/projects"
+      >Projects</a
+    >
+  </div>
 
   <div class="space-y-4">
-  {featuredProjects.map((project, i) => (
-    <>
-      {i > 0 && <div class="divider"></div>}
-      <HorizontalCard {...project} />
-    </>
-  ))}
+    <h2 class="text-2xl w-full font-bold">About Me</h2>
+    <p>
+      I'm Hans, a software engineer who specializes in fullstack web development
+      and building systems that hold up under real load.
+    </p>
+    <p>
+      I care deeply about reducing complexity and about the developer
+      experience. I have tried and do love many frontend frameworks like React,
+      Vue, and Svelte, but in my experience, they all suffer from the same
+      fundemental issue of duplicated logic between the frontend and backend. As
+      a fullstack developer, this adds a lot of complexity to any one project.
+      Most modern framework attempt to solve this by using javascript on both
+      the client and server, as it allows for shared logic like form validation.
+      While this does help, the core issue of dublicated state still remains.
+      The solution is to let go of client side javascript and shift where the
+      state is supposed to be, in the url or as part of the hypermedia. If you
+      want to learn more, i highly suggest reading <a
+        class="text-blue-600"
+        href="https://htmx.org/essays/hateoas/">this post</a
+      > by Carson Gross, the creator of HTMX.
+    </p>
+    <p>
+      To put my money where my mouth is, this website uses zero JavaScript and
+      achieves instant page navigations using modern browser APIs like the
+      Speculations API. Currently, this is only available in Chrome, but it is
+      expected to come to Safari and Firefox eventually.
+    </p>
+
+    <p>
+      These days I'm looking for a backend or fullstack role where engineering
+      quality and cost discipline matter. If that's the kind of team you're
+      building, the inbox is open.
+    </p>
   </div>
+  <div>
+    <h2 class="text-2xl w-full font-bold text-balance">
+      Latest projects {"</>"}
+    </h2>
+
+    <div class="space-y-4">
+      {
+        featuredProjects.map((project, i) => (
+          <>
+            {i > 0 && <div class="divider" />}
+            <HorizontalCard {...project} />
+          </>
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>

@@ -2,17 +2,26 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
 import NameIntro from "@components/NameIntro.astro";
-const prefetchUrls =["/", "/cv", "/projects"]
-const includeSidebar = true
-
+const prefetchUrls = ["/", "/cv", "/projects"];
+const includeSidebar = true;
 ---
 
-<BaseLayout class="prose prose-sm md:prose-base space-y-8" title="CV" description="Hans askov's CV" {prefetchUrls} {includeSidebar}>
-  <NameIntro/>
+<BaseLayout
+  class="prose prose-sm md:prose-base space-y-8"
+  title="CV"
+  description="Hans askov's CV"
+  {prefetchUrls}
+  {includeSidebar}
+>
+  <NameIntro />
 
-    <p>
-      I'm Hans, a software engineer who specialize in fullstack web development and building systems that hold up under real load. I have built a production analytics platform processing 420M+ inspections a year, cutting dashboard load times by 100× and storage costs by 92%. Now looking to bring that performance and cost discipline to a backend or fullstack role.
-    </p>
+  <p>
+    I'm Hans, a software engineer who specialize in fullstack web development
+    and building systems that hold up under real load. I have built a production
+    analytics platform ingesting 420M+ inspections a year, cutting dashboard
+    load times by 100× and storage costs by 92%. Now looking to bring that
+    performance and cost discipline to a backend or fullstack role.
+  </p>
 
   <div class="space-y-4">
     <h2 class="w-full font-bold">Experience</h2>
@@ -21,22 +30,35 @@ const includeSidebar = true
         title="Software Engineer, Odense – TriVision A/S "
         subtitle="February 2024 - May 2026 • 2 years 4 months"
       >
-       Launched Production Intelligence V4, a production analytics platform used by factory owners to gain insight into their production lines.    
-      <ul>
-        <li>- 420M+ product inspections stored annually across TriVision customers</li>
-        <li>- Reduced customer dashboard load times from 10s → 0.1s (~100× speedup)</li>
-        <li>- Cut storage costs by 92% by migrating to a columnar format with compression</li>
-        <li>- Containerized and deployed the production environment on AWS using Docker</li>
-      </ul>
+        Launched Production Intelligence V4, a production analytics platform
+        used by factory owners to gain insight into their production lines.
+        <ul>
+          <li>
+            - 420M+ product inspections stored annually across TriVision
+            customers
+          </li>
+          <li>
+            - Reduced customer dashboard load times from 10s → 0.1s (~100×
+            speedup)
+          </li>
+          <li>
+            - Cut storage costs by 92% by migrating to a columnar format with
+            compression
+          </li>
+          <li>
+            - Containerized and deployed the production environment on AWS using
+            Docker
+          </li>
+        </ul>
       </TimeLineElement>
       <TimeLineElement
         title="Bachelor's Thesis, Hillerød – Novo Nordisk "
         subtitle="September 2022 - February 2023 • 6 months"
       >
         At Novo Nordisk I developed and implemented a pipeline to render
-        synthetically generated images which were used to train two deep learning
-        models for object detection and 6DoF pose estimation for components in a
-        bin. An open-source recreation is available here
+        synthetically generated images which were used to train two deep
+        learning models for object detection and 6DoF pose estimation for
+        components in a bin. An open-source recreation is available here
         <a class="text-blue-600" href="https://github.com/hansaskov/BlenderBin"
           >https://github.com/hansaskov/BlenderBin</a
         >
@@ -47,69 +69,65 @@ const includeSidebar = true
       >
         As a member of the Effimat team, I honed my skills within the field of
         Internet of Things, by working with data collection and analysis of
-        distributed systems. A website was then developed to show real-time data,
-        which was used to gain insight of their products.
+        distributed systems. A website was then developed to show real-time
+        data, which was used to gain insight of their products.
       </TimeLineElement>
       <TimeLineElement
         title="Mathematics Instructor, Odense – Southern University of Denmark"
         subtitle="May 2021 - June 2021 • 2 months"
       >
-        I worked as an instructor in the SDU event "Mat Spurten" which deals with
-        refreshing 3.g students for the Mathematics A exam. It is a task that
-        requires patience and dissemination of complicated subjects.
+        I worked as an instructor in the SDU event "Mat Spurten" which deals
+        with refreshing 3.g students for the Mathematics A exam. It is a task
+        that requires patience and dissemination of complicated subjects.
       </TimeLineElement>
     </div>
   </div>
-  
+
   <div class="space-y-4">
-    <h2 class="w-full font-bold ">Education</h2>
+    <h2 class="w-full font-bold">Education</h2>
     <div class="time-line-container grid gap-4">
       <TimeLineElement
         title="MSc in Software Engineering, Odense - Southern University of Denmark"
         subtitle="2023 - 2025 • 2 years"
       >
-        Specialization in distributed systems and backend engineering, with electives
-        in cybersecurity, data security and biometric security.
+        Specialization in distributed systems and backend engineering, with
+        electives in cybersecurity, data security and biometric security.
       </TimeLineElement>
       <TimeLineElement
         title="BEng in Robotic Systems, Odense - Southern University of Denmark"
         subtitle="2019 - 2023 • 3 years and 5 months"
         last={true}
       >
-        Robotics introduced my love for software and mathematics, this includes control
-        theory, computer vision, and ML. A key project was to program a UR5 robot arm to detect, grasp and throw objects using
-        collision-aware motion planning.
+        Robotics introduced my love for software and mathematics, this includes
+        control theory, computer vision, and ML. A key project was to program a
+        UR5 robot arm to detect, grasp and throw objects using collision-aware
+        motion planning.
       </TimeLineElement>
     </div>
   </div>
-  
 
-  
   <div class="">
     <h2 class="text-3xl w-full font-bold">Skills</h2>
     <ul class="not-prose list-disc md:columns-5 columns-2 mx-6">
       <li>Fullstack</li>
       <li>Backend</li>
-      <li>HTML</li>
-      <li>CSS</li>
-      <li>Typescript</li>
       <li>Node.js</li>
-      <li>React.js</li>
-      <li>SQL</li>
-      <li>Python</li>
-      <li>Pytorch</li>
-      <li>Segmentation</li>
-      <li>Detection</li>
-      <li>Large Language Models</li>
-      <li>Big-data</li>
+      <li>React</li>
+      <li>Vue</li>
+      <li>Svelte</li>
+      <li>HTMX</li>
+      <li>PostgreSQL</li>
+      <li>MySQL</li>
+      <li>MongoDB</li>
+      <li>Big data</li>
       <li>Robotics</li>
       <li>IoT</li>
-      <li>Digital Twin</li>
-      <li>Kafka</li>
+      <li>Typescript</li>
+      <li>Python</li>
       <li>Rust</li>
       <li>C++</li>
-      <li>Cybersecurity</li>
-      <li>Unit Testing</li>
+      <li>Cyber Security</li>
+      <li>Biometric Security</li>
     </ul>
   </div>
 </BaseLayout>
