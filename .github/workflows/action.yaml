@@ -36,7 +36,7 @@ jobs:
 
       - name: Run Playwright tests
         env:
-          BASE_URL: ${{ https://hans.askov.dk }}
+          BASE_URL: https://hans.askov.dk
         run: pnpm exec playwright test
 
       - name: Commit PDF to repository
