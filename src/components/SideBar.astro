@@ -3,8 +3,14 @@ import SideBarFooter from "./SideBarFooter.astro";
 import { getImage, Image } from "astro:assets";
 import SideBarMenu from "./SideBarMenu.astro";
 import ProfilePicture from "../media/profile.jpg"
+import type { ComponentProps } from "astro/types";
 
 const hero = await getImage({ src: ProfilePicture, format: "webp", width: 384, height: 384 });
+
+interface Props extends ComponentProps<typeof SideBarFooter> {}
+
+const { download_button_url } = Astro.props;
+
 ---
 
 <Fragment slot="head">
@@ -35,7 +41,7 @@ const hero = await getImage({ src: ProfilePicture, format: "webp", width: 384, h
             </a>
         </div>
         <SideBarMenu />
-        <SideBarFooter />
+        <SideBarFooter {download_button_url} />
     </aside>
 </div>
 

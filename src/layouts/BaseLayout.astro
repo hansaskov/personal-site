@@ -5,59 +5,74 @@ import Footer from "../components/Footer.astro";
 import SideBar from "../components/SideBar.astro";
 import type { ComponentProps } from "astro/types";
 
-interface Props extends ComponentProps<typeof BaseHead>, ComponentProps<typeof Header> {
-  prefetchUrls: string[],
-  eagerness?: "immediate" | "eager" | "moderate" | "conservative",
-  class?: string
+interface Props
+  extends
+    ComponentProps<typeof BaseHead>,
+    ComponentProps<typeof Header>,
+    ComponentProps<typeof SideBar> {
+  prefetchUrls: string[];
+  eagerness?: "immediate" | "eager" | "moderate" | "conservative";
+  class?: string;
+  theme?: string;
 }
 
 const {
-    title,
-    description,
-    ogType,
-    includeSidebar,
-    prefetchUrls,
-    theme = "cupcake",
-    eagerness = "immediate"
+  title,
+  description,
+  ogType,
+  includeSidebar,
+  prefetchUrls,
+  download_button_url,
+  image,
+  theme = "cupcake",
+  eagerness = "immediate",
 } = Astro.props;
-
 ---
 
 <!doctype html>
 <html lang="en" data-theme={theme}>
-    <head>
-        <BaseHead {title} {description} {ogType} />
-        <slot name="head" />
-    </head>
-    <body>
-        <div class="bg-base-100 drawer lg:drawer-open">
-            <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content bg-base-100">
-                <Header {includeSidebar} {theme} />
-                <div class="md:flex md:justify-center">
-                    <main class:list={["p-6 px-12 pt-10 lg:max-w-[900px] max-w-[100vw]", Astro.props.class]}>
-                        <slot  />
-                    </main>
-                </div>
-                <Footer />
-            </div>
-            {includeSidebar && <SideBar />}
+  <head>
+    <BaseHead {title} {description} {ogType} />
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="bg-base-100 drawer lg:drawer-open">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content bg-base-100">
+        <Header {includeSidebar} />
+        <div class="md:flex md:justify-center">
+          <main
+            class:list={[
+              "p-6 px-12 pt-10 lg:max-w-[900px] max-w-[100vw]",
+              Astro.props.class,
+            ]}
+          >
+            <slot />
+          </main>
         </div>
-    </body>
+        <Footer />
+      </div>
+      {includeSidebar && <SideBar {download_button_url} />}
+    </div>
+  </body>
 </html>
 
-<script type="speculationrules" set:html={JSON.stringify({
-  prefetch: [{
-    urls: import.meta.env.PROD ? prefetchUrls : [], // Only apply prefetch in prod
-    eagerness: eagerness
-  }],
-  prerender: [{
-    where: {
-      and: [
-        { href_matches: "/*" },
-        { not: { href_matches: "/logout" } }
-      ]
-    },
-    eagerness: "eager"
-  }]
-})} />
+<script
+  type="speculationrules"
+  set:html={JSON.stringify({
+    prefetch: [
+      {
+        urls: import.meta.env.PROD ? prefetchUrls : [], // Only apply prefetch in prod
+        eagerness: eagerness,
+      },
+    ],
+    prerender: [
+      {
+        where: {
+          and: [{ href_matches: "/*" }, { not: { href_matches: "/logout" } }],
+        },
+        eagerness: "eager",
+      },
+    ],
+  })}
+/>
