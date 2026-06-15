@@ -1,11 +1,12 @@
 ---
+import type { ComponentProps } from "astro/types";
 import ThemeSelector from "./ThemeSelector.astro";
 
-interface Props {
+interface Props extends ComponentProps<typeof ThemeSelector>{
   includeSidebar: boolean;
 }
 
-const { includeSidebar } = Astro.props;
+const { includeSidebar, ...props } = Astro.props;
 ---
 <div
   class="sticky lg:shadow-none lg:backdrop-blur-none lg:bg-opacity-0 top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur bg-base-100 text-base-content shadow-sm"
@@ -24,10 +25,10 @@ const { includeSidebar } = Astro.props;
     }
 
     <div class={includeSidebar ? "navbar-center" : "navbar-start"}>
-      <a class="btn btn-ghost normal-case text-xl lg:hidden" href="/">Hans Askov</a>
+      <a class="btn btn-ghost normal-case text-xl lg:hidden" href="./">Hans Askov</a>
     </div>
     <div class="navbar-end">
-      <ThemeSelector />
+      <ThemeSelector {...props}/>
     </div>
   </div>
 </div>
