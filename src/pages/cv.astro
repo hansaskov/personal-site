@@ -1,16 +1,19 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import TimeLineElement from "../components/TimeLine.astro";
-import NameIntro from "@components/NameIntro.astro";
+import BaseLayout from "@lib/layouts/BaseLayout.astro";
+import TimeLineElement from "@lib/components/TimeLine.astro";
+import NameIntro from "@lib/components/NameIntro.astro";
+
 const download_button_url = "/hans-askov-cv.pdf"
 const prefetchUrls = ["/", "/projects"];
 const includeSidebar = true;
+
 ---
 
 <BaseLayout
   class="prose prose-sm md:prose-base space-y-8"
   title="CV"
   description="Hans askov's CV"
+  theme="light"
   {prefetchUrls}
   {includeSidebar}
   download_button={{title: "Download CV", url: download_button_url}}

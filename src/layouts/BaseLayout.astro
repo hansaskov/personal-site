@@ -12,8 +12,8 @@ interface Props
     ComponentProps<typeof Header>,
     ComponentProps<typeof SideBar>,
     ComponentProps<typeof SpeculationsAPI> {
-  class?: string;
-  theme?: "cupcake" | "black";
+    theme: "light" | "dark";
+    class?: string;
 }
 
 const props = Astro.props;
