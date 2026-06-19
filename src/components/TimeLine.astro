@@ -1,11 +1,9 @@
 ---
 interface props {
-  title: string,
-  subtitle: string,
   last?: boolean
 }
 
-const { title, subtitle, last = false } = Astro.props;
+const { last = false } = Astro.props;
 ---
 
 <div class="flex not-prose">
@@ -19,11 +17,7 @@ const { title, subtitle, last = false } = Astro.props;
       }
       ]}></span>
   </div>
-  <div class="bd-grid px-5">
-    <h3 class="font-semibold mb-1">{title}</h3>
-    <span class="font-light text-sm">{subtitle}</span>
-    <div class="my-2 text-pretty ">
-      <slot />
-    </div>
+  <div class="px-5">
+    <slot />
   </div>
 </div>

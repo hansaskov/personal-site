@@ -1,0 +1,15 @@
+---
+import { Role } from "@data/experiances";
+
+export type Props = Role;
+
+const { title, year, description, duration, location } = Astro.props;
+---
+
+<h4 class="font-semibold">
+  {title} - {location}
+</h4>
+<span class="font-light text-sm">
+  {year} • {duration}
+</span>
+<div class="text-pretty">{description}</div>

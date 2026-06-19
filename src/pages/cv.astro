@@ -1,12 +1,14 @@
 ---
-import BaseLayout from "@lib/layouts/BaseLayout.astro";
-import TimeLineElement from "@lib/components/TimeLine.astro";
-import NameIntro from "@lib/components/NameIntro.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NameIntro from "../components/NameIntro.astro";
+import TimeLine from "../components/TimeLine.astro";
+import { experiances } from "@data/experiances";
+import TimeLineHeader from "@components/TimeLineHeader.astro";
+import TimeLineBody from "@components/TimeLineBody.astro";
 
-const download_button_url = "/hans-askov-cv.pdf"
+const download_button_url = "/hans-askov-cv.pdf";
 const prefetchUrls = ["/", "/projects"];
 const includeSidebar = true;
-
 ---
 
 <BaseLayout
@@ -16,7 +18,7 @@ const includeSidebar = true;
   theme="light"
   {prefetchUrls}
   {includeSidebar}
-  download_button={{title: "Download CV", url: download_button_url}}
+  download_button={{ title: "Download CV", url: download_button_url }}
 >
   <NameIntro />
 
@@ -29,111 +31,56 @@ const includeSidebar = true;
   </p>
 
   <div class="space-y-4">
-    <h2 class="w-full font-bold">Experience</h2>
+    <h2 class="font-bold">Experience</h2>
+    <div class="space-y-8 not-prose">
+      {
+        experiances.map((experiance) => (
+          <div class="space-y-4">
+            <TimeLineHeader {...experiance} />
+            {experiance.roles.map((role) => (
+              <div class="flex gap-4 not-prose pl-6">
+                <div>
+                  <span class="size-4 bg-primary block rounded-full mt-1" />
+                  <span class="bg-primary h-full block w-0.5 translate-x-[7px]" />
+                </div>
+                <div>
+                  <TimeLineBody {...role} />
+                </div>
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+
     <div class="space-y-4">
-      <TimeLineElement
-        title="Software Engineer, Odense – TriVision A/S "
-        subtitle="February 2024 - May 2026 • 2 years 4 months"
-      >
-        Launched Production Intelligence V4, a production analytics platform
-        used by factory owners to gain insight into their production lines.
-        <ul>
-          <li>
-            - 420M+ product inspections stored annually across TriVision
-            customers
-          </li>
-          <li>
-            - Reduced customer dashboard load times from 10s → 0.1s (~100×
-            speedup)
-          </li>
-          <li>
-            - Cut storage costs by 92% by migrating to a columnar format with
-            compression
-          </li>
-          <li>
-            - Containerized and deployed the production environment on AWS using
-            Docker
-          </li>
-        </ul>
-      </TimeLineElement>
-      <TimeLineElement
-        title="Bachelor's Thesis, Hillerød – Novo Nordisk "
-        subtitle="September 2022 - February 2023 • 6 months"
-      >
-        At Novo Nordisk I developed and implemented a pipeline to render
-        synthetically generated images which were used to train two deep
-        learning models for object detection and 6DoF pose estimation for
-        components in a bin. An open-source recreation is available here
-        <a class="text-blue-600" href="https://github.com/hansaskov/BlenderBin"
-          >https://github.com/hansaskov/BlenderBin</a
-        >
-      </TimeLineElement>
-      <TimeLineElement
-        title="Software Developer, Odense – EFFIMAT"
-        subtitle="February 2022 – February 2023 • 1 year 1 month"
-      >
-        As a member of the Effimat team, I honed my skills within the field of
-        Internet of Things, by working with data collection and analysis of
-        distributed systems. A website was then developed to show real-time
-        data, which was used to gain insight of their products.
-      </TimeLineElement>
-      <TimeLineElement
-        title="Mathematics Instructor, Odense – Southern University of Denmark"
-        subtitle="May 2021 - June 2021 • 2 months"
-      >
-        I worked as an instructor in the SDU event "Mat Spurten" which deals
-        with refreshing 3.g students for the Mathematics A exam. It is a task
-        that requires patience and dissemination of complicated subjects.
-      </TimeLineElement>
+      <h2 class="w-full font-bold">Education</h2>
+      <div class="time-line-container grid gap-4">
+        <TimeLine>
+          <h3 class="font-semibold mb-1">
+            MSc in Software Engineering, Odense - Southern University of Denmark
+          </h3>
+          <span class="font-light text-sm">2023 - 2025 • 2 years</span>
+          <div class="my-2 text-pretty">
+            Specialization in distributed systems and backend engineering, with
+            electives in cybersecurity, data security and biometric security.
+          </div>
+        </TimeLine>
+        <TimeLine last={true}>
+          <h3 class="font-semibold mb-1">
+            BEng in Robotic Systems, Odense - Southern University of Denmark
+          </h3>
+          <span class="font-light text-sm"
+            >2019 - 2023 • 3 years and 5 months</span
+          >
+          <div class="my-2 text-pretty">
+            Robotics introduced my love for software and mathematics, this
+            includes control theory, computer vision, and ML. A key project was
+            to program a UR5 robot arm to detect, grasp and throw objects using
+            collision-aware motion planning.
+          </div>
+        </TimeLine>
+      </div>
     </div>
-  </div>
-
-  <div class="space-y-4">
-    <h2 class="w-full font-bold">Education</h2>
-    <div class="time-line-container grid gap-4">
-      <TimeLineElement
-        title="MSc in Software Engineering, Odense - Southern University of Denmark"
-        subtitle="2023 - 2025 • 2 years"
-      >
-        Specialization in distributed systems and backend engineering, with
-        electives in cybersecurity, data security and biometric security.
-      </TimeLineElement>
-      <TimeLineElement
-        title="BEng in Robotic Systems, Odense - Southern University of Denmark"
-        subtitle="2019 - 2023 • 3 years and 5 months"
-        last={true}
-      >
-        Robotics introduced my love for software and mathematics, this includes
-        control theory, computer vision, and ML. A key project was to program a
-        UR5 robot arm to detect, grasp and throw objects using collision-aware
-        motion planning.
-      </TimeLineElement>
-    </div>
-  </div>
-
-  <div class="">
-    <h2 class="text-3xl w-full font-bold">Skills</h2>
-    <ul class="not-prose list-disc md:columns-5 columns-2 mx-6">
-      <li>Fullstack</li>
-      <li>Backend</li>
-      <li>Node.js</li>
-      <li>React</li>
-      <li>Svelte</li>
-      <li>HTMX</li>
-      <li>Astro</li>
-      <li>PostgreSQL</li>
-      <li>TimescaleDB</li>
-      <li>MySQL</li>
-      <li>MongoDB</li>
-      <li>Grafana</li>
-      <li>Big data</li>
-      <li>Robotics</li>
-      <li>IoT</li>
-      <li>Typescript</li>
-      <li>Python</li>
-      <li>Rust</li>
-      <li>C++</li>
-      <li>Cyber Security</li>
-    </ul>
   </div>
 </BaseLayout>

@@ -1,0 +1,40 @@
+---
+import { Experiance } from "@data/experiances";
+import { getImage } from "astro:assets";
+
+type Props = Experiance;
+
+const { img, company, duration } = Astro.props;
+
+const width = 64;
+const height = 64;
+
+const hero = await getImage({
+  src: img,
+  format: "webp",
+  width: width,
+  height: height,
+});
+---
+
+<Fragment slot="head">
+  <link rel="preload" as="image" href={hero.src} fetchpriority="high" />
+</Fragment>
+
+<div class="flex not-prose items-center gap-4">
+  <div class="avatar">
+    <div class="rounded-full">
+      <img
+        src={hero.src}
+        width={width}
+        height={height}
+        alt={`${company}'s' Logo`}
+      />
+    </div>
+  </div>
+
+  <div>
+    <h3 class="font-semibold">{company}</h3>
+    <span>{duration}</span>
+  </div>
+</div>
