@@ -1,5 +1,5 @@
 ---
-import { Role } from "@data/experiances";
+import type { Role } from "@data/experiances";
 
 export type Props = Role;
 
@@ -12,4 +12,4 @@ const { title, year, description, duration, location } = Astro.props;
 <span class="font-light text-sm">
   {year} • {duration}
 </span>
-<div class="text-pretty">{description}</div>
+<div class="text-balance">{description}</div>

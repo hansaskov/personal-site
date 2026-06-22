@@ -1,6 +1,6 @@
 import TriVisionLogo from "@media/trivision_logo.jpg";
 import NovoNordiskLogo from "@media/novo_nordisk_logo.jpg";
-import EffimatLogo from "@media/effimat_logo.jpg";
+import EffimatLogo from "../media/effimat_logo.jpg";
 import SduLogo from "@media/sdu_logo.jpg";
 
 export interface Role {
@@ -19,6 +19,10 @@ export interface Experiance {
   roles: Role[];
 }
 
+export interface Education extends Experiance {
+
+}
+
 export const experiances: Experiance[] = [
   {
     company: "TriVision A/S",
@@ -32,19 +36,19 @@ export const experiances: Experiance[] = [
         duration: "10 months",
         location: "Odense",
         description:
-          "Launched Production Intelligence V4, a production analytics platform used by factory owners to gain insight into their production lines. 420M+ product inspections stored annually across TriVision customers. Reduced customer dashboard load times from 10s to 0.1s (~100× speedup). Cut storage costs by 92% by migrating to a columnar format with compression. Containerized and deployed the production environment on AWS using Docker.",
+          "Shipped Production Intelligence V4, a production analytics platform ingesting 420M+ machine vision inspections annually across TriVision's customer base. Improved load times by 100x by redesigning the query layer and containerized and deployed the full stack on AWS with Docker.",
       },
       {
         title: "Student Software Developer",
         year: "February 2024 - August 2025",
         duration: "1 year 7 months",
         location: "Odense",
-        description: "Test 123",
+        description: "Contributed to the architecture behind Production Intelligence V4, prototyping the data ingestion pipeline and evaluating columnar storage formats that later cut storage costs by 92%. Worked across the backend stack in a live production environment, translating MSc coursework in distributed systems into real engineering.",
       },
     ],
   },
   {
-    company: "Novo Nordisk",
+    company: "Novo Nordisk A/S",
     year: "September 2022 - February 2023",
     duration: "6 months",
     img: NovoNordiskLogo,
@@ -93,3 +97,28 @@ export const experiances: Experiance[] = [
   },
   */
 ];
+
+export const educations: Education[] = [
+  {
+    company: "Southern University of Denmark",
+    year: "2019 - 2025",
+    duration: "5 years 5 months",
+    img: SduLogo,
+    roles: [
+      {
+        title: "MSc in Software Engineering",
+        description: "Specialization in distributed systems and backend engineering, with electives in cybersecurity, data security and biometric security. ",
+        year: "2023 - 2025",
+        duration: "2 years",
+        location: "Odense"
+      },
+      {
+        title: "BEng in Robotic Systems",
+        description: "Robotics introduced my love for software and mathematics, this includes control theory, computer vision, and ML. A key project was to program a UR5 robot arm to detect, grasp and throw objects using collision-aware motion planning.",
+        year: "2019 - 2023",
+        duration: "3 years 5 months",
+        location: "Odense"
+      }
+    ]
+  }
+]
