@@ -1,4 +1,6 @@
 ---
+const email = "hans@askov.dk";
+const phone = "+45 24 96 51 87";
 const pathname = Astro.url.pathname;
 const pages = [
     {
@@ -13,29 +15,223 @@ const pages = [
         url: "/cv",
         name: "CV",
     },
-];
-
+] as const;
 ---
 
-<ul class="menu grow shrink menu-md overflow-y-auto w-full space-y-2">
-    {
-        pages.map(({ name, url }) => (
-            <li>
+<div class="menu grow shrink menu-md overflow-y-auto w-full">
+    <ul class="space-y-2">
+        {
+            pages.map(({ name, url }) => (
+                <li>
+                    <a
+                        class:list={[
+                            "pl-4 py-3",
+                            {
+                                "bg-base-300":
+                                    url === "/"
+                                        ? pathname === url
+                                        : pathname.startsWith(url),
+                            },
+                        ]}
+                        href={url}
+                    >
+                        {name}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+    {pathname.startsWith("/cv") &&  (                                                                                                                                                    
+    <div class="pt-8 space-y-8 pl-4">                                                                   
+        <div class="space-y-2">
+            <h2 class="font-semibold">Personal Information</h2>
+            <div>
                 <a
-                    class:list={[
-                        "pl-4 py-3 text-base",
-                        {
-                            "bg-base-300":
-                                url === "/"
-                                    ? pathname === url
-                                    : pathname.startsWith(url),
-                        },
-                    ]}
-                    href={url}
+                    href={`mailto:${email}`}
+                    title={email}
+                    class="link hover:font-semibold hover:text-base-content transition-colors"
                 >
-                    {name}
+                    <!-- Mail icon -->
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        class="inline align-middle mr-1.5"
+                    >
+                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
+                        ></path>
+                    </svg>
+                    {email}
                 </a>
-            </li>
-        ))
-    }
-</ul>
+            </div>
+
+            <div>
+                <a
+                    href={`tel:${phone.replace(/\s+/g, "")}`}
+                    title={phone}
+                    class="link hover:font-semibold hover:text-base-content transition-colors"
+                >
+                    <!-- Phone icon -->
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        class="inline align-middle mr-1.5"
+                    >
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                        ></path>
+                    </svg>
+                    {phone}
+                </a>
+            </div>
+
+            <div>
+                <a
+                    target="_blank"
+                    href="https://maps.app.goo.gl/RvF4K44QFyqZHZWc6"
+                    class="link hover:font-semibold hover:text-base-content transition-colors"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        class="inline align-middle mr-1.5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                        ></path>
+                    </svg>
+                    Odense C, 5000, Denmark
+                </a>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <h2 class="font-semibold">Languages</h2>
+
+            <!-- Danish Rating -->
+            <div class="flex justify-between">
+                Danish
+                <div class="rating gap-1 items-center">
+                    <div
+                        class="mask mask-circle size-3.5"
+                        aria-label="1 circle"
+                    >
+                    </div>
+                    <div
+                        class="mask mask-circle size-3.5"
+                        aria-label="2 circle"
+                    >
+                    </div>
+                    <div
+                        class="mask mask-circle size-3.5"
+                        aria-label="3 circle"
+                    >
+                    </div>
+                    <div
+                        class="mask mask-circle size-3.5"
+                        aria-label="4 circle"
+                        aria-current="true"
+                    >
+                    </div>
+                </div>
+            </div>
+
+            <!-- English Rating -->
+            <div class="flex justify-between">
+                English
+                <div class="rating gap-1 items-center">
+                    <div
+                        class="mask mask-circle size-3.5 "
+                        aria-label="1 circle"
+                    >
+                    </div>
+                    <div
+                        class="mask mask-circle size-3.5"
+                        aria-label="2 circle"
+                    >
+                    </div>
+                    <div
+                        class="mask mask-circle size-3.5"
+                        aria-label="3 circle"
+                        aria-current="true"
+                    >
+                    </div>
+                    <div
+                        class="mask mask-circle size-3.5"
+                        aria-label="4 circle"
+                    >
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <h2 class="font-semibold">Skills</h2>
+            <div class="space-x-1 space-y-1">
+                <span class="badge hover:badge-accent transition-colors"
+                    >Agile</span
+                >
+                <span class="badge hover:badge-accent transition-colors"
+                    >Backend</span
+                >
+                <div class="badge hover:badge-accent transition-colors">
+                    C++
+                </div>
+                <div class="badge hover:badge-accent transition-colors">
+                    DevOps
+                </div>
+                <div class="badge hover:badge-accent transition-colors">
+                    Docker
+                </div>
+                <div class="badge hover:badge-accent transition-colors">
+                    Fullstack
+                </div>
+                <div class="badge hover:badge-accent transition-colors">
+                    Grafana
+                </div>
+                <div class="badge hover:badge-accent transition-colors">
+                    PostgreSQL
+                </div>
+                <div class="badge hover:badge-accent transition-colors">
+                    Typescript
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <h2 class="font-semibold">About me</h2>
+            <p>
+                My hobbies includes tinkering with homeservers and jogging along
+                Odense River.
+            </p>
+        </div>
+    </div>
+    )}
+</div>
