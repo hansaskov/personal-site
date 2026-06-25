@@ -36,7 +36,7 @@ export const experiances: Experiance[] = [
         duration: "10 months",
         location: "Odense",
         description:
-          "Shipped Production Intelligence V4, a production analytics platform ingesting 420M+ machine vision inspections annually across TriVision's customer base. Improved load times by 100x by redesigning the query layer and containerized and deployed the full stack on AWS with Docker.",
+          "Shipped Production Intelligence V4, a production analytics platform ingesting 420M+ machine vision inspections annually across TriVision's customer base. Improved load times from 10s to 0.1s by rendering and caching static pages on the server periodically. Then i and containerized and deployed the full stack on AWS with Docker.",
       },
       {
         title: "Student Software Developer",
