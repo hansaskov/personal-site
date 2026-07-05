@@ -35,10 +35,10 @@ const includeSidebar = true;
     <div class="space-y-8 not-prose">
       {
         experiances.map((experiance) => (
-          <div class="space-y-4">
+          <div class="space-y-2">
             <TimeLineHeader {...experiance} />
             {experiance.roles.map((role) => (
-              <div class="flex gap-4 not-prose pl-6">
+              <div class="flex gap-4 not-prose pl-4">
                 <div class="hidden md:block ">
                   <span class="size-4 bg-base-content block rounded-full mt-1" />
                   <span class="bg-base-content h-full block w-0.5 translate-x-[7px]" />
@@ -58,10 +58,10 @@ const includeSidebar = true;
   <div class="space-y-8 not-prose">
     {
       educations.map((education) => (
-        <div class="space-y-4">
+        <div class="space-y-2">
           <TimeLineHeader {...education} />
           {education.roles.map((role) => (
-            <div class="flex gap-4 not-prose pl-6">
+            <div class="flex gap-4 not-prose pl-4">
               <div class="hidden md:block">
                 <span class="size-4 bg-base-content block rounded-full mt-1" />
                 <span class="bg-base-content h-full block w-0.5 translate-x-[7px]" />
