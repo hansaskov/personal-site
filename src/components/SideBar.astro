@@ -7,9 +7,9 @@ import type { ComponentProps } from "astro/types";
 
 const hero = await getImage({ src: ProfilePicture, format: "webp", width: 384, height: 384 });
 
-interface Props extends ComponentProps<typeof SideBarFooter> {}
+interface Props extends ComponentProps<typeof SideBarFooter>, ComponentProps<typeof SideBarMenu> {}
 
-const { download_button } = Astro.props;
+const props = Astro.props;
 
 ---
 
@@ -40,8 +40,8 @@ const { download_button } = Astro.props;
                 </div>
             </a>
         </div>
-        <SideBarMenu />
-        <SideBarFooter {download_button} />
+        <SideBarMenu {...props} />
+        <SideBarFooter {...props} />
     </aside>
 </div>
 

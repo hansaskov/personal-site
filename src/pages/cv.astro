@@ -2,77 +2,51 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import NameIntro from "../components/NameIntro.astro";
 import TimeLine from "../components/TimeLine.astro";
-import { educations, experiances } from "@data/experiances";
-import TimeLineHeader from "@components/TimeLineHeader.astro";
-import TimeLineBody from "@components/TimeLineBody.astro";
+import { CV, type Cv } from "@data/experiances";
 
-const download_button_url = "/hans-askov-cv.pdf";
-const prefetchUrls = ["/", "/projects"];
-const includeSidebar = true;
+type Props = Cv
+
+const {intro, educations, experiances} = Astro.props
+
 ---
-
 <BaseLayout
   class="prose prose-sm md:prose-base space-y-8"
   title="CV"
   description="Hans askov's CV"
   theme="light"
-  {prefetchUrls}
-  {includeSidebar}
-  download_button={{ title: "Download CV", url: download_button_url }}
+  prefetchUrls={["/", "/projects"]}
+  includeSidebar={true}
+  download_button={{ title: "Download CV", url: "/hans-askov-cv.pdf" }}
+  personalInfo = {{
+        email: "hans@askov.dk",
+        phone: "+45 24 96 51 87",
+        location: "Odense C, 5000, Denmark"
+    }}
+  languages = {[
+        {
+            name: "Danish",
+            rating: 4
+        }, 
+        {
+            name: "English",
+            rating: 3
+        }
+    ]},
+  skills = {["Agile",  "Backend",  "C++",  "DevOps",  "Docker",  "Fullstack",  "Grafana",  "PostgreSQL", "Typescript"]},
+  aboutMe = "My hobbies includes tinkering with homeservers and jogging along Odense River."
 >
-  <NameIntro />
 
+  <NameIntro />
+ 
   <p>
-    I'm Hans, a software engineer who specialize in fullstack web development
-    and building systems that hold up under real load. I have built a production
-    analytics platform ingesting 420M+ inspections a year, cutting dashboard
-    load times by 100× and storage costs by 92%. Now looking to bring that
-    performance and cost discipline to a backend or fullstack role.
+    {CV.intro}
   </p>
 
   <div class="space-y-4">
     <h2 class="font-bold">Experience</h2>
-    <div class="space-y-8 not-prose">
-      {
-        experiances.map((experiance) => (
-          <div class="space-y-2">
-            <TimeLineHeader {...experiance} />
-            {experiance.roles.map((role) => (
-              <div class="flex gap-4 not-prose pl-4">
-                <div class="hidden md:block ">
-                  <span class="size-4 bg-base-content block rounded-full mt-1" />
-                  <span class="bg-base-content h-full block w-0.5 translate-x-[7px]" />
-                </div>
-                <div>
-                  <TimeLineBody {...role} />
-                </div>
-              </div>
-            ))}
-          </div>
-        ))
-      }
-    </div>
-  </div>
+    <TimeLine experiances={CV.experiances} />
 
-  <h2 class="font-bold">Education</h2>
-  <div class="space-y-8 not-prose">
-    {
-      educations.map((education) => (
-        <div class="space-y-2">
-          <TimeLineHeader {...education} />
-          {education.roles.map((role) => (
-            <div class="flex gap-4 not-prose pl-4">
-              <div class="hidden md:block">
-                <span class="size-4 bg-base-content block rounded-full mt-1" />
-                <span class="bg-base-content h-full block w-0.5 translate-x-[7px]" />
-              </div>
-              <div>
-                <TimeLineBody {...role} />
-              </div>
-            </div>
-          ))}
-        </div>
-      ))
-    }
+    <h2 class="font-bold">Education</h2>
+    <TimeLine experiances={CV.educations} />
   </div>
 </BaseLayout>

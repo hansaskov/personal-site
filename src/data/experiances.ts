@@ -21,7 +21,19 @@ export interface Experiance {
 
 export interface Education extends Experiance {}
 
-export const experiances: Experiance[] = [
+export interface Cv {
+  intro: string;
+  experiances: Experiance[];
+  educations: Education[];
+}
+
+const intro = `I'm Hans, a software engineer who specialize in fullstack web development
+    and building systems that hold up under real load. I have built a production
+    analytics platform ingesting 420M+ inspections a year, cutting dashboard
+    load times by 100× and storage costs by 92%. Now looking to bring that
+    performance and cost discipline to a backend or fullstack role.`;
+
+const experiances: Experiance[] = [
   {
     company: "TriVision A/S",
     year: "February 2024 - May 2026",
@@ -97,7 +109,7 @@ export const experiances: Experiance[] = [
   */
 ];
 
-export const educations: Education[] = [
+const educations: Education[] = [
   {
     company: "Southern University of Denmark",
     year: "2019 - 2025",
@@ -123,3 +135,9 @@ export const educations: Education[] = [
     ],
   },
 ];
+
+export const CV: Cv = {
+  intro: intro,
+  experiances: experiances,
+  educations: educations,
+};

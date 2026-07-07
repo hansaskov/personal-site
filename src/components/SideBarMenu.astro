@@ -1,21 +1,46 @@
 ---
-const email = "hans@askov.dk";
-const phone = "+45 24 96 51 87";
+
+interface Props {
+    pages?: {
+        url: string,
+        name: string
+    }[]
+    personalInfo?: {
+        email: string
+        phone: string
+        location: string
+    }
+    languages?: {
+        name: string,
+        rating: number // Max of 4
+    }[]
+    skills?: string[]
+    aboutMe?: string
+}
+
+const {
+    pages = [
+        {
+            url: "/",
+            name: "Home",
+        },
+        {
+            url: "/projects",
+            name: "Projects",
+        },
+        {
+            url: "/cv",
+            name: "CV",
+        }
+    ],
+    personalInfo,
+    languages,
+    skills,
+    aboutMe
+} = Astro.props
+
 const pathname = Astro.url.pathname;
-const pages = [
-    {
-        url: "/",
-        name: "Home",
-    },
-    {
-        url: "/projects",
-        name: "Projects",
-    },
-    {
-        url: "/cv",
-        name: "CV",
-    },
-] as const;
+
 ---
 
 <div class="menu grow shrink menu-md overflow-y-auto w-full">
@@ -41,14 +66,16 @@ const pages = [
             ))
         }
     </ul>
-    {pathname.startsWith("/cv") &&  (                                                                                                                                                    
-    <div class="pt-8 space-y-8 pl-4">                                                                   
-        <div class="space-y-2">
+
+                                                                                                                                                
+    <div class="pt-8 space-y-8 pl-4">
+        {personalInfo && (
+            <div class="space-y-2">
             <h2 class="font-semibold">Personal Information</h2>
             <div>
                 <a
-                    href={`mailto:${email}`}
-                    title={email}
+                    href={`mailto:${personalInfo.email}`}
+                    title={personalInfo.email}
                     class="link hover:font-semibold hover:text-base-content transition-colors"
                 >
                     <!-- Mail icon -->
@@ -69,7 +96,7 @@ const pages = [
                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
                         ></path>
                     </svg>
-                    {email}
+                    {personalInfo.email}
                 </a>
             </div>
 
@@ -93,7 +120,7 @@ const pages = [
                             d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
                         ></path>
                     </svg>
-                    {phone}
+                    {personalInfo.phone}
                 </a>
             </div>
 
@@ -119,111 +146,55 @@ const pages = [
                             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
                         ></path>
                     </svg>
-                    Odense C, 5000, Denmark
+                    {personalInfo.location}
                 </a>
             </div>
         </div>
+        )} 
 
-        <div class="space-y-2">
-            <h2 class="font-semibold">Languages</h2>
-
-            <!-- Danish Rating -->
-            <div class="flex justify-between">
-                Danish
-                <div class="rating gap-1 items-center">
-                    <div
-                        class="mask mask-circle size-3.5"
-                        aria-label="1 circle"
-                    >
+        {languages && (
+            <div class="space-y-2">
+                <h2 class="font-semibold">Languages</h2>
+                {languages.map((language) => (
+                    <div class="flex justify-between">
+                        {language.name}
+                        <div class="rating gap-1 items-center">
+                            {[1, 2, 3, 4].map((star) => (
+                                <div
+                                    class="mask mask-circle size-3.5"
+                                    aria-label={`${star} circle`}
+                                    aria-current={star === language.rating ? "true" : undefined}
+                                >
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div
-                        class="mask mask-circle size-3.5"
-                        aria-label="2 circle"
-                    >
-                    </div>
-                    <div
-                        class="mask mask-circle size-3.5"
-                        aria-label="3 circle"
-                    >
-                    </div>
-                    <div
-                        class="mask mask-circle size-3.5"
-                        aria-label="4 circle"
-                        aria-current="true"
-                    >
-                    </div>
+                ))}
+            </div>
+        )}                                                                         
+        
+        {skills && (
+            <div class="space-y-2">
+                <h2 class="font-semibold">Skills</h2>
+                <div class="space-x-1 space-y-1">
+                    {
+                        skills.map((skill) => (
+                        <div class="badge hover:badge-accent transition-colors">
+                            {skill}
+                        </div>
+                        ))
+                    }
                 </div>
             </div>
-
-            <!-- English Rating -->
-            <div class="flex justify-between">
-                English
-                <div class="rating gap-1 items-center">
-                    <div
-                        class="mask mask-circle size-3.5 "
-                        aria-label="1 circle"
-                    >
-                    </div>
-                    <div
-                        class="mask mask-circle size-3.5"
-                        aria-label="2 circle"
-                    >
-                    </div>
-                    <div
-                        class="mask mask-circle size-3.5"
-                        aria-label="3 circle"
-                        aria-current="true"
-                    >
-                    </div>
-                    <div
-                        class="mask mask-circle size-3.5"
-                        aria-label="4 circle"
-                    >
-                    </div>
-                </div>
+        )}
+        
+        {aboutMe && (
+            <div class="space-y-2">
+                <h2 class="font-semibold">About me</h2>
+                <p>
+                    {aboutMe}
+                </p>
             </div>
-        </div>
-
-        <div class="space-y-2">
-            <h2 class="font-semibold">Skills</h2>
-            <div class="space-x-1 space-y-1">
-                <span class="badge hover:badge-accent transition-colors"
-                    >Agile</span
-                >
-                <span class="badge hover:badge-accent transition-colors"
-                    >Backend</span
-                >
-                <div class="badge hover:badge-accent transition-colors">
-                    C++
-                </div>
-                <div class="badge hover:badge-accent transition-colors">
-                    DevOps
-                </div>
-                <div class="badge hover:badge-accent transition-colors">
-                    Docker
-                </div>
-                <div class="badge hover:badge-accent transition-colors">
-                    Fullstack
-                </div>
-                <div class="badge hover:badge-accent transition-colors">
-                    Grafana
-                </div>
-                <div class="badge hover:badge-accent transition-colors">
-                    PostgreSQL
-                </div>
-                <div class="badge hover:badge-accent transition-colors">
-                    Typescript
-                </div>
-            </div>
-        </div>
-
-        <div class="space-y-2">
-            <h2 class="font-semibold">About me</h2>
-            <p>
-                My hobbies includes tinkering with homeservers and jogging along
-                Odense River.
-            </p>
-        </div>
+        )}
     </div>
-    )}
 </div>

@@ -1,8 +1,8 @@
 ---
-import type { Experiance } from "@data/experiances";
+import type { Education, Experiance } from "@data/experiances";
 import { getImage } from "astro:assets";
 
-type Props = Experiance;
+type Props = Experiance | Education;
 
 const { img, company, duration } = Astro.props;
 
