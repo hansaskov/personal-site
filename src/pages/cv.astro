@@ -1,16 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import NameIntro from "../components/NameIntro.astro";
 import TimeLine from "../components/TimeLine.astro";
 import { CV, type Cv } from "@data/experiances";
 
-type Props = Cv
-
-const {intro, educations, experiances} = Astro.props
-
 ---
 <BaseLayout
-  class="prose prose-sm md:prose-base space-y-8"
+  class="space-y-8"
   title="CV"
   description="Hans askov's CV"
   theme="light"
@@ -18,6 +13,7 @@ const {intro, educations, experiances} = Astro.props
   includeSidebar={true}
   download_button={{ title: "Download CV", url: "/hans-askov-cv.pdf" }}
   personalInfo = {{
+        name: "Hans Askov",
         email: "hans@askov.dk",
         phone: "+45 24 96 51 87",
         location: "Odense C, 5000, Denmark"
@@ -25,7 +21,7 @@ const {intro, educations, experiances} = Astro.props
   languages = {[
         {
             name: "Danish",
-            rating: 4
+            rating: 4 // max of 4
         }, 
         {
             name: "English",
@@ -36,16 +32,17 @@ const {intro, educations, experiances} = Astro.props
   aboutMe = "My hobbies includes tinkering with homeservers and jogging along Odense River."
 >
 
-  <NameIntro />
- 
-  <p>
-    {CV.intro}
-  </p>
+  <div class="space-y-4">
+    <h1 class="text-lx lg:text-5xl font-semibold text-base-content/85">Software Engineer</h1>
+    <p> {CV.intro} </p>
+  </div>
 
   <div class="space-y-4">
     <h2 class="font-bold">Experience</h2>
     <TimeLine experiances={CV.experiances} />
+  </div>
 
+  <div class="space-y-4">
     <h2 class="font-bold">Education</h2>
     <TimeLine experiances={CV.educations} />
   </div>

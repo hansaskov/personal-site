@@ -2,7 +2,6 @@
 @plugin "daisyui" {
   themes:;
 }
-@plugin "@tailwindcss/typography";
 
 @plugin "daisyui/theme" {
   name: "light";
