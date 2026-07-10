@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLine from "../components/TimeLine.astro";
-import { CV, type Cv } from "@data/experiances";
+
+import { fullstack_cv as CV } from "@data/cvs/fullstack";
 
 ---
 <BaseLayout
@@ -28,12 +29,12 @@ import { CV, type Cv } from "@data/experiances";
             rating: 3
         }
     ]},
-  skills = {["Agile",  "Backend",  "C++",  "DevOps",  "Docker",  "Fullstack",  "Grafana",  "PostgreSQL", "Typescript"]},
+  skills = {CV.skills},
   aboutMe = "My hobbies includes tinkering with homeservers and jogging along Odense River."
 >
 
   <div class="space-y-4">
-    <h1 class="text-lx lg:text-5xl font-semibold text-base-content/85">Software Engineer</h1>
+    <h1 class="text-lx lg:text-5xl font-semibold text-base-content/85">{CV.title}</h1>
     <p> {CV.intro} </p>
   </div>
 

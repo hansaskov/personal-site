@@ -1,31 +1,8 @@
 import TriVisionLogo from "@media/trivision_logo.jpg";
 import NovoNordiskLogo from "@media/novo_nordisk_logo.jpg";
-import EffimatLogo from "../media/effimat_logo.jpg";
+import EffimatLogo from "@media/effimat_logo.jpg";
 import SduLogo from "@media/sdu_logo.jpg";
-
-export interface Role {
-  title: string;
-  year: string;
-  duration: string;
-  location: string;
-  description: string;
-}
-
-export interface Experiance {
-  company: string;
-  year: string;
-  duration: string;
-  img: ImageMetadata;
-  roles: Role[];
-}
-
-export interface Education extends Experiance {}
-
-export interface Cv {
-  intro: string;
-  experiances: Experiance[];
-  educations: Education[];
-}
+import type { Experiance, Education, Cv, Role } from "@data/cv.schema";
 
 const intro = `I'm Hans, a software engineer who specialize in fullstack web development
     and building systems that hold up under real load. I have built a production
@@ -136,7 +113,10 @@ const educations: Education[] = [
   },
 ];
 
-export const CV: Cv = {
+export const fullstack_cv: Cv = { 
+  slug: "fullstack",
+  title: "Software Engineer",
+  skills: ["Agile",  "Backend",  "C++",  "DevOps",  "Docker",  "Fullstack",  "Grafana",  "PostgreSQL", "Typescript"],
   intro: intro,
   experiances: experiances,
   educations: educations,
