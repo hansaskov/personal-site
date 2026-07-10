@@ -8,9 +8,5 @@ services:
     build:
       context: .
       dockerfile: dockerfile.playwright
-      cache_from:
-        - type=gha
-      cache_to:
-        - type=gha,mode=max
     volumes:
       - ./public:/app/public
