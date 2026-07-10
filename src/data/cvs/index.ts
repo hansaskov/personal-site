@@ -1,3 +1,7 @@
+import { devops_cv } from "@data/cvs/devops";
+import { fullstack_cv } from "@data/cvs/fullstack";
+import { software_developer_cv } from "@data/cvs/software-developer";
+
 export interface Role {
   title: string;
   year: string;
@@ -24,3 +28,9 @@ export interface Cv {
   experiances: Experiance[];
   educations: Education[];
 }
+
+export const defaultCvSlug = software_developer_cv.slug;
+
+export const cvs = [fullstack_cv, software_developer_cv, devops_cv] satisfies Cv[];
+
+export const cvBySlug = new Map(cvs.map((cv) => [cv.slug, cv]));

@@ -2,7 +2,7 @@ import TriVisionLogo from "@media/trivision_logo.jpg";
 import NovoNordiskLogo from "@media/novo_nordisk_logo.jpg";
 import EffimatLogo from "@media/effimat_logo.jpg";
 import SduLogo from "@media/sdu_logo.jpg";
-import type { Experiance, Education, Cv, Role } from "@data/cv.schema";
+import type { Experiance, Education, Cv } from "@data/cvs";
 
 const intro = `I'm Hans, a software engineer who specialize in fullstack web development
     and building systems that hold up under real load. I have built a production
@@ -10,7 +10,7 @@ const intro = `I'm Hans, a software engineer who specialize in fullstack web dev
     load times by 100× and storage costs by 92%. Now looking to bring that
     performance and cost discipline to a backend or fullstack role.`;
 
-const experiances: Experiance[] = [
+export const experiances: Experiance[] = [
   {
     company: "TriVision A/S",
     year: "February 2024 - May 2026",
@@ -86,7 +86,7 @@ const experiances: Experiance[] = [
   */
 ];
 
-const educations: Education[] = [
+export const educations: Education[] = [
   {
     company: "Southern University of Denmark",
     year: "2019 - 2025",
@@ -113,10 +113,20 @@ const educations: Education[] = [
   },
 ];
 
-export const fullstack_cv: Cv = { 
+export const fullstack_cv: Cv = {
   slug: "fullstack",
-  title: "Software Engineer",
-  skills: ["Agile",  "Backend",  "C++",  "DevOps",  "Docker",  "Fullstack",  "Grafana",  "PostgreSQL", "Typescript"],
+  title: "Fullstack Developer",
+  skills: [
+    "Agile",
+    "Backend",
+    "C++",
+    "DevOps",
+    "Docker",
+    "Fullstack",
+    "Grafana",
+    "PostgreSQL",
+    "Typescript",
+  ],
   intro: intro,
   experiances: experiances,
   educations: educations,
