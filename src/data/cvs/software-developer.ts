@@ -11,7 +11,6 @@ export const software_developer_cv: Cv = {
   slug: "software-developer",
   title: "Software Developer",
   skills: [
-    "Agile",
     "Backend",
     "C++",
     "Computer Vision",
