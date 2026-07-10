@@ -17,30 +17,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+      - name: Generate PDFs
+        run: docker compose run --build --rm playwright
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: lts/*
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium
-
-      - name: Run Playwright tests
-        env:
-          BASE_URL: https://hans.askov.dk
-        run: pnpm exec playwright test
-
-      - name: Commit PDF to repository
+      - name: Commit PDFs
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/hans-askov-cv.pdf
-          git diff --staged --quiet || git commit -m "chore: update CV PDF [skip ci]"
+          git add public/hans-askov-cv*.pdf
+          if git diff --staged --quiet; then
+            exit 0
+          fi
+          git commit -m "chore: update CV PDFs [skip ci]"
           git push

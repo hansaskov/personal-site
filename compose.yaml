@@ -3,3 +3,10 @@ services:
     build: .
     ports:
       - "4321:4321"
+
+  playwright:
+    build:
+      context: .
+      dockerfile: dockerfile.playwright
+    volumes:
+      - ./public:/app/public
