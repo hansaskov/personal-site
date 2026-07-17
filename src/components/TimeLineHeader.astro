@@ -18,7 +18,7 @@ const hero = await getImage({
 ---
 
 <Fragment slot="head">
-  <link rel="preload" as="image" href={hero.src} fetchpriority="high" />
+  <link rel="preload" as="image" href={hero.src} fetchpriority="auto" />
 </Fragment>
 
 <div class="flex not-prose items-center gap-4">
