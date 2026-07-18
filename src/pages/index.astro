@@ -11,14 +11,19 @@ const includeSidebar = true;
 ---
 
 <BaseLayout
-  class="prose prose-sm md:prose-base space-y-8"
+  class="space-y-8"
   title="Home"
   description="Personal website for Hans Askov"
   theme="light"
   {prefetchUrls}
   {includeSidebar}
 >
-  <NameIntro />
+  <div class="space-y-1 not-prose" >
+    <h1 class="text-2xl lg:text-5xl font-semibold text-base-content/85">Hans Askov</h1>
+    <p class="text-lg lg:text-xl">Software Engineer</p>
+    <p class="text-md lg:text-lg font-light">Odense C, Region of Southern Denmark, Denmark</p>
+  </div>
+  
   <div class="flex gap-8 justify-between sm:justify-start md:justify-start">
     <a class="btn w-full sm:w-40 shrink" href="/cv">CV</a>
     <a class="btn w-full sm:w-40 shrink btn-outline" href="/projects"
@@ -44,7 +49,7 @@ const includeSidebar = true;
       The solution is to let go of client side javascript and shift where the
       state is supposed to be, in the url or as part of the hypermedia. If you
       want to learn more, i highly suggest reading <a
-        class="text-blue-600"
+        class="text-blue-600 underline"
         href="https://htmx.org/essays/hateoas/">this post</a
       > by Carson Gross, the creator of HTMX.
     </p>
@@ -70,7 +75,7 @@ const includeSidebar = true;
       {
         featuredProjects.map((project, i) => (
           <>
-            {i > 0 && <div class="divider" />}
+            {i > 0 && <hr class="border-base-300" />}
             <HorizontalCard {...project} />
           </>
         ))

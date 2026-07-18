@@ -17,23 +17,23 @@ const hero = await getImage({ src: img, format: "webp", width: width, height: he
   <link rel="preload" as="image" href={hero.src} fetchpriority="high" />
 </Fragment>
 
-<div class="not-prose rounded-lg bg-base-100 hover:shadow-xl transition ease-in-out hover:scale-[102%]">
+<div class="rounded-lg bg-base-100 hover:shadow-xl transition ease-in-out hover:scale-[102%]">
   <a href={url} target={target}>
-    <div class="hero-content flex-col md:flex-row">
-      
+    <div class="flex flex-col md:flex-row items-center gap-4 p-4">
+
         <img
-          class="max-w-full md:max-w-52 rounded-lg"  
+          class="max-w-full md:max-w-52 rounded-lg"
           src={hero.src}
           width={width}
           height={height}
           alt={title}
         />
-      
+
       <div class="grow w-full">
         <h1 class="text-xl font-bold">
           {title}
-          {badge && <div class="badge badge-secondary mx-2">{badge}</div>}
-        </h1> 
+          {badge && <span class="badge badge-secondary mx-2">{badge}</span>}
+        </h1>
         <p class="text-sm font-light">{year}</p>
         <p class="pt-1 text-1xl">{desc}</p>
 

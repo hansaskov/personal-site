@@ -44,14 +44,14 @@ const pathname = Astro.url.pathname;
 
 ---
 
-<div class="menu grow shrink menu-md overflow-y-auto w-full">
-    <ul class="space-y-2">
+<nav class="grow shrink overflow-y-auto w-full text-sm py-2">
+    <ul class="flex flex-col space-y-2">
         {
             pages.map(({ name, url }) => (
                 <li>
                     <a
                         class:list={[
-                            "pl-4 py-3",
+                            "block pl-4 py-3 rounded-field transition-colors hover:bg-base-300",
                             {
                                 "bg-base-300":
                                     url === "/"
@@ -68,7 +68,6 @@ const pathname = Astro.url.pathname;
         }
     </ul>
 
-                                                                                                                                                
     <div class="pt-8 space-y-8 pl-4">
         {personalInfo && (
             <div class="space-y-2">
@@ -101,7 +100,7 @@ const pathname = Astro.url.pathname;
                 <a
                     href={`mailto:${personalInfo.email}`}
                     title={personalInfo.email}
-                    class="link hover:font-semibold hover:text-base-content transition-colors "
+                    class="hover:font-semibold hover:text-base-content transition-colors"
                 >
                     <!-- Mail icon -->
                     <svg
@@ -173,18 +172,21 @@ const pathname = Astro.url.pathname;
                 </a>
             </div>
         </div>
-        )} 
+        )}
 
         {languages && (
             <div class="space-y-2">
                 <h2 class="font-semibold">Languages</h2>
                 {languages.map((language) => (
-                    <div class="flex justify-between">
+                    <div class="flex justify-between items-center">
                         {language.name}
-                        <div class="rating gap-1 items-center">
+                        <div class="flex gap-1 items-center">
                             {[1, 2, 3, 4].map((star) => (
                                 <div
-                                    class="mask mask-circle size-3.5"
+                                    class:list={[
+                                        "size-3.5 rounded-full",
+                                        star <= language.rating ? "bg-base-content" : "bg-base-300",
+                                    ]}
                                     aria-label={`${star} circle`}
                                     aria-current={star === language.rating ? "true" : undefined}
                                 >
@@ -194,23 +196,23 @@ const pathname = Astro.url.pathname;
                     </div>
                 ))}
             </div>
-        )}                                                                         
-        
+        )}
+
         {skills && (
             <div class="space-y-2">
                 <h2 class="font-semibold">Skills</h2>
                 <div class="space-x-1 space-y-1">
                     {
                         skills.map((skill) => (
-                        <div class="badge hover:badge-accent transition-colors">
+                        <span class="badge hover:badge-accent transition-colors">
                             {skill}
-                        </div>
+                        </span>
                         ))
                     }
                 </div>
             </div>
         )}
-        
+
         {aboutMe && (
             <div class="space-y-2">
                 <h2 class="font-semibold">About me</h2>
@@ -220,4 +222,4 @@ const pathname = Astro.url.pathname;
             </div>
         )}
     </div>
-</div>
+</nav>

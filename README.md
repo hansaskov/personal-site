@@ -20,8 +20,9 @@ Once the packages are installed you are ready to run Astro. Astro comes with a b
 pnpm run dev
 ```
 
-Generate the PDF files of the CV's with the following command. 
-``` bash
+Generate the PDF files of the CV's with the following command.
+
+```bash
 docker compose run --build --rm playwright
 ```
 

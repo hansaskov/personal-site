@@ -10,7 +10,6 @@ const hero = await getImage({ src: ProfilePicture, format: "webp", width: 384, h
 interface Props extends ComponentProps<typeof SideBarFooter>, ComponentProps<typeof SideBarMenu> {}
 
 const props = Astro.props;
-
 ---
 
 <Fragment slot="head">
@@ -25,18 +24,15 @@ const props = Astro.props;
         <div class="w-fit mx-auto mt-5 mb-6">
             <a href="/">
                 <div
-                    class="avatar transition ease-in-out hover:scale-[102%] block m-auto"
+                    class="block m-auto rounded-full overflow-hidden transition ease-in-out hover:scale-[102%] w-32 h-32"
                 >
-                    <div class="w-32 h-32">
                         <img
-                            class="mask mask-circle"
                             width={384}
                             height={384}
                             src={hero.src}
                             alt="Profile image of Hans Askov drinking from a glass looking to the left out of a window."
                             fetchpriority="high"
                         />
-                    </div>
                 </div>
             </a>
         </div>
@@ -44,5 +40,3 @@ const props = Astro.props;
         <SideBarFooter {...props} />
     </aside>
 </div>
-
-

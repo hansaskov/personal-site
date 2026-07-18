@@ -8,18 +8,18 @@ const includeSidebar = true;
 ---
 
 <BaseLayout
-    class="prose prose-sm md:prose-base space-y-8"
+    class="space-y-8"
     title="Projects"
     description="List of all projects Hans Askov has worked on"
     theme="light"
     {prefetchUrls}
     {includeSidebar}
 >
-    <h1 class="text-3xl lg:text-5xl font-bold not-prose">My projects</h1>
+    <h1 class="text-2xl lg:text-5xl font-semibold text-base-content/85">My projects</h1>
     {
         projects.map((project, i) => (
             <>
-                {i > 0 && <div class="divider" />}
+                {i > 0 && <hr class="border-base-300" />}
                 <HorizontalCard {...project} />
             </>
         ))

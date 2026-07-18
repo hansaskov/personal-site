@@ -21,16 +21,14 @@ const hero = await getImage({
   <link rel="preload" as="image" href={hero.src} fetchpriority="auto" />
 </Fragment>
 
-<div class="flex not-prose items-center gap-4">
-  <div class="avatar">
-    <div class="rounded-full">
+<div class="flex items-center gap-4">
+  <div class="rounded-full overflow-hidden w-12 h-12 shrink-0">
       <img
         src={hero.src}
         width={width}
         height={height}
         alt={`${company}'s' Logo`}
       />
-    </div>
   </div>
 
   <div>
