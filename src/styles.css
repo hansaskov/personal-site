@@ -8,7 +8,7 @@
 
 @plugin "daisyui" {
   themes:;
-  include: rootcolor, rootscrolllock, rootscrollgutter, drawer, button;
+  include: rootcolor, rootscrolllock, rootscrollgutter, drawer, button, badge;
 }
 
 @plugin "daisyui/theme" {
