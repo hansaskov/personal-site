@@ -16,6 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install fonts
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends \
+            fonts-liberation \
+            fonts-noto-core \
+            && rm -rf /var/lib/apt/lists/*
+
       - name: Install dependencies
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
