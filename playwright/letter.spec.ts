@@ -32,8 +32,7 @@ test("prints every application letter page to PDF", async ({ page }) => {
       path: letterPage.outputPath,
       printBackground: true,
       tagged: true,
-      height: 1648,
-      width: 1240,
+      format: "A3",
     });
   }
 });
