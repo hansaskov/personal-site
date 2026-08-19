@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    const letters = await getCollection("applicationLetters");
+
+    return letters.map((letter) => ({
+        params: { slug: letter.data.slug },
+        props: { letter },
+    }));
+}
+
+const { letter } = Astro.props;
+const { Content } = await render(letter);
+---
+
+<BaseLayout
+    title={letter.data.slug}
+    description={`Application letter for ${letter.data.slug}`}
+    theme="light"
+    prefetchUrls={[]}
+    includeSidebar={false}
+    includeHeader={false}
+    includeFooter={false}
+>
+    <Fragment slot="head">
+        <meta name="robots" content="noindex, nofollow" />
+    </Fragment>
+
+    <article class="application-letter">
+        <Content />
+    </article>
+</BaseLayout>
+
+<style>
+    .application-letter {
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: oklch(23.574% 0.066 313.189);
+    }
+
+    .application-letter h1,
+    .application-letter h2,
+    .application-letter h3 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .application-letter p {
+        margin-bottom: 1rem;
+    }
+
+    .application-letter ul,
+    .application-letter ol {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+    }
+
+    .application-letter ul {
+        list-style: disc;
+    }
+
+    .application-letter ol {
+        list-style: decimal;
+    }
+</style>

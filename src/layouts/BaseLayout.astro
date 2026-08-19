@@ -14,8 +14,14 @@ interface Props
     ComponentProps<typeof SpeculationsAPI> {
     theme: "light" | "dark";
     class?: string;
+    includeHeader?: boolean;
+    includeFooter?: boolean;
   }
 
+const {
+  includeHeader = true,
+  includeFooter = true,
+} = Astro.props;
 const props = Astro.props;
 ---
 
@@ -26,10 +32,15 @@ const props = Astro.props;
     <slot name="head" />
   </head>
   <body>
-    <div class="bg-base-100 drawer lg:drawer-open font-sans">
-      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content bg-base-100">
-        <Header {...props} />
+    <div
+      class:list={[
+        "bg-base-100 font-sans",
+        { "drawer lg:drawer-open": props.includeSidebar },
+      ]}
+    >
+      {props.includeSidebar && <input id="my-drawer" type="checkbox" class="drawer-toggle" />}
+      <div class:list={["bg-base-100", { "drawer-content": props.includeSidebar }]}>
+        {includeHeader && <Header {...props} />}
         <div class="md:flex md:justify-center">
           <main
             class:list={[
@@ -40,7 +51,7 @@ const props = Astro.props;
             <slot />
           </main>
         </div>
-        <Footer />
+        {includeFooter && <Footer />}
       </div>
       {props.includeSidebar && <SideBar {...props} />}
     </div>

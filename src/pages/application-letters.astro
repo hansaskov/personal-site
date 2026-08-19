@@ -1,0 +1,51 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const letters = (await getCollection("applicationLetters")).sort((a, b) =>
+    b.data.slug.localeCompare(a.data.slug),
+);
+
+const humanize = (slug: string) =>
+    slug
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+
+const prefetchUrls = ["/", "/cv", "/projects"];
+---
+
+<BaseLayout
+    class="space-y-8"
+    title="Application Letters"
+    description="List of application letters written by Hans Askov"
+    theme="light"
+    prefetchUrls={prefetchUrls}
+    includeSidebar={true}
+>
+    <h1 class="text-2xl lg:text-5xl font-semibold text-base-content/85">
+        Application Letters
+    </h1>
+
+    <ul class="space-y-4">
+        {
+            letters.map((letter) => (
+                <li class="flex items-center justify-between gap-4">
+                    <a
+                        href={`/application-letter/${letter.data.slug}`}
+                        class="link link-hover font-medium"
+                    >
+                        {humanize(letter.data.slug)}
+                    </a>
+                    <a
+                        href={`/application-letter-${letter.data.slug}.pdf`}
+                        download
+                        class="btn btn-sm btn-outline"
+                    >
+                        Download
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</BaseLayout>
