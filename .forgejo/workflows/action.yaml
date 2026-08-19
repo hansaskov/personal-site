@@ -11,14 +11,23 @@ permissions:
 jobs:
   generate-pdf:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
     timeout-minutes: 60
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
       - name: Generate PDFs
-        run: docker compose run --build --rm playwright
+        run: pnpm exec playwright test
 
       - name: Commit PDFs
         run: |
