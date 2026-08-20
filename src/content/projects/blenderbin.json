@@ -1,0 +1,9 @@
+{
+  "title": "BlenderBin",
+  "desc": "BlenderBin is an extension of BlenderProc made to easily create synthetic datasets with many augmentations for Bin Picking. This was part of my Bachelor thesis which has been used by others to improve the state of the art.",
+  "img": "../../media/blenderbin.webp",
+  "url": "https://github.com/hansaskov/BlenderBin",
+  "year": "2023 - 2024",
+  "badge": "AI",
+  "order": 4
+}

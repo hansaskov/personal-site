@@ -1,8 +1,8 @@
 ---
-import type { Project } from "../data/projects";
+import type { CollectionEntry } from "astro:content";
 import { getImage, Picture } from "astro:assets";
 
-type Props = Project
+type Props = CollectionEntry<"projects">["data"];
 
 const width = 375
 const height = 211

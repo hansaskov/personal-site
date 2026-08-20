@@ -1,0 +1,9 @@
+{
+  "title": "Askov.dk",
+  "desc": "A small static website made for my parents. Its main use is showing pictures of our cats and a link to a personal wishlist. Check out the pictures at the bottom, they are so cute.",
+  "img": "../../media/askov.webp",
+  "url": "https://askov.dk",
+  "badge": "Website",
+  "year": "2023 - Now",
+  "order": 2
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Hjemmet.net",
+  "desc": "Hjemmet is a website for you and your family to create and share wishlists between each other. I used this project to learn how to do authentication from scratch.",
+  "img": "../../media/hjemmet.webp",
+  "url": "https://hjemmet.net",
+  "year": "2024",
+  "badge": "Fullstack",
+  "order": 3
+}

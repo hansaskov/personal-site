@@ -1,0 +1,9 @@
+{
+  "title": "hans.askov.dk",
+  "desc": "The site you are reading right now! It is a static site made with Astro.js and DaisyUI.",
+  "img": "../../media/personal-site.webp",
+  "url": "/",
+  "year": "2023 - Now",
+  "target": "_self",
+  "order": 5
+}

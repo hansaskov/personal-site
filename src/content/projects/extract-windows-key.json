@@ -1,0 +1,9 @@
+{
+  "title": "Extract Windows Key",
+  "desc": "Are you tired of losing your Windows key? Worry not. This program will extract and save your Windows key in a CSV. Works well with a USB stick.",
+  "img": "../../media/post_img.webp",
+  "url": "https://github.com/hansaskov/extract-windows-key",
+  "year": "2023",
+  "badge": "Rust",
+  "order": 6
+}

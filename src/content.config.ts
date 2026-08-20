@@ -38,4 +38,19 @@ const cvs = defineCollection({
   },
 });
 
-export const collections = { applicationLetters, cvs };
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./src/content/projects" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      desc: z.string(),
+      url: z.string(),
+      img: image(),
+      order: z.number(),
+      year: z.string().optional(),
+      badge: z.string().optional(),
+      target: z.string().optional(),
+    }),
+});
+
+export const collections = { applicationLetters, cvs, projects };
