@@ -1,0 +1,94 @@
+{
+  "slug": "software-engineer",
+  "title": "Software Engineer",
+  "intro": "I'm Hans, a software engineer focused on backend systems and data-heavy applications. I shipped Production Intelligence V4, a platform that ingests 420M+ machine vision inspections a year, and cut its dashboard load times from 10s to 0.1s and its storage costs by 92%.",
+  "skills": [
+    "AWS",
+    "Backend",
+    "Cybersecurity",
+    "Data Pipelines",
+    "Docker",
+    "IoT",
+    "PostgreSQL",
+    "Python",
+    "Typescript"
+  ],
+  "experiances": [
+    {
+      "company": "TriVision A/S",
+      "year": "February 2024 - May 2026",
+      "duration": "2 years 4 months",
+      "img": "../../media/trivision_logo.jpg",
+      "roles": [
+        {
+          "title": "Software Engineer",
+          "year": "August 2025 - May 2026",
+          "duration": "10 months",
+          "location": "Odense",
+          "description": "Shipped Production Intelligence V4, a platform that ingests 420M+ machine vision inspections a year. Cut dashboard load times from 10s to 0.1s by rendering and caching pages on the server. Containerized the stack and deployed it on AWS with Docker."
+        },
+        {
+          "title": "Student Software Developer",
+          "year": "February 2024 - August 2025",
+          "duration": "1 year 7 months",
+          "location": "Odense",
+          "description": "Prototyped the data ingestion pipeline behind Production Intelligence V4 and evaluated columnar storage formats that later cut storage costs by 92%. Shipped backend features in production while finishing my MSc."
+        }
+      ]
+    },
+    {
+      "company": "Novo Nordisk A/S",
+      "year": "September 2022 - February 2023",
+      "duration": "6 months",
+      "img": "../../media/novo_nordisk_logo.jpg",
+      "roles": [
+        {
+          "title": "Student Software Developer",
+          "year": "September 2022 - February 2023",
+          "duration": "6 months",
+          "location": "Hillerød",
+          "description": "Built a pipeline that renders synthetic images to train two deep learning models for object detection and 6DoF pose estimation of parts in a bin. Released as the open source project BlenderBin at github.com/hansaskov/BlenderBin."
+        }
+      ]
+    },
+    {
+      "company": "EFFIMAT",
+      "year": "February 2022 - February 2023",
+      "duration": "1 year 1 month",
+      "img": "../../media/effimat_logo.jpg",
+      "roles": [
+        {
+          "title": "Software Developer",
+          "year": "February 2022 - February 2023",
+          "duration": "1 year 1 month",
+          "location": "Odense",
+          "description": "Collected and analyzed data from distributed IoT devices. Built a website that shows the data in real time so the team could monitor their products."
+        }
+      ]
+    }
+  ],
+  "educations": [
+    {
+      "company": "Southern University of Denmark",
+      "year": "2019 - 2025",
+      "duration": "5 years 5 months",
+      "img": "../../media/sdu_logo.jpg",
+      "roles": [
+        {
+          "title": "MSc in Software Engineering",
+          "year": "2023 - 2025",
+          "duration": "2 years",
+          "location": "Odense",
+          "description": "Specialized in distributed systems and backend engineering, with electives in cybersecurity and biometric security."
+        },
+        {
+          "title": "BEng in Robotic Systems",
+          "year": "2019 - 2023",
+          "duration": "3 years 5 months",
+          "location": "Odense",
+          "description": "Found my love for software and mathematics through control theory, computer vision, and machine learning. Programmed a UR5 robot arm to detect, grasp, and throw objects with collision-aware motion planning."
+        }
+      ]
+    }
+  ]
+}

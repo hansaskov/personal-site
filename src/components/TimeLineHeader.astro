@@ -1,6 +1,10 @@
 ---
-import type { Education, Experiance } from "@data/cvs/schema";
+import type { CollectionEntry } from "astro:content";
 import { getImage } from "astro:assets";
+
+type Cv = CollectionEntry<"cvs">["data"];
+type Experiance = Cv["experiances"][number];
+type Education = Cv["educations"][number];
 
 type Props = Experiance | Education;
 

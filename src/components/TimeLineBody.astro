@@ -1,5 +1,8 @@
 ---
-import type { Role } from "@data/cvs/schema";
+import type { CollectionEntry } from "astro:content";
+
+type Cv = CollectionEntry<"cvs">["data"];
+type Role = Cv["experiances"][number]["roles"][number];
 
 export type Props = Role;
 

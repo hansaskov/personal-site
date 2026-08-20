@@ -1,60 +1,65 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TimeLine from "../../components/TimeLine.astro";
+import { getCollection } from "astro:content";
 
-import { cvs } from "@data/cvs";
+export async function getStaticPaths() {
+    const cvs = await getCollection("cvs");
 
-export function getStaticPaths() {
-  return cvs.map((cv) => ({
-    params: { slug: cv.slug },
-    props: { CV: cv },
-  }));
+    return cvs.map((cv) => ({
+        params: { slug: cv.data.slug },
+        props: { CV: cv },
+    }));
 }
 
 const { CV } = Astro.props;
+const { title, intro, skills, experiances, educations } = CV.data;
 ---
 
 <BaseLayout
-  class="space-y-8"
-  title={CV.title}
-  description={`Hans Askov's ${CV.title} CV`}
-  theme="light"
-  prefetchUrls={["/", "/projects"]}
-  includeSidebar={true}
-  download_button={{ title: "Download CV", url: `/hans-askov-cv-${CV.slug}.pdf` }}
-  personalInfo={{
-    name: "Hans Askov",
-    email: "hans@askov.dk",
-    phone: "+45 24 96 51 87",
-    location: "Odense C, 5000, Denmark",
-  }}
-  languages={[
-    {
-      name: "Danish",
-      rating: 4,
-    },
-    {
-      name: "English",
-      rating: 3,
-    },
-  ]}
-  skills={CV.skills}
-  aboutMe="My hobbies includes tinkering with homeservers and jogging along Odense River."
+    class="space-y-8"
+    title={title}
+    description={`Hans Askov's ${title} CV`}
+    theme="light"
+    prefetchUrls={["/", "/projects"]}
+    includeSidebar={true}
+    download_button={{
+        title: "Download CV",
+        url: `/hans-askov-cv-${CV.data.slug}.pdf`,
+    }}
+    personalInfo={{
+        name: "Hans Askov",
+        email: "hans@askov.dk",
+        phone: "+45 24 96 51 87",
+        location: "Odense C, 5000, Denmark",
+    }}
+    languages={[
+        {
+            name: "Danish",
+            rating: 4,
+        },
+        {
+            name: "English",
+            rating: 4,
+        },
+    ]}
+    skills={skills}
+    aboutMe="My hobbies includes tinkering with homeservers and jogging along Odense River."
 >
-  <div class="space-y-4">
-    <h1 class="text-2xl lg:text-5xl font-semibold text-base-content/85">
-      {CV.title}
-    </h1>
-    <p>{CV.intro}</p>
-  </div>
+    <div class="space-y-4">
+        <h1 class="text-2xl lg:text-5xl font-semibold text-base-content/85">
+            {title}
+        </h1>
+        <p>{intro}</p>
+    </div>
 
-  <div class="space-y-4">
-    <h2 class="text-lg lg:text-2xl font-semibold">Experience</h2>
-    <TimeLine experiances={CV.experiances} />
-  </div>
+    <div class="space-y-4">
+        <h2 class="text-lg lg:text-2xl font-semibold">Experience</h2>
+        <TimeLine experiances={experiances} />
+    </div>
 
-  <div class="space-y-4">
-    <h2 class="text-lg lg:text-2xl font-semibold">Education</h2>
-    <TimeLine experiances={CV.educations} />
-  </div>
+    <div class="space-y-4">
+        <h2 class="text-lg lg:text-2xl font-semibold">Education</h2>
+        <TimeLine experiances={educations} />
+    </div>
 </BaseLayout>

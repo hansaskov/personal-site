@@ -1,7 +1,11 @@
 ---
-import type { Education, Experiance } from '@data/cvs';
+import type { CollectionEntry } from "astro:content";
 import TimeLineHeader from './TimeLineHeader.astro';
 import TimeLineBody from './TimeLineBody.astro';
+
+type Cv = CollectionEntry<"cvs">["data"];
+type Experiance = Cv["experiances"][number];
+type Education = Cv["educations"][number];
 
 interface Props {
   experiances: (Experiance | Education)[]
