@@ -2,11 +2,9 @@
   // Runs synchronously before paint, preventing flash of wrong theme.
   // Keep this block as small as possible.
   (function () {
+    // Always default to light; the OS color-scheme preference is ignored.
     const stored = localStorage.getItem('theme');
-    const theme =
-      stored ??
-      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', stored ?? 'light');
   })();
 </script>
 
