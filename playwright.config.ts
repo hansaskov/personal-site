@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.BASE_URL ?? "http://127.0.0.1:4321";
+const parsedUrl = new URL(baseURL);
+const port = parsedUrl.port || (parsedUrl.protocol === "https:" ? 443 : 80);
 
 /**
  * Read environment variables from file.
@@ -63,12 +65,10 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: process.env.BASE_URL
-    ? undefined
-    : {
-        command: "pnpm build && pnpm preview --host 0.0.0.0",
-        url: baseURL,
-        reuseExistingServer: !process.env.CI,
-        timeout: 120_000,
-      },
+  webServer: {
+    command: `pnpm build && pnpm preview --host 0.0.0.0 --port ${port}`,
+    url: baseURL,
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
+  },
 });

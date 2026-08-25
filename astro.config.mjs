@@ -10,6 +10,9 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    preview: {
+      allowedHosts: ["hans.askov.dk"],
+    },
   },
 
   image: {

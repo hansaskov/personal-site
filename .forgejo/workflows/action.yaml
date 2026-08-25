@@ -30,7 +30,12 @@ jobs:
           corepack enable
           pnpm install --frozen-lockfile
 
+      - name: Map domain to localhost
+        run: echo "127.0.0.1 hans.askov.dk" >> /etc/hosts
+
       - name: Generate PDFs
+        env:
+          BASE_URL: http://hans.askov.dk
         run: pnpm exec playwright test
 
       - name: Commit PDFs
