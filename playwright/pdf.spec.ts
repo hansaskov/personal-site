@@ -38,7 +38,7 @@ test("prints every CV page to PDF", async ({ page }) => {
       path: cvPage.outputPath,
       printBackground: true,
       tagged: true,
-      height: 1648,
+      height: 1672,
       width: 1240,
     });
   }
