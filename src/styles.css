@@ -1,77 +1,555 @@
 @import "tailwindcss";
 
-@theme {
+/* ---------------------------------------------------------------------------
+   Design system foundations
+   Three-tier tokens:
+     1. Primitives  (--pr-*)  raw values, never used directly in components
+     2. Semantic    (--ds-*)  purpose-named, swapped per [data-theme]
+     3. Theme map   (@theme inline) exposes semantics as Tailwind utilities
+
+   Shared breakpoints (Tailwind defaults): sm 40rem · md 48rem · lg 64rem · xl 80rem
+   Spacing scale: base-4 (Tailwind default) + two semantic steps below
+--------------------------------------------------------------------------- */
+
+/* 1 ─ Primitives ---------------------------------------------------------- */
+:root {
+  /* Warm paper neutrals (surfaces) */
+  --pr-paper-0: oklch(99.4% 0.002 85);
+  --pr-paper-50: oklch(97.6% 0.005 80);
+  --pr-paper-100: oklch(94.5% 0.007 78);
+  --pr-paper-150: oklch(91% 0.008 76);
+  --pr-paper-200: oklch(86% 0.01 74);
+  --pr-paper-700: oklch(30% 0.02 60);
+
+  /* Ink neutrals (text, cool) */
+  --pr-ink-400: oklch(55% 0.02 270);
+  --pr-ink-500: oklch(46% 0.024 272);
+  --pr-ink-700: oklch(33% 0.03 280);
+  --pr-ink-800: oklch(25% 0.032 285);
+  --pr-ink-900: oklch(17% 0.026 285);
+
+  /* Night neutrals (dark surfaces & text, pure neutral à la shadcn) */
+  --pr-night-50: oklch(0.985 0 0); /* foreground high        */
+  --pr-night-100: oklch(0.922 0 0); /* primary (inverted)     */
+  --pr-night-150: oklch(0.86 0 0); /* primary hover          */
+  --pr-night-300: oklch(0.708 0 0); /* foreground muted       */
+  --pr-night-400: oklch(0.6 0 0); /* foreground subtle      */
+  --pr-night-600: oklch(0.323 0 0); /* hover fills            */
+  --pr-night-700: oklch(0.269 0 0); /* muted fills / accent   */
+  --pr-night-800: oklch(0.205 0 0); /* card / sidebar surface */
+  --pr-night-900: oklch(0.145 0 0); /* page background        */
+
+  /* Jade accent ramp — green with cool undertone (active nav, brand) */
+  --pr-jade-300: oklch(84% 0.08 162);
+  --pr-jade-400: oklch(78% 0.095 162);
+  --pr-jade-500: oklch(72% 0.11 162);
+  --pr-jade-600: oklch(64% 0.105 163);
+  --pr-jade-700: oklch(56% 0.095 163);
+  --pr-jade-800: oklch(43% 0.08 164);
+  --pr-jade-900: oklch(32% 0.06 164);
+
+  /* Feedback anchors */
+  --pr-green-500: oklch(65% 0.15 155);
+  --pr-yellow-500: oklch(80% 0.14 85);
+  --pr-red-500: oklch(58% 0.19 25);
+  --pr-blue-500: oklch(62% 0.15 245);
+
+  /* Type scale: modular, ratio ≈ 1.25 (kept compact per feedback) */
+  --pr-fs-300: 0.8125rem; /* 13px caption floor   */
+  --pr-fs-400: 0.875rem; /* 14px dense body      */
+  --pr-fs-500: 0.9375rem; /* 15px default body    */
+  --pr-fs-600: 1.0625rem; /* 17px lead            */
+  --pr-fs-700: 1.1875rem; /* 19px sub-heading     */
+  --pr-fs-800: 1.375rem; /* 22px heading         */
+  --pr-fs-900: 1.625rem; /* 26px section title   */
+
+  /* Easing */
+  --pr-ease-out: cubic-bezier(0.32, 0.72, 0.35, 1);
+}
+
+/* 2 ─ Semantic tokens · Light --------------------------------------------- */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Surfaces */
+  --ds-color-bg-page: var(--pr-paper-50);
+  --ds-color-bg-surface: var(--pr-paper-0);
+  --ds-color-bg-subtle: var(--pr-paper-100);
+  --ds-color-bg-active: var(--pr-paper-150);
+
+  /* Foreground */
+  --ds-color-fg-default: var(--pr-ink-800);
+  --ds-color-fg-muted: var(--pr-ink-500);
+  --ds-color-fg-subtle: var(--pr-ink-400);
+  --ds-color-fg-on-brand: var(--pr-jade-900);
+
+  /* Brand / interactive — jade */
+  --ds-color-brand-default: var(--pr-jade-400);
+  --ds-color-brand-hover: var(--pr-jade-500);
+  --ds-color-brand-text: var(--pr-jade-800);
+  --ds-color-brand-subtle: oklch(93% 0.04 162);
+
+  /* Lines */
+  --ds-color-border-subtle: var(--pr-paper-150);
+  --ds-color-border-strong: var(--pr-paper-200);
+
+  /* States */
+  --ds-color-focus: var(--pr-jade-700);
+  --ds-color-scrim: oklch(20% 0.02 260 / 0.45);
+
+  /* Feedback */
+  --ds-color-success: var(--pr-green-500);
+  --ds-color-warning: var(--pr-yellow-500);
+  --ds-color-danger: var(--pr-red-500);
+  --ds-color-info: var(--pr-blue-500);
+
+  /* Elevation */
+  --ds-shadow-card: 0 1px 2px oklch(25% 0.03 285 / 0.05);
+  --ds-shadow-lift:
+    0 2px 4px oklch(25% 0.03 285 / 0.05), 0 12px 32px -12px oklch(25% 0.03 285 / 0.18);
+  --ds-shadow-panel: 0 16px 48px -12px oklch(20% 0.03 260 / 0.35);
+
+  /* Spacing semantics */
+  --ds-space-gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --ds-space-section: clamp(2.75rem, 6vw, 4rem);
+
+  /* Layout metrics */
+  --ds-sidebar-width: 19rem;
+  --ds-measure-prose: 66ch;
+}
+
+/* 2 ─ Semantic tokens · Dark: mirrors shadcn/ui default dark theme --------
+   Neutral near-black page, card-step surfaces, translucent white borders,
+   inverted near-white primary. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ds-color-bg-page: var(--pr-night-900);
+  --ds-color-bg-surface: var(--pr-night-800);
+  --ds-color-bg-subtle: var(--pr-night-800);
+  --ds-color-bg-active: var(--pr-night-700);
+
+  --ds-color-fg-default: var(--pr-night-50);
+  --ds-color-fg-muted: var(--pr-night-300);
+  --ds-color-fg-subtle: var(--pr-night-400);
+  --ds-color-fg-on-brand: var(--pr-night-800);
+
+  --ds-color-brand-default: var(--pr-night-100);
+  --ds-color-brand-hover: var(--pr-night-150);
+  --ds-color-brand-text: var(--pr-jade-300);
+  --ds-color-brand-subtle: oklch(27% 0.055 162);
+
+  --ds-color-border-subtle: oklch(1 0 0 / 10%);
+  --ds-color-border-strong: oklch(1 0 0 / 16%);
+
+  --ds-color-focus: var(--pr-night-300);
+  --ds-color-scrim: oklch(0 0 0 / 0.6);
+
+  --ds-color-success: var(--pr-green-500);
+  --ds-color-warning: var(--pr-yellow-500);
+  --ds-color-danger: oklch(0.704 0.191 22.216);
+  --ds-color-info: var(--pr-blue-500);
+
+  --ds-shadow-card: 0 1px 2px oklch(0 0 0 / 0.3);
+  --ds-shadow-lift: 0 2px 4px oklch(0 0 0 / 0.3), 0 12px 32px -12px oklch(0 0 0 / 0.5);
+  --ds-shadow-panel: 0 16px 48px -12px oklch(0 0 0 / 0.6);
+}
+
+/* 3 ─ Tailwind theme map --------------------------------------------------- */
+@theme inline {
+  /* Colors → utilities: bg-page, text-fg, text-fg-muted, border-line, … */
+  --color-page: var(--ds-color-bg-page);
+  --color-surface: var(--ds-color-bg-surface);
+  --color-subtle: var(--ds-color-bg-subtle);
+  --color-active: var(--ds-color-bg-active);
+
+  --color-fg: var(--ds-color-fg-default);
+  --color-fg-muted: var(--ds-color-fg-muted);
+  --color-fg-subtle: var(--ds-color-fg-subtle);
+  --color-on-brand: var(--ds-color-fg-on-brand);
+
+  --color-brand: var(--ds-color-brand-default);
+  --color-brand-hover: var(--ds-color-brand-hover);
+  --color-brand-text: var(--ds-color-brand-text);
+  --color-brand-subtle: var(--ds-color-brand-subtle);
+
+  --color-line: var(--ds-color-border-subtle);
+  --color-line-strong: var(--ds-color-border-strong);
+
+  --color-success: var(--ds-color-success);
+  --color-warning: var(--ds-color-warning);
+  --color-danger: var(--ds-color-danger);
+  --color-info: var(--ds-color-info);
+
+  --color-scrim: var(--ds-color-scrim);
+
+  /* Shadows → shadow-card, shadow-lift, shadow-panel */
+  --shadow-card: var(--ds-shadow-card);
+  --shadow-lift: var(--ds-shadow-lift);
+  --shadow-panel: var(--ds-shadow-panel);
+
+  /* Semantic spacing steps → p-gutter, gap-section, mt-section, … */
+  --spacing-gutter: var(--ds-space-gutter);
+  --spacing-section: var(--ds-space-section);
+
+  /* DEPRECATED compat aliases, used by pages not yet migrated.
+     Remove once every page consumes the semantic names above. */
+  --color-base-100: var(--ds-color-bg-page);
+  --color-base-200: var(--ds-color-bg-subtle);
+  --color-base-300: var(--ds-color-bg-active);
+  --color-base-content: var(--ds-color-fg-default);
+  --color-primary: var(--ds-color-brand-default);
+  --color-primary-content: var(--ds-color-fg-on-brand);
+  --color-accent: var(--ds-color-brand-default);
+  --color-secondary: var(--ds-color-brand-subtle);
+
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
-@plugin "daisyui" {
-  themes:;
-  include: rootcolor, rootscrolllock, rootscrollgutter, drawer, button, badge;
+/* Typography: semantic text styles (role-named, never pixel-named) --------
+   Line-height groups: display 1.05 · titles 1.15 · headings 1.25 · body 1.6 */
+@layer components {
+  .t-display {
+    font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    font-weight: 700;
+  }
+
+  .t-title {
+    font-size: var(--pr-fs-900);
+    line-height: 1.15;
+    letter-spacing: -0.014em;
+    font-weight: 700;
+  }
+
+  .t-heading {
+    font-size: var(--pr-fs-800);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+
+  .t-subheading {
+    font-size: var(--pr-fs-700);
+    line-height: 1.25;
+    letter-spacing: -0.008em;
+    font-weight: 600;
+  }
+
+  .t-lead {
+    font-size: var(--pr-fs-600);
+    line-height: 1.55;
+    font-weight: 450;
+  }
+
+  .t-body {
+    font-size: var(--pr-fs-500);
+    line-height: 1.65;
+  }
+
+  .t-body-sm {
+    font-size: var(--pr-fs-400);
+    line-height: 1.6;
+  }
+
+  .t-caption {
+    font-size: var(--pr-fs-300);
+    line-height: 1.5;
+    letter-spacing: 0.005em;
+  }
+
+  .t-overline {
+    font-size: var(--pr-fs-300);
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ds-color-fg-muted);
+  }
+
+  /* Inline text link */
+  .link {
+    color: var(--ds-color-brand-text);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--ds-color-brand-text) 35%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 120ms ease;
+  }
+  .link:hover {
+    text-decoration-color: var(--ds-color-brand-text);
+  }
+  /* Compat: underline only on hover/focus */
+  .link.link-hover {
+    text-decoration: none;
+  }
+  .link.link-hover:hover,
+  .link.link-hover:focus-visible {
+    text-decoration: underline;
+  }
+
+  /* Buttons -----------------------------------------------------------------
+     Sizes: md 44px tall (touch-safe) · sm 36px · icon 44×44
+     Variants carry their own state colors. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: var(--pr-fs-400);
+    font-weight: 550;
+    line-height: 1;
+    border-radius: 0.625rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition:
+      background-color 140ms ease,
+      border-color 140ms ease,
+      color 140ms ease,
+      box-shadow 140ms ease,
+      transform 80ms ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .btn-md {
+    height: 2.75rem;
+    padding-inline: 1.25rem;
+  }
+  .btn-sm {
+    height: 2.25rem;
+    padding-inline: 0.875rem;
+    font-size: var(--pr-fs-300);
+    border-radius: 0.5rem;
+  }
+  .btn-icon {
+    height: 2.75rem;
+    width: 2.75rem;
+    padding: 0;
+    border-radius: 0.625rem;
+  }
+
+  .btn-primary {
+    background: var(--ds-color-brand-default);
+    color: var(--ds-color-fg-on-brand);
+    box-shadow: var(--ds-shadow-card);
+  }
+  .btn-primary:hover {
+    background: var(--ds-color-brand-hover);
+  }
+
+  .btn-secondary {
+    background: var(--ds-color-bg-surface);
+    border-color: var(--ds-color-border-strong);
+    color: var(--ds-color-fg-default);
+  }
+  .btn-secondary:hover {
+    background: var(--ds-color-bg-active);
+    border-color: var(--ds-color-fg-subtle);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ds-color-fg-muted);
+  }
+  .btn-ghost:hover {
+    background: var(--ds-color-bg-active);
+    color: var(--ds-color-fg-default);
+  }
+
+  /* Icon-only ghost control (header/sidebar actions) */
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    height: 2.75rem;
+    width: 2.75rem;
+    border-radius: 0.625rem;
+    color: var(--ds-color-fg-muted);
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      transform 80ms ease;
+  }
+  .icon-btn:hover {
+    background: var(--ds-color-bg-active);
+    color: var(--ds-color-fg-default);
+  }
+  .icon-btn:active {
+    transform: scale(0.94);
+  }
+
+  /* Tag: quiet white pill */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.4375rem;
+    border-radius: 999px;
+    border: 1px solid var(--ds-color-border-subtle);
+    background: var(--ds-color-bg-surface);
+    color: var(--ds-color-fg-muted);
+    font-size: var(--pr-fs-300);
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  /* Skip link, visible on keyboard focus only */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.625rem 1rem;
+    border-radius: 0.625rem;
+    background: var(--ds-color-bg-surface);
+    color: var(--ds-color-fg-default);
+    box-shadow: var(--ds-shadow-panel);
+    font-size: var(--pr-fs-400);
+    font-weight: 550;
+    transform: translateY(-200%);
+    transition: transform 120ms ease;
+  }
+  .skip-link:focus-visible {
+    transform: none;
+  }
+
+  /* Navigation drawer (pure CSS, no JS) -------------------------------------
+     < lg: fixed off-canvas panel + scrim, toggled by #site-nav checkbox
+     ≥ lg: static sticky column                                            */
+  .nav-panel {
+    position: fixed;
+    inset-block: 0;
+    left: 0;
+    z-index: 50;
+    width: min(var(--ds-sidebar-width), 86vw);
+    background: var(--ds-color-bg-subtle);
+    border-right: 1px solid var(--ds-color-border-subtle);
+    transform: translateX(-102%);
+    visibility: hidden;
+    transition:
+      transform 280ms var(--pr-ease-out),
+      visibility 0s 280ms;
+  }
+  :has(#site-nav:checked) .nav-panel {
+    transform: none;
+    visibility: visible;
+    box-shadow: var(--ds-shadow-panel);
+    transition-delay: 0s, 0s;
+  }
+  body:has(#site-nav:checked) {
+    overflow: hidden;
+  }
+
+  .nav-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: var(--ds-color-scrim);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+  :has(#site-nav:checked) .nav-scrim {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (min-width: 64rem) {
+    .nav-panel {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      width: var(--ds-sidebar-width);
+      flex-shrink: 0;
+      transform: none;
+      visibility: visible;
+      box-shadow: none;
+      transition: none;
+    }
+    .nav-scrim {
+      display: none;
+    }
+  }
 }
 
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-base-100: oklch(97.788% 0.004 56.375);
-  --color-base-200: oklch(93.982% 0.007 61.449);
-  --color-base-300: oklch(91.586% 0.006 53.44);
-  --color-base-content: oklch(23.574% 0.066 313.189);
-  --color-primary: oklch(85% 0.138 181.071);
-  --color-primary-content: oklch(43% 0.078 188.216);
-  --color-secondary: oklch(89% 0.061 343.231);
-  --color-secondary-content: oklch(45% 0.187 3.815);
-  --color-accent: oklch(90% 0.076 70.697);
-  --color-accent-content: oklch(47% 0.157 37.304);
-  --color-neutral: oklch(27% 0.006 286.033);
-  --color-neutral-content: oklch(92% 0.004 286.32);
-  --color-info: oklch(68% 0.169 237.323);
-  --color-info-content: oklch(29% 0.066 243.157);
-  --color-success: oklch(69% 0.17 162.48);
-  --color-success-content: oklch(26% 0.051 172.552);
-  --color-warning: oklch(79% 0.184 86.047);
-  --color-warning-content: oklch(28% 0.066 53.813);
-  --color-error: oklch(64% 0.246 16.439);
-  --color-error-content: oklch(27% 0.105 12.094);
-  --radius-selector: 1rem;
-  --radius-field: 2rem;
-  --radius-box: 1rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 2px;
-  --depth: 1;
-  --noise: 0;
-}
+/* 4 ─ Base ----------------------------------------------------------------- */
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+    background: var(--ds-color-bg-page);
+  }
 
-@plugin "daisyui/theme" {
-  name: "dark";
-  --color-base-100: oklch(0% 0 0);
-  --color-base-200: oklch(19% 0 0);
-  --color-base-300: oklch(22% 0 0);
-  --color-base-content: oklch(87.609% 0 0);
-  --color-primary: oklch(35% 0 0);
-  --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(35% 0 0);
-  --color-secondary-content: oklch(100% 0 0);
-  --color-accent: oklch(35% 0 0);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(35% 0 0);
-  --color-neutral-content: oklch(100% 0 0);
-  --color-info: oklch(45.201% 0.313 264.052);
-  --color-info-content: oklch(89.04% 0.062 264.052);
-  --color-success: oklch(51.975% 0.176 142.495);
-  --color-success-content: oklch(90.395% 0.035 142.495);
-  --color-warning: oklch(96.798% 0.211 109.769);
-  --color-warning-content: oklch(19.359% 0.042 109.769);
-  --color-error: oklch(62.795% 0.257 29.233);
-  --color-error-content: oklch(12.559% 0.051 29.233);
-  --radius-selector: 1rem;
-  --radius-field: 2rem;
-  --radius-box: 1rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 2px;
-  --depth: 1;
-  --noise: 0;
+  body {
+    background: var(--ds-color-bg-page);
+    color: var(--ds-color-fg-default);
+    font-family: var(--font-sans);
+    font-size: var(--pr-fs-500);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Heading hierarchy driven by the type scale */
+  h1 {
+    font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: var(--pr-fs-900);
+    line-height: 1.15;
+    letter-spacing: -0.014em;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: var(--pr-fs-800);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+  h4 {
+    font-size: var(--pr-fs-700);
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  hr {
+    border-color: var(--ds-color-border-subtle);
+  }
+
+  ::selection {
+    background: var(--ds-color-brand-subtle);
+    color: var(--ds-color-fg-default);
+  }
+
+  /* Single consistent focus treatment (WCAG-visible, offset from content) */
+  :focus-visible {
+    outline: 2px solid var(--ds-color-focus);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

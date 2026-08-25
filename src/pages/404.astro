@@ -1,20 +1,27 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "@components/Button.astro";
 const prefetchUrls = ["/"];
 const includeSidebar = false;
 ---
 
 <BaseLayout
   title="404: Not Found"
-  description="Oops, something went wront"
+  description="Oops, something went wrong"
   theme="light"
   {includeSidebar}
   {prefetchUrls}
 >
-  <div class="text-center">
-    <h1 class="text-9xl font-bold mb-4">🏝</h1>
-    <h1 class="text-9xl font-bold mb-2">404</h1>
-    <h3 class="text-2xl">The page you're looking for couldn't be found.</h3>
-    <a class="btn btn-accent mt-9" href="/">Home</a>
+  <div class="pt-16 text-center">
+    <p class="text-8xl" aria-hidden="true">🏝</p>
+    <h1 class="mt-6">404</h1>
+    <p class="t-lead mx-auto mt-3 max-w-prose text-fg-muted text-balance">
+      The page you're looking for couldn't be found. It may have been moved or
+      never existed.
+    </p>
+    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+      <Button variant="primary" href="/">Back home</Button>
+      <Button variant="secondary" href="/projects">Browse projects</Button>
+    </div>
   </div>
 </BaseLayout>

@@ -32,19 +32,29 @@ const props = Astro.props;
     <slot name="head" />
   </head>
   <body>
-    <div
-      class:list={[
-        "bg-base-100 font-sans",
-        { "drawer lg:drawer-open": props.includeSidebar },
-      ]}
-    >
-      {props.includeSidebar && <input id="my-drawer" type="checkbox" class="drawer-toggle" />}
-      <div class:list={["bg-base-100", { "drawer-content": props.includeSidebar }]}>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <div class:list={["flex min-h-dvh", { "lg:flex-row": props.includeSidebar }]}>
+      {props.includeSidebar && (
+        <>
+          <input
+            id="site-nav"
+            type="checkbox"
+            class="sr-only"
+            aria-label="Toggle navigation menu"
+          />
+          <SideBar {...props} />
+          <label for="site-nav" class="nav-scrim" aria-hidden="true"></label>
+        </>
+      )}
+
+      <div class="flex min-w-0 flex-1 flex-col">
         {includeHeader && <Header {...props} />}
-        <div class="md:flex md:justify-center">
+        <div class="flex justify-center">
           <main
+            id="main-content"
             class:list={[
-              "p-6 px-12 pt-10 lg:max-w-[900px] max-w-[100vw]",
+              "w-full max-w-[46rem] px-gutter pt-5 pb-16 lg:pt-7",
               Astro.props.class,
             ]}
           >
@@ -53,7 +63,6 @@ const props = Astro.props;
         </div>
         {includeFooter && <Footer />}
       </div>
-      {props.includeSidebar && <SideBar {...props} />}
     </div>
   </body>
 </html>

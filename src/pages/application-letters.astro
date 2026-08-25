@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/Button.astro";
+import PageHeader from "@components/PageHeader.astro";
 import { getCollection } from "astro:content";
 
 const letters = (await getCollection("applicationLetters")).sort((a, b) =>
@@ -16,34 +18,35 @@ const prefetchUrls = ["/", "/cv", "/projects"];
 ---
 
 <BaseLayout
-    class="space-y-8"
     title="Application Letters"
     description="List of application letters written by Hans Askov"
     theme="light"
     prefetchUrls={prefetchUrls}
     includeSidebar={true}
 >
-    <h1 class="text-2xl lg:text-5xl font-semibold text-base-content/85">
-        Application Letters
-    </h1>
+    <PageHeader
+        title="Application Letters"
+        description="Letters I have written when applying for positions, kept here as writing samples."
+    />
 
-    <ul class="space-y-4">
+    <ul class="mt-8 divide-y divide-line">
         {
             letters.map((letter) => (
-                <li class="flex items-center justify-between gap-4">
+                <li class="flex items-center justify-between gap-4 py-3.5">
                     <a
                         href={`/application-letter/${letter.data.slug}`}
-                        class="link link-hover font-medium"
+                        class="link link-hover t-body-sm font-medium"
                     >
                         {humanize(letter.data.slug)}
                     </a>
-                    <a
+                    <Button
+                        variant="secondary"
+                        size="sm"
                         href={`/application-letter-${letter.data.slug}.pdf`}
                         download
-                        class="btn btn-sm btn-outline"
                     >
                         Download
-                    </a>
+                    </Button>
                 </li>
             ))
         }

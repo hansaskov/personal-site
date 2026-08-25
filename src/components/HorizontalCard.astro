@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getImage } from "astro:assets";
+import Tag from "@components/Tag.astro";
 
 type Props = CollectionEntry<"projects">["data"];
 
@@ -13,31 +14,26 @@ const hero = await getImage({ src: img, format: "webp", width: width, height: he
 
 ---
 
-<Fragment slot="head">
-  <link rel="preload" as="image" href={hero.src} fetchpriority="high" />
-</Fragment>
+<article class="group rounded-xl border border-line bg-surface shadow-card transition-[box-shadow,border-color,translate] duration-200 ease-out hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lift">
+  <a href={url} target={target} rel="noopener noreferrer" class="flex h-full flex-col items-center gap-5 p-5 md:flex-row">
+    <img
+      class="w-full max-w-52 shrink-0 rounded-lg border border-line"
+      src={hero.src}
+      width={width}
+      height={height}
+      alt={title}
+      loading="lazy"
+    />
 
-<div class="rounded-lg bg-base-100 hover:shadow-xl transition ease-in-out hover:scale-[102%]">
-  <a href={url} target={target}>
-    <div class="flex flex-col md:flex-row items-center gap-4 p-4">
-
-        <img
-          class="max-w-full md:max-w-52 rounded-lg"
-          src={hero.src}
-          width={width}
-          height={height}
-          alt={title}
-        />
-
-      <div class="grow w-full">
-        <h1 class="text-xl font-bold">
+    <div class="min-w-0 grow">
+      <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+        <h3 class="t-subheading text-fg transition-colors group-hover:text-brand-text">
           {title}
-          {badge && <span class="badge badge-secondary mx-2">{badge}</span>}
-        </h1>
-        <p class="text-sm font-light">{year}</p>
-        <p class="pt-1 text-1xl">{desc}</p>
-
+        </h3>
+        {badge && <Tag>{badge}</Tag>}
       </div>
+      <p class="t-caption mt-0.5 text-fg-subtle">{year}</p>
+      <p class="t-body-sm mt-2 min-h-[calc(1.6em_*_4)] text-fg-muted line-clamp-4">{desc}</p>
     </div>
   </a>
-</div>
+</article>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/Button.astro";
 import HorizontalCard from "@components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
 
@@ -13,75 +14,99 @@ const includeSidebar = true;
 ---
 
 <BaseLayout
-  class="space-y-8"
   title="Home"
   description="Personal website for Hans Askov"
   theme="light"
   {prefetchUrls}
   {includeSidebar}
 >
-  <div class="space-y-1 not-prose" >
-    <h1 class="text-2xl lg:text-5xl font-semibold text-base-content/85">Hans Askov</h1>
-    <p class="text-lg lg:text-xl">Software Engineer</p>
-    <p class="text-md lg:text-lg font-light">Odense C, Region of Southern Denmark, Denmark</p>
-  </div>
-  
-  <div class="flex gap-8 justify-between sm:justify-start md:justify-start">
-    <a class="btn w-full sm:w-40 shrink" href="/cv">CV</a>
-    <a class="btn w-full sm:w-40 shrink btn-outline" href="/projects"
-      >Projects</a
-    >
-  </div>
+  <section aria-label="Introduction">
+    <h1 class="text-balance">Hans Askov</h1>
 
-  <div class="space-y-4">
-    <h2 class="text-2xl w-full font-bold">About Me</h2>
-    <p>
-      I'm Hans, a software engineer who specializes in fullstack web development
-      and building systems that hold up under real load.
-    </p>
-    <p>
-      I care deeply about reducing complexity and about the developer
-      experience. I have tried and do love many frontend frameworks like React,
-      Vue, and Svelte, but in my experience, they all suffer from the same
-      fundemental issue of duplicated logic between the frontend and backend. As
-      a fullstack developer, this adds a lot of complexity to any one project.
-      Most modern framework attempt to solve this by using javascript on both
-      the client and server, as it allows for shared logic like form validation.
-      While this does help, the core issue of dublicated state still remains.
-      The solution is to let go of client side javascript and shift where the
-      state is supposed to be, in the url or as part of the hypermedia. If you
-      want to learn more, i highly suggest reading <a
-        class="text-blue-600 underline"
-        href="https://htmx.org/essays/hateoas/">this post</a
-      > by Carson Gross, the creator of HTMX.
-    </p>
-    <p>
-      To put my money where my mouth is, this website uses zero JavaScript and
-      achieves instant page navigations using modern browser APIs like the
-      Speculations API. Currently, this is only available in Chrome, but it is
-      expected to come to Safari and Firefox eventually.
+    <p class="t-lead mt-3 text-fg-muted">Software Engineer</p>
+
+    <p class="t-caption mt-2 flex items-center gap-1.5 text-fg-subtle">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        aria-hidden="true"
+        class="shrink-0"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+        ></path>
+      </svg>
+      Odense C, Region of Southern Denmark, Denmark
     </p>
 
-    <p>
-      These days I'm looking for a backend or fullstack role where engineering
-      quality and cost discipline matter. If that's the kind of team you're
-      building, the inbox is open.
-    </p>
-  </div>
-  <div>
-    <h2 class="text-2xl w-full font-bold text-balance">
-      Latest projects {"</>"}
-    </h2>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <Button variant="primary" href="/cv">View CV</Button>
+      <Button variant="secondary" href="/projects">Browse projects</Button>
+    </div>
+  </section>
 
-    <div class="space-y-4">
+  <section aria-labelledby="about-heading" class="mt-section">
+    <h2 id="about-heading">About Me</h2>
+    <div class="t-body mt-4 space-y-4 text-fg-muted">
+      <p>
+        I'm Hans, a software engineer who specializes in fullstack web development
+        and building systems that hold up under real load.
+      </p>
+      <p>
+        I care deeply about reducing complexity and about the developer
+        experience. I have tried and do love many frontend frameworks like React,
+        Vue, and Svelte, but in my experience, they all suffer from the same
+        fundamental issue of duplicated logic between the frontend and backend. As
+        a fullstack developer, this adds a lot of complexity to any one project.
+        Most modern frameworks attempt to solve this by using javascript on both
+        the client and server, as it allows for shared logic like form validation.
+        While this does help, the core issue of duplicated state still remains.
+        The solution is to let go of client side javascript and shift where the
+        state is supposed to be, in the url or as part of the hypermedia. If you
+        want to learn more, i highly suggest reading <a
+          class="link"
+          href="https://htmx.org/essays/hateoas/">this post</a
+        > by Carson Gross, the creator of HTMX.
+      </p>
+      <p>
+        To put my money where my mouth is, this website uses zero JavaScript and
+        achieves instant page navigations using modern browser APIs like the
+        Speculations API. Currently, this is only available in Chrome, but it is
+        expected to come to Safari and Firefox eventually.
+      </p>
+      <p>
+        These days I'm looking for a backend or fullstack role where engineering
+        quality and cost discipline matter. If that's the kind of team you're
+        building, <a class="link" href="mailto:hans@askov.dk">the inbox is open</a>.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="projects-heading" class="mt-section">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 id="projects-heading" class="text-balance">Latest Projects</h2>
+      <a href="/projects" class="link link-hover t-body-sm shrink-0 font-medium"
+        >All projects</a
+      >
+    </div>
+
+    <div class="mt-5 space-y-4">
       {
-        featuredProjects.map((project, i) => (
-          <>
-            {i > 0 && <hr class="border-base-300" />}
-            <HorizontalCard {...project.data} />
-          </>
+        featuredProjects.map((project) => (
+          <HorizontalCard {...project.data} />
         ))
       }
     </div>
-  </div>
+  </section>
 </BaseLayout>

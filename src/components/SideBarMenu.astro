@@ -44,36 +44,36 @@ const pathname = Astro.url.pathname;
 
 ---
 
-<nav class="grow shrink overflow-y-auto w-full text-sm py-2">
-    <ul class="flex flex-col space-y-2">
+<nav class="mt-10 flex-1">
+    <ul class="flex flex-col gap-1" aria-label="Main navigation">
         {
-            pages.map(({ name, url }) => (
-                <li>
-                    <a
-                        class:list={[
-                            "block pl-4 py-3 rounded-field transition-colors hover:bg-base-300",
-                            {
-                                "bg-base-300":
-                                    url === "/"
-                                        ? pathname === url
-                                        : pathname.startsWith(url),
-                            },
-                        ]}
-                        href={url}
-                    >
-                        {name}
-                    </a>
-                </li>
-            ))
+            pages.map(({ name, url }) => {
+                const active = url === "/"
+                    ? pathname === url
+                    : pathname.startsWith(url);
+                return (
+                    <li>
+                        <a
+                            class:list={[
+                                "t-body-sm block rounded-lg px-4 py-2.5 font-medium transition-colors hover:bg-active",
+                                active && "bg-brand-subtle font-semibold text-brand-text",
+                            ]}
+                            aria-current={active ? "page" : undefined}
+                            href={url}
+                        >
+                            {name}
+                        </a>
+                    </li>
+                );
+            })
         }
     </ul>
 
-    <div class="pt-8 space-y-8 pl-4">
+    <div class="mt-10 space-y-8 px-4">
         {personalInfo && (
-            <div class="space-y-2">
-            <h2 class="font-semibold">Personal Information</h2>
-            <div>
-                <a class="inline-flex items-end gap-2 leading-none">
+            <div class="space-y-2.5">
+                <h2 class="t-overline">Contact</h2>
+                <div class="t-body-sm flex items-center gap-2 leading-snug text-fg-muted">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -82,6 +82,8 @@ const pathname = Astro.url.pathname;
                         viewBox="0 0 24 24"
                         stroke-width="2"
                         stroke="currentColor"
+                        aria-hidden="true"
+                        class="shrink-0"
                     >
                         <path
                             stroke-linecap="round"
@@ -94,103 +96,104 @@ const pathname = Astro.url.pathname;
                         ></path>
                     </svg>
                     {personalInfo.name}
-                </a>
-            </div>
-            <div>
-                <a
-                    href={`mailto:${personalInfo.email}`}
-                    title={personalInfo.email}
-                    class="hover:font-semibold hover:text-base-content transition-colors"
-                >
-                    <!-- Mail icon -->
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                        class="inline align-middle mr-2"
+                </div>
+                <div>
+                    <a
+                        href={`mailto:${personalInfo.email}`}
+                        title={personalInfo.email}
+                        class="t-body-sm inline-flex items-center gap-2 leading-snug text-fg-muted transition-colors hover:text-fg"
                     >
-                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
-                        ></path>
-                    </svg>
-                    {personalInfo.email}
-                </a>
-            </div>
-
-            <div>
-                <a class="inline-flex items-end gap-2 leading-none">
-                    <!-- Phone icon -->
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-                        <path
-                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                        ></path>
-                    </svg>
-                    {personalInfo.phone}
-                </a>
-            </div>
-
-            <div>
-                <a class="inline-flex items-end gap-2 leading-none">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke="currentColor"
-                    >
-                        <path
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
-                        <path
+                            aria-hidden="true"
+                            class="shrink-0"
+                        >
+                            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
+                            ></path>
+                        </svg>
+                        {personalInfo.email}
+                    </a>
+                </div>
+
+                <div>
+                    <span class="t-body-sm inline-flex items-center gap-2 leading-snug text-fg-muted">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                        ></path>
-                    </svg>
-                    {personalInfo.location}
-                </a>
+                            aria-hidden="true"
+                            class="shrink-0"
+                        >
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                            ></path>
+                        </svg>
+                        {personalInfo.phone}
+                    </span>
+                </div>
+
+                <div>
+                    <span class="t-body-sm inline-flex items-center gap-2 leading-snug text-fg-muted">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                            aria-hidden="true"
+                            class="shrink-0"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                            ></path>
+                        </svg>
+                        {personalInfo.location}
+                    </span>
+                </div>
             </div>
-        </div>
         )}
 
         {languages && (
-            <div class="space-y-2">
-                <h2 class="font-semibold">Languages</h2>
+            <div class="space-y-2.5">
+                <h2 class="t-overline">Languages</h2>
                 {languages.map((language) => (
-                    <div class="flex justify-between items-center">
-                        {language.name}
-                        <div class="flex gap-1 items-center">
+                    <div class="t-body-sm flex items-center justify-between gap-4 text-fg-muted">
+                        <span>{language.name}</span>
+                        <div
+                            class="flex items-center gap-1"
+                            role="img"
+                            aria-label={`${language.name}: ${language.rating} out of 4`}
+                        >
                             {[1, 2, 3, 4].map((star) => (
-                                <div
+                                <span
                                     class:list={[
-                                        "size-3.5 rounded-full",
-                                        star <= language.rating ? "bg-base-content" : "bg-base-300",
+                                        "rounded-full",
+                                        star <= language.rating ? "size-3 bg-fg" : "size-3 bg-line-strong",
                                     ]}
-                                    aria-label={`${star} circle`}
-                                    aria-current={star === language.rating ? "true" : undefined}
-                                >
-                                </div>
+                                />
                             ))}
                         </div>
                     </div>
@@ -199,14 +202,12 @@ const pathname = Astro.url.pathname;
         )}
 
         {skills && (
-            <div class="space-y-2">
-                <h2 class="font-semibold">Skills</h2>
-                <div class="space-x-1 space-y-1">
+            <div class="space-y-2.5">
+                <h2 class="t-overline">Skills</h2>
+                <div class="flex flex-wrap gap-1.5">
                     {
                         skills.map((skill) => (
-                        <span class="badge hover:badge-accent transition-colors">
-                            {skill}
-                        </span>
+                            <span class="tag">{skill}</span>
                         ))
                     }
                 </div>
@@ -214,9 +215,9 @@ const pathname = Astro.url.pathname;
         )}
 
         {aboutMe && (
-            <div class="space-y-2">
-                <h2 class="font-semibold">About me</h2>
-                <p>
+            <div class="space-y-2.5">
+                <h2 class="t-overline">About me</h2>
+                <p class="t-body-sm text-fg-muted">
                     {aboutMe}
                 </p>
             </div>

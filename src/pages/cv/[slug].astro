@@ -46,20 +46,18 @@ const { title, intro, skills, experiances, educations } = CV.data;
     skills={skills}
     aboutMe="My hobbies includes tinkering with homeservers and jogging along Odense River."
 >
-    <div class="space-y-4">
-        <h1 class="text-2xl lg:text-5xl font-semibold text-base-content/85">
-            {title}
-        </h1>
-        <p>{intro}</p>
-    </div>
+    <header class="space-y-3.5">
+        <h1 class="text-balance">{title}</h1>
+        <p class="text-fg-muted">{intro}</p>
+    </header>
 
-    <div class="space-y-4">
-        <h2 class="text-lg lg:text-2xl font-semibold">Experience</h2>
+    <div class="mt-section space-y-5">
+        <h2>Experience</h2>
         <TimeLine experiances={experiances} />
     </div>
 
-    <div class="space-y-4">
-        <h2 class="text-lg lg:text-2xl font-semibold">Education</h2>
+    <div class="mt-section space-y-5">
+        <h2>Education</h2>
         <TimeLine experiances={educations} />
     </div>
 </BaseLayout>

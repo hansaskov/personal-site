@@ -9,10 +9,10 @@ export type Props = Role;
 const { title, year, description, duration, location } = Astro.props;
 ---
 
-<h4 class="font-semibold text-balance">
+<h4 class="t-body-sm font-semibold text-balance">
   {title} - {location}
 </h4>
-<span class="font-light text-sm text-balance">
+<span class="t-caption block text-fg-subtle">
   {year} • {duration}
 </span>
-<div class="text-pretty">{description}</div>
+<div class="t-body-sm mt-1 text-pretty text-fg-muted">{description}</div>

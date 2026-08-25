@@ -21,9 +21,9 @@ const props = Astro.props;
             <TimeLineHeader {...experiance} />
             {experiance.roles.map((role) => (
               <div class="flex gap-4 pl-4">
-                <div class="hidden md:block ">
-                  <span class="size-4 bg-base-content block rounded-full mt-1" />
-                  <span class="bg-base-content h-full block w-0.5 translate-x-[7px]" />
+                <div class="hidden md:block">
+                  <span class="bg-fg mt-1.5 block size-3 rounded-full" />
+                  <span class="bg-fg block h-full w-0.5 translate-x-[5px]" />
                 </div>
                 <div>
                   <TimeLineBody {...role} />
