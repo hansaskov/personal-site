@@ -3,22 +3,20 @@ const today = new Date();
 const email = "hans@askov.dk";
 ---
 
-<div class="h-16">
-    <footer class="mt-auto border-t border-line px-gutter flex h-full items-center">
-        <div
-            class="t-caption mx-auto flex max-w-[46rem] flex-wrap items-center justify-center gap-x-3 gap-y-1 text-fg-muted"
-        >
-            <span>Hans Askov</span>
+<footer
+    class="shrink-0 mt-auto border-t border-line px-gutter h-16 flex items-center justify-center"
+>
+    <div class="t-caption text-fg-muted flex justify-center items-center gap-3">
+        <span>Hans Askov</span>
 
-            <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
+        <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
 
-            <span>{today.getFullYear()}</span>
+        <span>{today.getFullYear()}</span>
 
-            <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
+        <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
 
-            <a href={`mailto:${email}`} class="link link-hover">
-                {email}
-            </a>
-        </div>
-    </footer>
-</div>
+        <a href={`mailto:${email}`} class="link link-hover">
+            {email}
+        </a>
+    </div>
+</footer>
