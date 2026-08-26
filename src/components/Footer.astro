@@ -3,18 +3,22 @@ const today = new Date();
 const email = "hans@askov.dk";
 ---
 
-<footer class="mt-auto border-t border-line px-gutter py-8">
-  <div class="t-caption mx-auto flex max-w-[46rem] flex-wrap items-center justify-center gap-x-3 gap-y-1 text-fg-muted">
-    <span>Hans Askov</span>
+<div class="h-16">
+    <footer class="mt-auto border-t border-line px-gutter py-5">
+        <div
+            class="t-caption mx-auto flex max-w-[46rem] flex-wrap items-center justify-center gap-x-3 gap-y-1 text-fg-muted"
+        >
+            <span>Hans Askov</span>
 
-    <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
+            <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
 
-    <span>{today.getFullYear()}</span>
+            <span>{today.getFullYear()}</span>
 
-    <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
+            <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
 
-    <a href={`mailto:${email}`} class="link link-hover">
-      {email}
-    </a>
-  </div>
-</footer>
+            <a href={`mailto:${email}`} class="link link-hover">
+                {email}
+            </a>
+        </div>
+    </footer>
+</div>

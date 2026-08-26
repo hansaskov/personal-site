@@ -1,14 +1,14 @@
 ---
 interface Props {
     download_button?: {
-        url: string,
-        title: string,
+        url: string;
+        title: string;
     };
 }
 const { download_button } = Astro.props;
 ---
 
-<div class="shrink-0 border-t border-line bg-subtle">
+<div class="shrink-0 border-t border-line bg-subtle h-16">
     <div class="flex items-center justify-center gap-1 px-6 py-5 lg:px-7">
         <a
             href="https://github.com/hansaskov"
