@@ -11,6 +11,7 @@
     "check": "astro check",
     "lint": "oxlint --fix",
     "format": "oxfmt",
+    "test": "playwright test",
     "generate-types": "wrangler types"
   },
   "dependencies": {
