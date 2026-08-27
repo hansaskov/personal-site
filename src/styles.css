@@ -35,9 +35,10 @@
   --pr-night-300: oklch(0.708 0 0); /* foreground muted       */
   --pr-night-400: oklch(0.6 0 0); /* foreground subtle      */
   --pr-night-600: oklch(0.323 0 0); /* hover fills            */
-  --pr-night-700: oklch(0.269 0 0); /* muted fills / accent   */
-  --pr-night-800: oklch(0.205 0 0); /* card / sidebar surface */
-  --pr-night-900: oklch(0.145 0 0); /* page background        */
+  --pr-night-700: oklch(0.269 0 0); /* active / muted fills   */
+  --pr-night-800: oklch(0.205 0 0); /* elevated surface (cards) */
+  --pr-night-900: oklch(0.155 0 0); /* page background        */
+  --pr-night-950: oklch(0.122 0 0); /* recessed surface (sidebar) */
 
   /* Jade accent ramp — green with cool undertone (active nav, brand) */
   --pr-jade-300: oklch(84% 0.08 162);
@@ -119,16 +120,17 @@
   --ds-measure-prose: 66ch;
 }
 
-/* 2 ─ Semantic tokens · Dark: mirrors shadcn/ui default dark theme --------
-   Neutral near-black page, card-step surfaces, translucent white borders,
-   inverted near-white primary. */
+/* 2 ─ Semantic tokens · Dark ----------------------------------------------
+   Elevation model, mirroring the light theme's hierarchy: surfaces get
+   brighter as they sit closer to the viewer (inverted lightness ramp).
+   Sidebar is the deepest recess → page background → cards are closest. */
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --ds-color-bg-page: var(--pr-night-900);
-  --ds-color-bg-surface: var(--pr-night-800);
-  --ds-color-bg-subtle: var(--pr-night-800);
-  --ds-color-bg-active: var(--pr-night-700);
+  --ds-color-bg-page: var(--pr-night-800);
+  --ds-color-bg-surface: var(--pr-night-700);
+  --ds-color-bg-subtle: var(--pr-night-900);
+  --ds-color-bg-active: var(--pr-night-600);
 
   --ds-color-fg-default: var(--pr-night-50);
   --ds-color-fg-muted: var(--pr-night-300);
