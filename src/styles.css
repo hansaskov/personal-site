@@ -19,12 +19,10 @@
   --pr-paper-100: oklch(94.5% 0.007 78);
   --pr-paper-150: oklch(91% 0.008 76);
   --pr-paper-200: oklch(86% 0.01 74);
-  --pr-paper-700: oklch(30% 0.02 60);
 
   /* Ink neutrals (text, cool) */
   --pr-ink-400: oklch(55% 0.02 270);
   --pr-ink-500: oklch(46% 0.024 272);
-  --pr-ink-700: oklch(33% 0.03 280);
   --pr-ink-800: oklch(25% 0.032 285);
   --pr-ink-900: oklch(17% 0.026 285);
 
@@ -33,7 +31,7 @@
   --pr-night-100: oklch(0.922 0 0); /* primary (inverted)     */
   --pr-night-150: oklch(0.86 0 0); /* primary hover          */
   --pr-night-300: oklch(0.708 0 0); /* foreground muted       */
-  --pr-night-400: oklch(0.6 0 0); /* foreground subtle      */
+  --pr-night-400: oklch(0.65 0 0); /* foreground subtle      */
   --pr-night-600: oklch(0.323 0 0); /* hover fills            */
   --pr-night-700: oklch(0.269 0 0); /* active / muted fills   */
   --pr-night-800: oklch(0.205 0 0); /* elevated surface (cards) */
@@ -44,16 +42,9 @@
   --pr-jade-300: oklch(84% 0.08 162);
   --pr-jade-400: oklch(78% 0.095 162);
   --pr-jade-500: oklch(72% 0.11 162);
-  --pr-jade-600: oklch(64% 0.105 163);
   --pr-jade-700: oklch(56% 0.095 163);
   --pr-jade-800: oklch(43% 0.08 164);
   --pr-jade-900: oklch(32% 0.06 164);
-
-  /* Feedback anchors */
-  --pr-green-500: oklch(65% 0.15 155);
-  --pr-yellow-500: oklch(80% 0.14 85);
-  --pr-red-500: oklch(58% 0.19 25);
-  --pr-blue-500: oklch(62% 0.15 245);
 
   /* Type scale: modular, ratio ≈ 1.25 (kept compact per feedback) */
   --pr-fs-300: 0.8125rem; /* 13px caption floor   */
@@ -99,12 +90,6 @@
   --ds-color-focus: var(--pr-jade-700);
   --ds-color-scrim: oklch(20% 0.02 260 / 0.45);
 
-  /* Feedback */
-  --ds-color-success: var(--pr-green-500);
-  --ds-color-warning: var(--pr-yellow-500);
-  --ds-color-danger: var(--pr-red-500);
-  --ds-color-info: var(--pr-blue-500);
-
   /* Elevation */
   --ds-shadow-card: 0 1px 2px oklch(25% 0.03 285 / 0.05);
   --ds-shadow-lift:
@@ -148,11 +133,6 @@
   --ds-color-focus: var(--pr-night-300);
   --ds-color-scrim: oklch(0 0 0 / 0.6);
 
-  --ds-color-success: var(--pr-green-500);
-  --ds-color-warning: var(--pr-yellow-500);
-  --ds-color-danger: oklch(0.704 0.191 22.216);
-  --ds-color-info: var(--pr-blue-500);
-
   --ds-shadow-card: 0 1px 2px oklch(0 0 0 / 0.3);
   --ds-shadow-lift: 0 2px 4px oklch(0 0 0 / 0.3), 0 12px 32px -12px oklch(0 0 0 / 0.5);
   --ds-shadow-panel: 0 16px 48px -12px oklch(0 0 0 / 0.6);
@@ -179,11 +159,6 @@
   --color-line: var(--ds-color-border-subtle);
   --color-line-strong: var(--ds-color-border-strong);
 
-  --color-success: var(--ds-color-success);
-  --color-warning: var(--ds-color-warning);
-  --color-danger: var(--ds-color-danger);
-  --color-info: var(--ds-color-info);
-
   --color-scrim: var(--ds-color-scrim);
 
   /* Shadows → shadow-card, shadow-lift, shadow-panel */
@@ -195,17 +170,6 @@
   --spacing-gutter: var(--ds-space-gutter);
   --spacing-section: var(--ds-space-section);
 
-  /* DEPRECATED compat aliases, used by pages not yet migrated.
-     Remove once every page consumes the semantic names above. */
-  --color-base-100: var(--ds-color-bg-page);
-  --color-base-200: var(--ds-color-bg-subtle);
-  --color-base-300: var(--ds-color-bg-active);
-  --color-base-content: var(--ds-color-fg-default);
-  --color-primary: var(--ds-color-brand-default);
-  --color-primary-content: var(--ds-color-fg-on-brand);
-  --color-accent: var(--ds-color-brand-default);
-  --color-secondary: var(--ds-color-brand-subtle);
-
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
@@ -214,27 +178,6 @@
 /* Typography: semantic text styles (role-named, never pixel-named) --------
    Line-height groups: display 1.05 · titles 1.15 · headings 1.25 · body 1.6 */
 @layer components {
-  .t-display {
-    font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
-    line-height: 1.05;
-    letter-spacing: -0.022em;
-    font-weight: 700;
-  }
-
-  .t-title {
-    font-size: var(--pr-fs-900);
-    line-height: 1.15;
-    letter-spacing: -0.014em;
-    font-weight: 700;
-  }
-
-  .t-heading {
-    font-size: var(--pr-fs-800);
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    font-weight: 600;
-  }
-
   .t-subheading {
     font-size: var(--pr-fs-700);
     line-height: 1.25;
@@ -335,12 +278,6 @@
     font-size: var(--pr-fs-300);
     border-radius: 0.5rem;
   }
-  .btn-icon {
-    height: 2.75rem;
-    width: 2.75rem;
-    padding: 0;
-    border-radius: 0.625rem;
-  }
 
   .btn-primary {
     background: var(--ds-color-brand-default);
@@ -359,15 +296,6 @@
   .btn-secondary:hover {
     background: var(--ds-color-bg-active);
     border-color: var(--ds-color-fg-subtle);
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--ds-color-fg-muted);
-  }
-  .btn-ghost:hover {
-    background: var(--ds-color-bg-active);
-    color: var(--ds-color-fg-default);
   }
 
   /* Icon-only ghost control (header/sidebar actions) */
@@ -543,6 +471,15 @@
     outline: 2px solid var(--ds-color-focus);
     outline-offset: 2px;
     border-radius: 0.25rem;
+  }
+
+  /* sr-only inputs hide their own ring — put it on the visible control
+     instead: the theme toggle (input inside label) and the nav drawer
+     hamburger (label bound by for="#site-nav") */
+  label:has(> input:focus-visible),
+  body:has(#site-nav:focus-visible) header label[for="site-nav"] {
+    outline: 2px solid var(--ds-color-focus);
+    outline-offset: 2px;
   }
 
   @media (prefers-reduced-motion: reduce) {
