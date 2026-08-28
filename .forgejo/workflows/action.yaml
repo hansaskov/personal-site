@@ -27,7 +27,7 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
         run: |
-          corepack enable
+          npm install -g pnpm@12.0.0
           pnpm install --frozen-lockfile
 
       - name: Map domain to localhost

@@ -1,10 +1,10 @@
 FROM node:lts AS runtime
 WORKDIR /app
 
-RUN corepack enable
+RUN npm install -g pnpm@12.0.0
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
