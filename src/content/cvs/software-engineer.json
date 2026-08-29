@@ -1,5 +1,6 @@
 {
   "slug": "software-engineer",
+  "lang": "en",
   "title": "Software Engineer",
   "intro": "I'm Hans, a software engineer focused on backend systems and data-heavy applications. I shipped Production Intelligence V4, a platform that ingests 420M+ machine vision inspections a year, and cut its dashboard load times from 10s to 0.1s and its storage costs by 92%.",
   "skills": [

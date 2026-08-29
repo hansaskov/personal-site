@@ -3,6 +3,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import HorizontalCard from "@components/HorizontalCard.astro";
 import PageHeader from "@components/PageHeader.astro";
 import { getCollection } from "astro:content";
+import { ui } from "@lib/i18n";
 
 const projects = (await getCollection("projects")).sort(
     (a, b) => a.data.order - b.data.order,
@@ -12,6 +13,7 @@ const includeSidebar = true;
 ---
 
 <BaseLayout
+    t={ui.en}
     title="Projects"
     description="List of all projects Hans Askov has worked on"
     theme="light"

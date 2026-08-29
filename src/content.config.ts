@@ -30,6 +30,7 @@ const cvs = defineCollection({
 
     return z.object({
       slug: z.string(),
+      lang: z.enum(["en", "da"]),
       title: z.string(),
       intro: z.string(),
       skills: z.array(z.string()),

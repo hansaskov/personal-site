@@ -20,7 +20,7 @@ Once the packages are installed you are ready to run Astro. Astro comes with a b
 pnpm run dev
 ```
 
-To build the projcet, including generating the pdf files, simply run pnpm build. 
+To build the projcet, including generating the pdf files, simply run pnpm build.
 
 ```bash
 pnpm build

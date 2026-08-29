@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TimeLine from "../../components/TimeLine.astro";
 import { getCollection } from "astro:content";
+import { ui } from "@lib/i18n";
 
 export async function getStaticPaths() {
     const cvs = await getCollection("cvs");
@@ -14,36 +15,29 @@ export async function getStaticPaths() {
 
 const { CV } = Astro.props;
 const { title, intro, skills, experiances, educations } = CV.data;
+const t = ui[CV.data.lang];
 ---
 
 <BaseLayout
+    t={t}
     title={title}
     description={`Hans Askov's ${title} CV`}
     theme="light"
     prefetchUrls={["/", "/projects"]}
     includeSidebar={true}
     download_button={{
-        title: "Download CV",
+        title: t.cv.download,
         url: `/hans-askov-cv-${CV.data.slug}.pdf`,
     }}
     personalInfo={{
         name: "Hans Askov",
         email: "hans@askov.dk",
         phone: "+45 24 96 51 87",
-        location: "Odense C, 5000, Denmark",
+        location: t.location,
     }}
-    languages={[
-        {
-            name: "Danish",
-            rating: 4,
-        },
-        {
-            name: "English",
-            rating: 4,
-        },
-    ]}
+    languages={t.spokenLanguages}
     skills={skills}
-    aboutMe="My hobbies includes tinkering with homeservers and jogging along Odense River."
+    aboutMe={t.cv.aboutMe}
 >
     <header class="space-y-3.5">
         <h1 class="text-balance">{title}</h1>
@@ -51,12 +45,12 @@ const { title, intro, skills, experiances, educations } = CV.data;
     </header>
 
     <div class="mt-section space-y-2">
-        <h2>Experience</h2>
+        <h2>{t.cv.experience}</h2>
         <TimeLine experiances={experiances} />
     </div>
 
     <div class="mt-section space-y-2">
-        <h2>Education</h2>
+        <h2>{t.cv.education}</h2>
         <TimeLine experiances={educations} />
     </div>
 </BaseLayout>

@@ -3,6 +3,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
 import PageHeader from "@components/PageHeader.astro";
 import { getCollection } from "astro:content";
+import { ui } from "@lib/i18n";
 
 const cvs = (await getCollection("cvs")).sort((a, b) =>
     a.data.slug.localeCompare(b.data.slug),
@@ -12,6 +13,7 @@ const prefetchUrls = ["/", "/cv", "/projects"];
 ---
 
 <BaseLayout
+    t={ui.en}
     title="CVs"
     description="List of CVs written by Hans Askov"
     theme="light"
@@ -36,7 +38,7 @@ const prefetchUrls = ["/", "/cv", "/projects"];
                         href={`/cv/${cv.data.slug}`}
                         class="link link-hover t-body-sm font-medium"
                     >
-                        {cv.data.title}
+                        {cv.data.slug}
                     </a>
                     <Button
                         variant="secondary"

@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
+import { ui } from "@lib/i18n";
 const prefetchUrls = ["/"];
 const includeSidebar = false;
 ---
 
 <BaseLayout
+  t={ui.en}
   title="404: Not Found"
   description="Oops, something went wrong"
   theme="light"

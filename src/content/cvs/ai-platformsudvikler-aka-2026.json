@@ -1,0 +1,97 @@
+{
+  "slug": "ai-platformsudvikler-aka-2026",
+  "lang": "da",
+  "title": "Backend Udvikler",
+  "intro": "Hej, mit navn er Hans, jeg er en backend udvikler med over 2 års erfaring i industrien. Det, der tiltaler mig ved jeres stilling, er, at platformen allerede er i produktion og bliver brugt. Jeg har selv stået med ansvaret for en fullstack applikation, hvor succes måles i positiv feedback fra rigtige brugere. Her har jeg brugt mange af de samme værktøjer som i søger efter, dette er blandt andet, Python, Agentic værktøjer som Claude Code, Containerization med Docker, CI/CD med github actions, SQL og Typescript, I min fritid holder jeg mig selv opdateret ved at arbejde med de nyeste værktøjer inden for agentic engineering, men uden at overlade den strategiske tænkning til modellerne. Hvis mit CV og ansøgning interesserer jer, vil jeg være mere end glad for at komme til en fysisk samtale.",
+  "skills": [
+    "Python",
+    "SQL",
+    "PostgreSQL",
+    "TypeScript",
+    "React",
+    "REST API",
+    "Docker",
+    "Containerization",
+    "CI/CD",
+    "GitHub Actions",
+    "AWS"
+  ],
+  "experiances": [
+    {
+      "company": "TriVision A/S",
+      "year": "Februar 2024 - Maj 2026",
+      "duration": "2 år 4 måneder",
+      "img": "../../media/trivision_logo.jpg",
+      "roles": [
+        {
+          "title": "Software Engineer",
+          "year": "August 2025 - Maj 2026",
+          "duration": "10 måneder",
+          "location": "Odense",
+          "description": "Ansvar for Production Intelligence V4, en produktionsplatform i drift, der håndterer 420M+ inspektioner årligt. Hos TriVision skar jeg dashboard loadtider fra 10s til 0,1s via server-side rendering og caching. Containeriserede applikationen med Docker og hostede det på AWS. Arbejdede i et agilt setup med hyppige releases, hvor drift, performance og datastyring var centrale kvalitetsparametre."
+        },
+        {
+          "title": "Student Software Developer",
+          "year": "Februar 2024 - August 2025",
+          "duration": "1 år 7 måneder",
+          "location": "Odense",
+          "description": "Designede data pipelinen bag Production Intelligence V4 og evaluerede kolonnebaserede lagringsformater, der senere reducerede lagringsomkostninger med 92%. Byggede backend functionalitet i med SQL i et rigtigt produktionsmiljø og omsatte viden fra distribuerede systemer til robust, skalerbar systemudvikling."
+        }
+      ]
+    },
+    {
+      "company": "Novo Nordisk A/S",
+      "year": "september 2022 - februar 2023",
+      "duration": "6 måneder",
+      "img": "../../media/novo_nordisk_logo.jpg",
+      "roles": [
+        {
+          "title": "Studerende softwareudvikler",
+          "year": "september 2022 - februar 2023",
+          "duration": "6 måneder",
+          "location": "Hillerød",
+          "description": "Byggede en pipeline, der renderer syntetiske billeder til at træne to deep learning-modeller til objektdetektion og 6DoF pose estimation af dele i en beholder. Udgivet som open source-projektet BlenderBin på github.com/hansaskov/BlenderBin."
+        }
+      ]
+    },
+    {
+      "company": "EFFIMAT",
+      "year": "februar 2022 - februar 2023",
+      "duration": "1 år 1 måned",
+      "img": "../../media/effimat_logo.jpg",
+      "roles": [
+        {
+          "title": "Softwareudvikler",
+          "year": "februar 2022 - februar 2023",
+          "duration": "1 år 1 måned",
+          "location": "Odense",
+          "description": "Indsamlede og analyserede data fra distribuerede IoT-enheder. Byggede et website, der viser dataene i realtid, så teamet kunne overvåge deres produkter."
+        }
+      ]
+    }
+  ],
+  "educations": [
+    {
+      "company": "Syddansk Universitet",
+      "year": "2019 - 2025",
+      "duration": "5 år 5 måneder",
+      "img": "../../media/sdu_logo.jpg",
+      "roles": [
+        {
+          "title": "Kandidat i softwareudvikling",
+          "year": "2023 - 2025",
+          "duration": "2 år",
+          "location": "Odense",
+          "description": "Specialiserede mig i distribuerede systemer og backend-udvikling med valgfag i cybersikkerhed og biometrisk sikkerhed."
+        },
+        {
+          "title": "Diplomingeniør i robotsystemer",
+          "year": "2019 - 2023",
+          "duration": "3 år 5 måneder",
+          "location": "Odense",
+          "description": "Fandt min kærlighed til software og matematik gennem reguleringsteknik, computer vision og maskinlæring. Programmerede en UR5-robotarm til at detektere, gribe og kaste objekter med kollisionsbevidst bevægelsesplanlægning."
+        }
+      ]
+    }
+  ]
+}

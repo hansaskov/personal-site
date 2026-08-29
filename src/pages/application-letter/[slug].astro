@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { ui } from "@lib/i18n";
 
 export async function getStaticPaths() {
     const letters = await getCollection("applicationLetters");
@@ -16,6 +17,7 @@ const { Content } = await render(letter);
 ---
 
 <BaseLayout
+    t={ui.en}
     title={letter.data.slug}
     description={`Application letter for ${letter.data.slug}`}
     theme="light"

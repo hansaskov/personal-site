@@ -1,6 +1,8 @@
 ---
+import type { Translation } from "@lib/i18n";
 
 interface Props {
+    t: Translation
     pages?: {
         url: string,
         name: string
@@ -20,18 +22,19 @@ interface Props {
 }
 
 const {
+    t,
     pages = [
         {
             url: "/",
-            name: "Home",
+            name: t.nav.home,
         },
         {
             url: "/projects",
-            name: "Projects",
+            name: t.nav.projects,
         },
         {
             url: "/cv",
-            name: "CV",
+            name: t.nav.cv,
         }
     ],
     personalInfo,
@@ -72,7 +75,7 @@ const pathname = Astro.url.pathname;
     <div class="mt-10 space-y-8 px-4">
         {personalInfo && (
             <div class="space-y-2.5">
-                <h2 class="t-overline">Contact</h2>
+                <h2 class="t-overline">{t.sections.contact}</h2>
                 <div class="t-body-sm flex items-center gap-2 leading-snug text-fg-muted">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -178,14 +181,14 @@ const pathname = Astro.url.pathname;
 
         {languages && (
             <div class="space-y-2.5">
-                <h2 class="t-overline">Languages</h2>
+                <h2 class="t-overline">{t.sections.languages}</h2>
                 {languages.map((language) => (
                     <div class="t-body-sm flex items-center justify-between gap-4 text-fg-muted">
                         <span>{language.name}</span>
                         <div
                             class="flex items-center gap-1"
                             role="img"
-                            aria-label={`${language.name}: ${language.rating} out of 4`}
+                            aria-label={`${language.name}: ${language.rating} ${t.cv.ratingOutOf}`}
                         >
                             {[1, 2, 3, 4].map((star) => (
                                 <span
@@ -203,7 +206,7 @@ const pathname = Astro.url.pathname;
 
         {skills && (
             <div class="space-y-2.5">
-                <h2 class="t-overline">Skills</h2>
+                <h2 class="t-overline">{t.sections.skills}</h2>
                 <div class="flex flex-wrap gap-1.5">
                     {
                         skills.map((skill) => (
@@ -216,7 +219,7 @@ const pathname = Astro.url.pathname;
 
         {aboutMe && (
             <div class="space-y-2.5">
-                <h2 class="t-overline">About me</h2>
+                <h2 class="t-overline">{t.sections.aboutMe}</h2>
                 <p class="t-body-sm text-fg-muted">
                     {aboutMe}
                 </p>

@@ -1,5 +1,6 @@
 {
   "slug": "devops",
+  "lang": "en",
   "title": "DevOps Engineer",
   "intro": "I'm Hans, a software engineer with a DevOps mindset and hands-on experience containerizing, deploying, and operating production systems. I have worked with Docker, AWS, Grafana, backend services, and data pipelines, with an emphasis on performance, cost discipline, and systems that can be maintained in production.",
   "skills": [
