@@ -18,7 +18,6 @@
 !astro.config.mjs
 !tsconfig.json
 !playwright.config.ts
-!wrangler.jsonc
 
 # Tests
 !playwright/

@@ -11,15 +11,12 @@
     "check": "astro check",
     "lint": "oxlint --fix",
     "format": "oxfmt",
-    "test": "playwright test",
-    "generate-types": "wrangler types"
+    "test": "playwright test"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "14.2.5",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "7.2.9",
-    "tailwindcss": "^4.3.3",
-    "wrangler": "^4.127.1"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
