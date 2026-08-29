@@ -5,8 +5,5 @@ services:
       - "4321:4321"
 
   playwright:
-    build:
-      context: .
-      dockerfile: dockerfile.playwright
-    volumes:
-      - ./public:/app/public
+    build: .
+    command: pnpm exec playwright test

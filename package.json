@@ -24,9 +24,11 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@playwright/test": "^1.62.1",
+    "@sparticuz/chromium": "^149.0.0",
     "@types/node": "^26.4.0",
     "oxfmt": "^0.65.0",
     "oxlint": "^1.80.0",
+    "playwright-core": "1.62.1",
     "sharp": "^0.35.4",
     "typescript": "^6.0.3"
   },

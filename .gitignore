@@ -2,6 +2,10 @@
 dist/
 .cache
 .vercel
+
+# pdf downloads (generated during `astro build`)
+/public/*.pdf
+
 # dependencies
 node_modules/
 

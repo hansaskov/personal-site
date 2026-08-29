@@ -4,6 +4,10 @@
 # Source & assets
 !src/
 !public/
+!fonts/
+
+# Build tooling
+!scripts/
 
 # Package management
 !package.json
