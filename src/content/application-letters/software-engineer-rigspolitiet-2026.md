@@ -2,7 +2,7 @@
 slug: software-engineer-rigspolitiet-2026
 ---
 
-# Kære Politiets Efterretningstjeneste
+**Kære Politiets Efterretningstjeneste**
 
 I jobansøgninger ligger i et stort fokus på at kunne omsætte ønsker til konkrete løsninger, hvilket beskriver mig perfekt. I mit tidligere job var jeg ansvarlig for udviklingen og hostingen af en intern fullstack application, en opgave der kræver at kunne navigere og implementere mange ønsker, mens sikkerheden bliver taget seriøst.
 

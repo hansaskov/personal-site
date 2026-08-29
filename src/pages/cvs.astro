@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/Button.astro";
+import PageHeader from "@components/PageHeader.astro";
+import { getCollection } from "astro:content";
+
+const cvs = (await getCollection("cvs")).sort((a, b) =>
+    a.data.slug.localeCompare(b.data.slug),
+);
+
+const prefetchUrls = ["/", "/cv", "/projects"];
+---
+
+<BaseLayout
+    title="CVs"
+    description="List of CVs written by Hans Askov"
+    theme="light"
+    prefetchUrls={prefetchUrls}
+    includeSidebar={true}
+>
+    <Fragment slot="head">
+        <meta name="robots" content="noindex, nofollow" />
+    </Fragment>
+
+    <PageHeader
+        title="CVs"
+        description="The different versions of my CV, each tailored to a specific kind of role."
+    />
+
+    <ul class="mt-8 divide-y divide-line">
+        {
+            cvs.map((cv) => (
+                <li class="flex items-center justify-between gap-4 py-3.5">
+                    <a
+                        href={`/cv/${cv.data.slug}`}
+                        class="link link-hover t-body-sm font-medium"
+                    >
+                        {cv.data.title}
+                    </a>
+                    <Button
+                        variant="secondary"
+                        size="sm"
+                        href={`/hans-askov-cv-${cv.data.slug}.pdf`}
+                        download
+                    >
+                        Download
+                    </Button>
+                </li>
+            ))
+        }
+    </ul>
+</BaseLayout>
