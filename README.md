@@ -1,6 +1,6 @@
 # Hans Askov.dk | Personal Portfolio
 
-This is the repository for my personal portfolio website it starteed from a template of [Astrofy](https://github.com/manuelernestog/astrofy)
+This is the repository for my personal portfolio website.
 
 ## Demo
 
@@ -20,16 +20,13 @@ Once the packages are installed you are ready to run Astro. Astro comes with a b
 pnpm run dev
 ```
 
-The PDF downloads (CVs and application letters) and the homepage preview image (`src/media/personal-site.webp`, used for the site's own project card) are generated automatically as part of the build. The `post-build-media` Astro integration prints every `/cv` and `/application-letter` page to PDF into `dist/` and captures the homepage preview when you run:
+To build the projcet, including generating the pdf files, simply run pnpm build. 
 
 ```bash
 pnpm build
 ```
 
-It uses a self-contained Chromium (`@sparticuz/chromium`), so it works locally and on Vercel without installing any system dependencies. The generated PDFs are never committed to git.
-
 ## Tech Stack
 
 - [Astro](https://astro.build)
 - [tailwindcss](https://tailwindcss.com/)
-- [DaisyUI](https://daisyui.com/)
