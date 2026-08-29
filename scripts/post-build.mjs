@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, statSync } from "node:fs";
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import { extname, isAbsolute, join, relative, resolve } from "node:path";
@@ -10,6 +11,9 @@ import sharp from "sharp";
 const PREVIEW_WIDTH = 1200;
 const PREVIEW_HEIGHT = 675;
 const PREVIEW_PATH = resolve("src", "media", "personal-site.webp");
+// Set from the integration: Astro's configured cacheDir (node_modules/.astro
+// by default), same place the content-layer cache lives.
+let PDF_CACHE_DIR;
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -46,6 +50,7 @@ function collectTargets(distDir) {
   if (existsSync(join(distDir, "cv", "index.html"))) {
     targets.push({
       url: "/cv",
+      htmlPath: join(distDir, "cv", "index.html"),
       outputPath: join(distDir, "hans-askov-cv.pdf"),
       width: 1200,
       height: 1662,
@@ -55,6 +60,7 @@ function collectTargets(distDir) {
   for (const slug of listSlugs(join(distDir, "cv"))) {
     targets.push({
       url: `/cv/${slug}`,
+      htmlPath: join(distDir, "cv", slug, "index.html"),
       outputPath: join(distDir, `hans-askov-cv-${slug}.pdf`),
       width: 1200,
       height: 1662,
@@ -64,6 +70,7 @@ function collectTargets(distDir) {
   for (const slug of listSlugs(join(distDir, "application-letter"))) {
     targets.push({
       url: `/application-letter/${slug}`,
+      htmlPath: join(distDir, "application-letter", slug, "index.html"),
       outputPath: join(distDir, `application-letter-${slug}.pdf`),
       format: "A3",
     });
@@ -156,6 +163,22 @@ function browserArgs() {
 
 const displayPath = (p) => relative(process.cwd(), p);
 
+// ponytail: chromium version not part of the key — bump PDF_CACHE_DIR manually
+// if a chromium upgrade ever changes rendering.
+const cachedPdfPath = async (target) => {
+  const key = createHash("sha256")
+    .update(await readFile(target.htmlPath))
+    .update(target.format ?? `${target.width}x${target.height}`)
+    .digest("hex")
+    .slice(0, 16);
+  return join(PDF_CACHE_DIR, `${key}.pdf`);
+};
+
+// Astro-style progress line: green arrow + only the output path.
+const GREEN = "\x1b[32m";
+const RESET = "\x1b[39m";
+const logArrow = (logger, message) => logger.info(`${GREEN}  ▶${RESET} ${message}`);
+
 // Skia stamps /CreationDate and /ModDate into every PDF, so the bytes (and
 // therefore asset hashes/caches) differ on every build even when the content
 // is identical. Both date strings are a fixed length, so overwriting them with
@@ -197,23 +220,26 @@ async function capturePreview(page, logger) {
   const screenshot = await page.screenshot({ type: "png" });
   const preview = await sharp(screenshot).webp({ quality: 80 }).toBuffer();
 
-  const current = existsSync(PREVIEW_PATH) ? await readFile(PREVIEW_PATH) : null;
-  if (current?.equals(preview)) {
-    logger.info(`Homepage preview is unchanged, keeping ${displayPath(PREVIEW_PATH)}`);
-    return;
+  if (existsSync(PREVIEW_PATH)) {
+    const current = await readFile(PREVIEW_PATH);
+    if (current.equals(preview)) {
+      logArrow(logger, `${displayPath(PREVIEW_PATH)} (unchanged)`);
+      return;
+    }
   }
 
   await writeFile(PREVIEW_PATH, preview);
-  logger.info(
-    `Captured homepage preview → ${displayPath(PREVIEW_PATH)} (picked up by the next build)`,
-  );
+  logArrow(logger, `${displayPath(PREVIEW_PATH)} (picked up by the next build)`);
 }
 
 const SITE_ORIGIN = "http://hans.askov.dk";
 
-export async function postBuild(distDir, logger) {
+export async function postBuild(distDir, cacheDir, logger) {
+  PDF_CACHE_DIR = join(cacheDir, "post-build-media");
+  const startedAt = Date.now();
   const targets = collectTargets(distDir);
   await installFonts();
+  logger.info("printing PDFs and capturing preview...");
 
   const { server, hitsServed } = await serveStatic(distDir);
   const { port } = server.address();
@@ -246,7 +272,16 @@ export async function postBuild(distDir, logger) {
       logger.warn(`Request failed: ${request.url()} — ${request.failure()?.errorText}`);
     });
 
-    for (const [index, target] of targets.entries()) {
+    let printed = 0;
+    for (const target of targets) {
+      const cachePath = await cachedPdfPath(target);
+
+      if (existsSync(cachePath)) {
+        await copyFile(cachePath, target.outputPath);
+        logArrow(logger, `${displayPath(target.outputPath)} (reused cache entry)`);
+        continue;
+      }
+
       const response = await page.goto(`${SITE_ORIGIN}${target.url}`, {
         waitUntil: "networkidle",
       });
@@ -257,7 +292,7 @@ export async function postBuild(distDir, logger) {
         );
       }
 
-      if (index === 0 && hitsServed() === 0) {
+      if (printed === 0 && hitsServed() === 0) {
         throw new Error(
           `--host-resolver-rules did not map ${SITE_ORIGIN} to the local static server; refusing to print the live site.`,
         );
@@ -274,7 +309,11 @@ export async function postBuild(distDir, logger) {
       });
       await normalizePdfDates(target.outputPath);
 
-      logger.info(`Printed ${target.url} → ${displayPath(target.outputPath)}`);
+      await mkdir(PDF_CACHE_DIR, { recursive: true });
+      await copyFile(target.outputPath, cachePath);
+      printed++;
+
+      logArrow(logger, displayPath(target.outputPath));
     }
 
     if (!existsSync(join(distDir, "index.html"))) {
@@ -282,6 +321,8 @@ export async function postBuild(distDir, logger) {
     } else {
       await capturePreview(page, logger);
     }
+
+    logger.info(`✓ Completed in ${Date.now() - startedAt}ms.`);
   } finally {
     await browser.close();
     server.closeAllConnections();
