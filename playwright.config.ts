@@ -64,9 +64,14 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
+  /* Serve the existing build output (run `pnpm build` first; the tests fail
+     with a clear message when dist/ is missing). Tests must stay side-effect
+     free, so building does not happen here.
+     The static server script stays in the foreground and dies with the test
+     run — `astro preview` daemonizes itself in Astro 7, which leaves a server
+     bound to the port after every run. */
   webServer: {
-    command: `pnpm build && pnpm preview --host 0.0.0.0 --port ${port}`,
+    command: `node scripts/preview-dist.mjs dist --port ${port}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

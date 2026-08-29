@@ -1,12 +1,12 @@
-import { existsSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
-import { createServer } from "node:http";
 import { tmpdir } from "node:os";
-import { extname, isAbsolute, join, relative, resolve } from "node:path";
+import { join, relative, resolve } from "node:path";
 import chromiumBin from "@sparticuz/chromium";
 import { chromium } from "playwright-core";
 import sharp from "sharp";
+import { serveStatic } from "./static-server.mjs";
 
 const PREVIEW_WIDTH = 1200;
 const PREVIEW_HEIGHT = 675;
@@ -14,27 +14,6 @@ const PREVIEW_PATH = resolve("src", "media", "personal-site.webp");
 // Set from the integration: Astro's configured cacheDir (node_modules/.astro
 // by default), same place the content-layer cache lives.
 let PDF_CACHE_DIR;
-
-const MIME_TYPES = {
-  ".html": "text/html; charset=utf-8",
-  ".css": "text/css; charset=utf-8",
-  ".js": "text/javascript; charset=utf-8",
-  ".mjs": "text/javascript; charset=utf-8",
-  ".json": "application/json; charset=utf-8",
-  ".svg": "image/svg+xml",
-  ".png": "image/png",
-  ".jpg": "image/jpeg",
-  ".jpeg": "image/jpeg",
-  ".webp": "image/webp",
-  ".avif": "image/avif",
-  ".ico": "image/x-icon",
-  ".woff": "font/woff",
-  ".woff2": "font/woff2",
-  ".ttf": "font/ttf",
-  ".txt": "text/plain; charset=utf-8",
-  ".xml": "application/xml; charset=utf-8",
-  ".pdf": "application/pdf",
-};
 
 function listSlugs(dir) {
   if (!existsSync(dir)) return [];
@@ -47,23 +26,16 @@ function listSlugs(dir) {
 function collectTargets(distDir) {
   const targets = [];
 
-  if (existsSync(join(distDir, "cv", "index.html"))) {
-    targets.push({
-      url: "/cv",
-      htmlPath: join(distDir, "cv", "index.html"),
-      outputPath: join(distDir, "hans-askov-cv.pdf"),
-      width: 1200,
-      height: 1662,
-    });
-  }
-
-  for (const slug of listSlugs(join(distDir, "cv"))) {
+  // The main CV plus every per-slug CV. CVs are printed with a fixed width and
+  // a content-measured height so they always fit a single page.
+  for (const slug of ["", ...listSlugs(join(distDir, "cv"))]) {
+    const htmlPath = join(distDir, "cv", slug, "index.html");
+    if (!existsSync(htmlPath)) continue;
     targets.push({
       url: `/cv/${slug}`,
-      htmlPath: join(distDir, "cv", slug, "index.html"),
-      outputPath: join(distDir, `hans-askov-cv-${slug}.pdf`),
+      htmlPath,
+      outputPath: join(distDir, slug ? `hans-askov-cv-${slug}.pdf` : "hans-askov-cv.pdf"),
       width: 1200,
-      height: 1662,
     });
   }
 
@@ -77,45 +49,6 @@ function collectTargets(distDir) {
   }
 
   return targets;
-}
-
-function serveStatic(rootInput) {
-  const root = resolve(rootInput);
-  let hits = 0;
-  const server = createServer(async (req, res) => {
-    hits++;
-    try {
-      const pathname = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
-      let filePath = resolve(root, "." + pathname);
-      const relativePath = relative(root, filePath);
-
-      if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
-        res.writeHead(403).end();
-        return;
-      }
-
-      if (statSync(filePath, { throwIfNoEntry: false })?.isDirectory()) {
-        filePath = join(filePath, "index.html");
-      }
-
-      if (!existsSync(filePath)) {
-        res.writeHead(404).end();
-        return;
-      }
-
-      res.writeHead(200, {
-        "content-type": MIME_TYPES[extname(filePath)] ?? "application/octet-stream",
-      });
-      res.end(await readFile(filePath));
-    } catch {
-      res.writeHead(500).end();
-    }
-  });
-
-  return new Promise((resolvePromise, reject) => {
-    server.once("error", reject);
-    server.listen(0, "127.0.0.1", () => resolvePromise({ server, hitsServed: () => hits }));
-  });
 }
 
 const FONT_CONFIG = `<?xml version="1.0"?>
@@ -163,21 +96,36 @@ function browserArgs() {
 
 const displayPath = (p) => relative(process.cwd(), p);
 
+const shortHash = async (filePath, extra = "") =>
+  createHash("sha256")
+    .update(await readFile(filePath))
+    .update(extra)
+    .digest("hex")
+    .slice(0, 16);
+
 // ponytail: chromium version not part of the key — bump PDF_CACHE_DIR manually
 // if a chromium upgrade ever changes rendering.
 const cachedPdfPath = async (target) => {
-  const key = createHash("sha256")
-    .update(await readFile(target.htmlPath))
-    .update(target.format ?? `${target.width}x${target.height}`)
-    .digest("hex")
-    .slice(0, 16);
-  return join(PDF_CACHE_DIR, `${key}.pdf`);
+  // The measured CV height is derived deterministically from the HTML (fixed
+  // width, vendored fonts, no scrollbars), so it is not part of the key and
+  // cache hits need no navigation to compute.
+  return join(
+    PDF_CACHE_DIR,
+    `${await shortHash(target.htmlPath, target.format ?? `auto@${target.width}`)}.pdf`,
+  );
 };
 
-// Astro-style progress line: green arrow + only the output path.
+// Astro-style progress line: green arrow + only the output path, with
+// parentheticals (cache status, timings) in dim gray.
 const GREEN = "\x1b[32m";
 const RESET = "\x1b[39m";
-const logArrow = (logger, message) => logger.info(`${GREEN}  ▶${RESET} ${message}`);
+const DIM = "\x1b[2m";
+const dim = (text) => `${DIM}${text}${RESET}`;
+const logArrow = (logger, message, startedAt) =>
+  logger.info(
+    `${GREEN}  ▶${RESET} ${message}` +
+      (startedAt === undefined ? "" : ` ${dim(`(+${Date.now() - startedAt}ms)`)}`),
+  );
 
 // Skia stamps /CreationDate and /ModDate into every PDF, so the bytes (and
 // therefore asset hashes/caches) differ on every build even when the content
@@ -208,31 +156,77 @@ async function normalizePdfDates(filePath) {
   await writeFile(filePath, normalized);
 }
 
-async function capturePreview(page, logger) {
-  const response = await page.goto(`${SITE_ORIGIN}/`, { waitUntil: "networkidle" });
+const storeInCache = async (filePath, cachePath) => {
+  await mkdir(PDF_CACHE_DIR, { recursive: true });
+  await copyFile(filePath, cachePath);
+};
 
+// Prefer the environment's own Chromium (Playwright image in CI, local
+// Playwright install). @sparticuz/chromium is the fallback for serverless
+// builds where no browser is preinstalled.
+async function launchBrowser(logger, hostRules) {
+  try {
+    return await chromium.launch({ args: [hostRules, "--hide-scrollbars"], headless: true });
+  } catch (error) {
+    logger.info(
+      `No environment Chromium available (${error.message.split("\n")[0]}), falling back to @sparticuz/chromium.`,
+    );
+    return chromium.launch({
+      args: [...browserArgs(), hostRules, "--hide-scrollbars"],
+      executablePath: await chromiumBin.executablePath(),
+      headless: true,
+    });
+  }
+}
+
+// Navigate to a built page and wait for fonts so measurement/rendering is
+// stable. The production origin keeps link annotations inside the PDFs stable
+// and pointing at the real site, while chromium actually connects to the local
+// static server (the same trick as the old CI /etc/hosts entry).
+const SITE_ORIGIN = "http://hans.askov.dk";
+
+async function loadPage(page, url) {
+  const response = await page.goto(`${SITE_ORIGIN}${url}`, { waitUntil: "networkidle" });
   if (!response?.ok()) {
-    throw new Error(`Failed to load / from the build output (status ${response?.status()}).`);
+    throw new Error(`Failed to load ${url} from the build output (status ${response?.status()}).`);
+  }
+  await page.evaluate(() => document.fonts.ready);
+}
+
+// The preview render depends only on the homepage HTML and the content-hashed
+// assets it references (plus the pinned chromium/sharp versions), so the HTML
+// hash is a complete cache key — unchanged homepages skip the ~800ms
+// navigate/screenshot/encode entirely.
+async function capturePreview(getPage, logger, distDir, startedAt) {
+  const homeHtmlPath = join(distDir, "index.html");
+  const cachePath = join(PDF_CACHE_DIR, `preview-${await shortHash(homeHtmlPath)}.webp`);
+
+  if (existsSync(cachePath)) {
+    const cached = await readFile(cachePath);
+    if (existsSync(PREVIEW_PATH) && (await readFile(PREVIEW_PATH)).equals(cached)) {
+      logArrow(logger, `${displayPath(PREVIEW_PATH)} ${dim("(unchanged)")}`, startedAt);
+      return;
+    }
+
+    await copyFile(cachePath, PREVIEW_PATH);
+    logArrow(logger, `${displayPath(PREVIEW_PATH)} ${dim("(reused cache entry)")}`, startedAt);
+    return;
   }
 
-  await page.evaluate(() => document.fonts.ready);
+  const page = await getPage();
+  await loadPage(page, "/");
   await page.setViewportSize({ width: PREVIEW_WIDTH, height: PREVIEW_HEIGHT });
   const screenshot = await page.screenshot({ type: "png" });
   const preview = await sharp(screenshot).webp({ quality: 80 }).toBuffer();
 
-  if (existsSync(PREVIEW_PATH)) {
-    const current = await readFile(PREVIEW_PATH);
-    if (current.equals(preview)) {
-      logArrow(logger, `${displayPath(PREVIEW_PATH)} (unchanged)`);
-      return;
-    }
-  }
-
   await writeFile(PREVIEW_PATH, preview);
-  logArrow(logger, `${displayPath(PREVIEW_PATH)} (picked up by the next build)`);
+  await storeInCache(PREVIEW_PATH, cachePath);
+  logArrow(
+    logger,
+    `${displayPath(PREVIEW_PATH)} ${dim("(picked up by the next build)")}`,
+    startedAt,
+  );
 }
-
-const SITE_ORIGIN = "http://hans.askov.dk";
 
 export async function postBuild(distDir, cacheDir, logger) {
   PDF_CACHE_DIR = join(cacheDir, "post-build-media");
@@ -244,53 +238,58 @@ export async function postBuild(distDir, cacheDir, logger) {
   const { server, hitsServed } = await serveStatic(distDir);
   const { port } = server.address();
 
-  // Navigate to the production origin so link annotations inside the PDFs are
-  // stable and point at the real site, while chromium actually connects to the
-  // local static server (the same trick as the old CI /etc/hosts entry).
-  const hostRules = `--host-resolver-rules=MAP hans.askov.dk 127.0.0.1:${port}`;
-
-  // Prefer the environment's own Chromium (Playwright image in CI, local
-  // Playwright install). @sparticuz/chromium is the fallback for serverless
-  // builds where no browser is preinstalled.
-  let browser;
-  try {
-    browser = await chromium.launch({ args: [hostRules], headless: true });
-  } catch (error) {
-    logger.info(
-      `No environment Chromium available (${error.message.split("\n")[0]}), falling back to @sparticuz/chromium.`,
+  // Chromium is only needed on cache misses, and launching it costs ~150ms,
+  // so defer it until the first print or preview capture.
+  /** @type {Promise<import("playwright-core").Browser> | undefined} */
+  let browserPromise;
+  const getBrowser = () => {
+    browserPromise ??= launchBrowser(
+      logger,
+      `--host-resolver-rules=MAP hans.askov.dk 127.0.0.1:${port}`,
     );
-    browser = await chromium.launch({
-      args: [...browserArgs(), hostRules],
-      executablePath: await chromiumBin.executablePath(),
-      headless: true,
-    });
-  }
+    return browserPromise;
+  };
+
+  let pagePromise;
+  const getPage = () => {
+    pagePromise ??= (async () => {
+      const page = await (await getBrowser()).newPage();
+      page.on("requestfailed", (request) => {
+        logger.warn(`Request failed: ${request.url()} — ${request.failure()?.errorText}`);
+      });
+      return page;
+    })();
+    return pagePromise;
+  };
 
   try {
-    const page = await browser.newPage();
-    page.on("requestfailed", (request) => {
-      logger.warn(`Request failed: ${request.url()} — ${request.failure()?.errorText}`);
-    });
-
     let printed = 0;
     for (const target of targets) {
+      const itemStartedAt = Date.now();
       const cachePath = await cachedPdfPath(target);
 
       if (existsSync(cachePath)) {
         await copyFile(cachePath, target.outputPath);
-        logArrow(logger, `${displayPath(target.outputPath)} (reused cache entry)`);
+        logArrow(
+          logger,
+          `${displayPath(target.outputPath)} ${dim("(reused cache entry)")}`,
+          itemStartedAt,
+        );
         continue;
       }
 
-      const response = await page.goto(`${SITE_ORIGIN}${target.url}`, {
-        waitUntil: "networkidle",
-      });
+      const page = await getPage();
 
-      if (!response?.ok()) {
-        throw new Error(
-          `Failed to load ${target.url} from the build output (status ${response?.status()}).`,
-        );
+      // CV targets have no fixed height: the viewport matches the paper width
+      // (plus the old A4-ratio height as a floor for short CVs), and the paper
+      // height is measured from the laid-out content so the PDF is always a
+      // single page. --hide-scrollbars keeps the viewport layout identical to
+      // the print layout, where no scrollbars take up width.
+      if (target.width) {
+        await page.setViewportSize({ width: target.width, height: 1662 });
       }
+
+      await loadPage(page, target.url);
 
       if (printed === 0 && hitsServed() === 0) {
         throw new Error(
@@ -298,33 +297,37 @@ export async function postBuild(distDir, cacheDir, logger) {
         );
       }
 
-      await page.evaluate(() => document.fonts.ready);
+      const pdfOptions = target.format
+        ? { format: target.format }
+        : {
+            width: target.width,
+            // +1px guards against sub-pixel rounding spilling a blank page.
+            height: `${(await page.evaluate(() => document.documentElement.scrollHeight)) + 1}px`,
+          };
+
       await page.pdf({
         path: target.outputPath,
         printBackground: true,
         tagged: true,
-        ...(target.format
-          ? { format: target.format }
-          : { width: target.width, height: target.height }),
+        ...pdfOptions,
       });
       await normalizePdfDates(target.outputPath);
-
-      await mkdir(PDF_CACHE_DIR, { recursive: true });
-      await copyFile(target.outputPath, cachePath);
+      await storeInCache(target.outputPath, cachePath);
       printed++;
 
-      logArrow(logger, displayPath(target.outputPath));
+      logArrow(logger, displayPath(target.outputPath), itemStartedAt);
     }
 
     if (!existsSync(join(distDir, "index.html"))) {
       logger.warn("No homepage in the build output, skipping preview image capture.");
     } else {
-      await capturePreview(page, logger);
+      await capturePreview(getPage, logger, distDir, Date.now());
     }
 
     logger.info(`✓ Completed in ${Date.now() - startedAt}ms.`);
   } finally {
-    await browser.close();
+    const browser = await browserPromise;
+    if (browser) await browser.close();
     server.closeAllConnections();
     await new Promise((resolvePromise) => server.close(resolvePromise));
   }
