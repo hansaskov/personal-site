@@ -29,6 +29,7 @@ const prefetchUrls = ["/", "/cv", "/projects"];
         description="Letters I have written when applying for positions, kept here as writing samples."
     />
 
+
     <ul class="mt-8 divide-y divide-line">
         {
             letters.map((letter) => (
@@ -51,4 +52,8 @@ const prefetchUrls = ["/", "/cv", "/projects"];
             ))
         }
     </ul>
+
+    <div class="mt-6 flex justify-end">
+        <Button href="/cvs" variant="secondary">View CVs</Button>
+    </div>
 </BaseLayout>

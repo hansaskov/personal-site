@@ -27,6 +27,7 @@ const prefetchUrls = ["/", "/cv", "/projects"];
         description="The different versions of my CV, each tailored to a specific kind of role."
     />
 
+
     <ul class="mt-8 divide-y divide-line">
         {
             cvs.map((cv) => (
@@ -49,4 +50,10 @@ const prefetchUrls = ["/", "/cv", "/projects"];
             ))
         }
     </ul>
+
+    <div class="mt-6 flex justify-end">
+        <Button href="/application-letters" variant="secondary">
+            View Application Letters
+        </Button>
+    </div>
 </BaseLayout>
