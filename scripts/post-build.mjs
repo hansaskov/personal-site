@@ -213,7 +213,6 @@ const SITE_ORIGIN = "http://hans.askov.dk";
 
 export async function postBuild(distDir, logger) {
   const targets = collectTargets(distDir);
-  const executablePath = await chromiumBin.executablePath();
   await installFonts();
 
   const { server, hitsServed } = await serveStatic(distDir);
@@ -222,11 +221,24 @@ export async function postBuild(distDir, logger) {
   // Navigate to the production origin so link annotations inside the PDFs are
   // stable and point at the real site, while chromium actually connects to the
   // local static server (the same trick as the old CI /etc/hosts entry).
-  const browser = await chromium.launch({
-    args: [...browserArgs(), `--host-resolver-rules=MAP hans.askov.dk 127.0.0.1:${port}`],
-    executablePath,
-    headless: true,
-  });
+  const hostRules = `--host-resolver-rules=MAP hans.askov.dk 127.0.0.1:${port}`;
+
+  // Prefer the environment's own Chromium (Playwright image in CI, local
+  // Playwright install). @sparticuz/chromium is the fallback for serverless
+  // builds where no browser is preinstalled.
+  let browser;
+  try {
+    browser = await chromium.launch({ args: [hostRules], headless: true });
+  } catch (error) {
+    logger.info(
+      `No environment Chromium available (${error.message.split("\n")[0]}), falling back to @sparticuz/chromium.`,
+    );
+    browser = await chromium.launch({
+      args: [...browserArgs(), hostRules],
+      executablePath: await chromiumBin.executablePath(),
+      headless: true,
+    });
+  }
 
   try {
     const page = await browser.newPage();
