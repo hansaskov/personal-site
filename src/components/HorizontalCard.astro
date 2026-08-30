@@ -10,7 +10,7 @@ const height = 211
 const { title, desc, img, url, badge, target = "_blank", year } = Astro.props;
 
 const hero1x = await getImage({ src: img, format: "webp", width: 208, height: 117 });
-const hero2x = await getImage({ src: img, format: "webp", width: width½, height: height });
+const hero2x = await getImage({ src: img, format: "webp", width: width, height: height });
 const srcset = `${hero1x.src} 208w, ${hero2x.src} 375w`;
 const sizes = "(min-width: 768px) 208px, 100vw";
 
