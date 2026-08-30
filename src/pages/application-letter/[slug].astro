@@ -25,11 +25,8 @@ const { Content } = await render(letter);
     includeSidebar={false}
     includeHeader={false}
     includeFooter={false}
+    shouldIndex={false}
 >
-    <Fragment slot="head">
-        <meta name="robots" content="noindex, nofollow" />
-    </Fragment>
-
     <article class="application-letter pt-16">
         <Content />
     </article>

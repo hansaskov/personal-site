@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
-import PageHeader from "@components/PageHeader.astro";
 import { getCollection } from "astro:content";
 import { ui } from "@lib/i18n";
+import PageHeader from "@components/PageHeader.astro";
 
 const cvs = (await getCollection("cvs")).sort((a, b) =>
     a.data.slug.localeCompare(b.data.slug),
@@ -19,10 +19,8 @@ const prefetchUrls = ["/", "/cv", "/projects"];
     theme="light"
     prefetchUrls={prefetchUrls}
     includeSidebar={true}
->
-    <Fragment slot="head">
-        <meta name="robots" content="noindex, nofollow" />
-    </Fragment>
+    shouldIndex={false}
+    />
 
     <PageHeader
         title="CVs"
