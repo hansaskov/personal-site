@@ -14,6 +14,10 @@ const hero = await getImage({ src: img, format: "webp", width: width, height: he
 
 ---
 
+<Fragment slot="head">
+  <link rel="preload" as="image" href={hero.src} fetchpriority="auto" />
+</Fragment>
+
 <article class="group rounded-xl border border-line bg-surface shadow-card transition-[box-shadow,border-color,translate] duration-200 ease-out hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lift">
   <a href={url} target={target} rel="noopener noreferrer" class="flex h-full flex-col items-center gap-5 p-5 md:flex-row">
     <img

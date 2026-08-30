@@ -1,46 +1,24 @@
 ---
 import SideBarFooter from "./SideBarFooter.astro";
-import { getImage } from "astro:assets";
+import SideBarHeader from "./SideBarHeader.astro";
 import SideBarMenu from "./SideBarMenu.astro";
-import ProfilePicture from "../media/profile.jpg";
-import type { ComponentProps } from "astro/types";
 
-const hero = await getImage({
-    src: ProfilePicture,
-    format: "webp",
-    width: 384,
-    height: 384,
-});
+import type { ComponentProps } from "astro/types";
 
 interface Props
     extends
         ComponentProps<typeof SideBarFooter>,
-        ComponentProps<typeof SideBarMenu> {}
+        ComponentProps<typeof SideBarMenu>,
+        ComponentProps<typeof SideBarHeader> {}
 
 const props = Astro.props;
-const t = props.t;
 ---
-
-<Fragment slot="head">
-    <link rel="preload" as="image" href={hero.src} fetchpriority="high" />
-</Fragment>
 
 <aside class="nav-panel flex flex-col">
     <div
         class="scrollbar-thin scrollbar-gutter-stable scrollbar-thumb-line-strong scrollbar-track-transparent flex-1 overflow-y-auto px-6 pt-10 pb-16 lg:px-7"
     >
-        <div class="w-fit mx-auto">
-            <a href="/" class="group block rounded-full" title={t.nav.home}>
-                <img
-                    width={384}
-                    height={384}
-                    src={hero.src}
-                    alt="Profile image of Hans Askov drinking from a glass looking to the left out of a window."
-                    fetchpriority="high"
-                    class="size-32 rounded-full object-cover shadow-card transition-transform duration-200 ease-out group-hover:scale-[1.03]"
-                />
-            </a>
-        </div>
+        <SideBarHeader {...props} />
         <SideBarMenu {...props} />
     </div>
     <SideBarFooter {...props} />
