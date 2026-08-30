@@ -1,0 +1,36 @@
+---
+import type { Translation } from "@lib/i18n";
+import ProfilePicture from "../media/profile.jpg";
+import { getImage } from "astro:assets";
+
+const hero = await getImage({
+    src: ProfilePicture,
+    format: "webp",
+    width: 384,
+    height: 384,
+});
+
+interface Props {
+  t: Translation
+}
+
+const props = Astro.props;
+
+---
+
+<Fragment slot="head">
+    <link rel="preload" as="image" href={hero.src} fetchpriority="high" />
+</Fragment>
+
+<div class="w-fit mx-auto">
+    <a href="/" class="group block rounded-full" title={props.t.nav.home}>
+        <img
+            width={384}
+            height={384}
+            src={hero.src}
+            alt="Profile image of Hans Askov drinking from a glass looking to the left out of a window."
+            fetchpriority="high"
+            class="size-32 rounded-full object-cover shadow-card transition-transform duration-200 ease-out group-hover:scale-[1.03]"
+        />
+    </a>
+</div>
