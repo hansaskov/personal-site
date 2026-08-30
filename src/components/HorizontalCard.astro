@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getImage } from "astro:assets";
-import Tag from "@components/Tag.astro";
 
 type Props = CollectionEntry<"projects">["data"];
 
@@ -34,7 +33,7 @@ const hero = await getImage({ src: img, format: "webp", width: width, height: he
         <h3 class="t-subheading text-fg transition-colors group-hover:text-brand-text">
           {title}
         </h3>
-        {badge && <Tag>{badge}</Tag>}
+        {badge && <span class="tag">{badge}</span>}
       </div>
       <p class="t-caption mt-0.5 text-fg-subtle">{year}</p>
       <p class="t-body-sm mt-2 min-h-[calc(1.6em_*_4)] text-fg-muted line-clamp-4">{desc}</p>
