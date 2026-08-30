@@ -9,19 +9,31 @@ const height = 211
 
 const { title, desc, img, url, badge, target = "_blank", year } = Astro.props;
 
-const hero = await getImage({ src: img, format: "webp", width: width, height: height,  });
+const hero1x = await getImage({ src: img, format: "webp", width: 208, height: 117 });
+const hero2x = await getImage({ src: img, format: "webp", width: width½, height: height });
+const srcset = `${hero1x.src} 208w, ${hero2x.src} 375w`;
+const sizes = "(min-width: 768px) 208px, 100vw";
 
 ---
 
 <Fragment slot="head">
-  <link rel="preload" as="image" href={hero.src} fetchpriority="auto" />
+  <link
+    rel="preload"
+    as="image"
+    href={hero1x.src}
+    imagesrcset={srcset}
+    imagesizes={sizes}
+    fetchpriority="auto"
+  />
 </Fragment>
 
 <article class="group rounded-xl border border-line bg-surface shadow-card transition-[box-shadow,border-color,translate] duration-200 ease-out hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lift">
   <a href={url} target={target} rel="noopener noreferrer" class="flex h-full flex-col items-center gap-5 p-5 md:flex-row">
     <img
       class="w-full max-w-52 shrink-0 rounded-lg border border-line"
-      src={hero.src}
+      src={hero1x.src}
+      srcset={srcset}
+      sizes={sizes}
       width={width}
       height={height}
       alt={title}
