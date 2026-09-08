@@ -433,9 +433,7 @@
     border-radius: 0.25rem;
   }
 
-  /* sr-only inputs hide their own ring — put it on the visible control
-     instead: the theme toggle (input inside label) and the hamburger that
-     opens the bottom drawer (label bound by for="#bottom-drawer") */
+  
   label:has(> input:focus-visible),
   body:has(.drawer-toggle:focus-visible) header label[for="bottom-drawer"] {
     outline: 2px solid var(--ds-color-focus);
