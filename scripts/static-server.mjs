@@ -24,10 +24,6 @@ const MIME_TYPES = {
   ".pdf": "application/pdf",
 };
 
-// Static file server for a build output directory. Resolves once listening;
-// kill the returned server (or its process) to stop it. Used by the PDF
-// pipeline and, via preview-dist.mjs, by the Playwright webServer — unlike
-// `astro preview` it stays in the foreground and leaves nothing running.
 export function serveStatic(rootInput, { port = 0, host = "127.0.0.1" } = {}) {
   const root = resolve(rootInput);
   let hits = 0;

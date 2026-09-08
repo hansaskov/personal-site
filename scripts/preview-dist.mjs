@@ -1,10 +1,3 @@
-// Foreground static file server for a build output directory — the Playwright
-// webServer. `astro preview` daemonizes itself in Astro 7, which leaves a
-// server running after every test run (a side effect) and trips Playwright's
-// "exited early" check; this stays in the foreground and dies with the test
-// run, keeping `pnpm test` side-effect free.
-//
-// Usage: node scripts/preview-dist.mjs [dir] [--port <port>]
 import { resolve } from "node:path";
 import { serveStatic } from "./static-server.mjs";
 

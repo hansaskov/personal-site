@@ -11,8 +11,6 @@ import { serveStatic } from "./static-server.mjs";
 const PREVIEW_WIDTH = 1200;
 const PREVIEW_HEIGHT = 675;
 const PREVIEW_PATH = resolve("src", "media", "personal-site.webp");
-// Set from the integration: Astro's configured cacheDir (node_modules/.astro
-// by default), same place the content-layer cache lives.
 let PDF_CACHE_DIR;
 
 function listSlugs(dir) {
@@ -26,8 +24,6 @@ function listSlugs(dir) {
 function collectTargets(distDir) {
   const targets = [];
 
-  // The main CV plus every per-slug CV. CVs are printed with a fixed width and
-  // a content-measured height so they always fit a single page.
   for (const slug of ["", ...listSlugs(join(distDir, "cv"))]) {
     const htmlPath = join(distDir, "cv", slug, "index.html");
     if (!existsSync(htmlPath)) continue;
@@ -59,9 +55,6 @@ const FONT_CONFIG = `<?xml version="1.0"?>
 </fontconfig>
 `;
 
-// A private fontconfig environment with only the vendored Noto Sans makes the
-// PDF output identical everywhere (local, Forgejo, Vercel), independent of the
-// system's installed fonts and aliases (e.g. Arial → Liberation Sans).
 async function installFonts() {
   const fontRoot = join(tmpdir(), "pdf-fonts");
   const fontDir = join(fontRoot, "fonts");
@@ -78,9 +71,6 @@ async function installFonts() {
   process.env.HOME ??= tmpdir();
 }
 
-// On Lambda/AL2023 sparticuz needs --single-process to survive its sandbox
-// (prctl PR_SET_NO_NEW_PRIVS). Everywhere else that mode makes chromium hit a
-// CHECK failure on shutdown (SIGTRAP + coredump after every build), so drop it.
 function browserArgs() {
   const onServerless = Boolean(
     process.env.VERCEL ||
@@ -103,20 +93,13 @@ const shortHash = async (filePath, extra = "") =>
     .digest("hex")
     .slice(0, 16);
 
-// ponytail: chromium version not part of the key — bump PDF_CACHE_DIR manually
-// if a chromium upgrade ever changes rendering.
 const cachedPdfPath = async (target) => {
-  // The measured CV height is derived deterministically from the HTML (fixed
-  // width, vendored fonts, no scrollbars), so it is not part of the key and
-  // cache hits need no navigation to compute.
   return join(
     PDF_CACHE_DIR,
     `${await shortHash(target.htmlPath, target.format ?? `auto@${target.width}`)}.pdf`,
   );
 };
 
-// Astro-style progress line: green arrow + only the output path, with
-// parentheticals (cache status, timings) in dim gray.
 const GREEN = "\x1b[32m";
 const RESET = "\x1b[39m";
 const DIM = "\x1b[2m";
@@ -127,10 +110,6 @@ const logArrow = (logger, message, startedAt) =>
       (startedAt === undefined ? "" : ` ${dim(`(+${Date.now() - startedAt}ms)`)}`),
   );
 
-// Skia stamps /CreationDate and /ModDate into every PDF, so the bytes (and
-// therefore asset hashes/caches) differ on every build even when the content
-// is identical. Both date strings are a fixed length, so overwriting them with
-// a constant timestamp shifts no bytes and keeps every xref offset valid.
 const FIXED_PDF_DATE = "D:20000101000000+00'00'";
 
 const PDF_DATE_RE = /((?:CreationDate|ModDate) \()D:[^)]+\)/g;
@@ -161,9 +140,6 @@ const storeInCache = async (filePath, cachePath) => {
   await copyFile(filePath, cachePath);
 };
 
-// Prefer the environment's own Chromium (Playwright image in CI, local
-// Playwright install). @sparticuz/chromium is the fallback for serverless
-// builds where no browser is preinstalled.
 async function launchBrowser(logger, hostRules) {
   try {
     return await chromium.launch({ args: [hostRules, "--hide-scrollbars"], headless: true });
@@ -179,10 +155,6 @@ async function launchBrowser(logger, hostRules) {
   }
 }
 
-// Navigate to a built page and wait for fonts so measurement/rendering is
-// stable. The production origin keeps link annotations inside the PDFs stable
-// and pointing at the real site, while chromium actually connects to the local
-// static server (the same trick as the old CI /etc/hosts entry).
 const SITE_ORIGIN = "http://hans.askov.dk";
 
 async function loadPage(page, url) {
@@ -193,10 +165,6 @@ async function loadPage(page, url) {
   await page.evaluate(() => document.fonts.ready);
 }
 
-// The preview render depends only on the homepage HTML and the content-hashed
-// assets it references (plus the pinned chromium/sharp versions), so the HTML
-// hash is a complete cache key — unchanged homepages skip the ~800ms
-// navigate/screenshot/encode entirely.
 async function capturePreview(getPage, logger, distDir, startedAt) {
   const homeHtmlPath = join(distDir, "index.html");
   const cachePath = join(PDF_CACHE_DIR, `preview-${await shortHash(homeHtmlPath)}.webp`);
@@ -238,9 +206,6 @@ export async function postBuild(distDir, cacheDir, logger) {
   const { server, hitsServed } = await serveStatic(distDir);
   const { port } = server.address();
 
-  // Chromium is only needed on cache misses, and launching it costs ~150ms,
-  // so defer it until the first print or preview capture.
-  /** @type {Promise<import("playwright-core").Browser> | undefined} */
   let browserPromise;
   const getBrowser = () => {
     browserPromise ??= launchBrowser(
@@ -280,11 +245,6 @@ export async function postBuild(distDir, cacheDir, logger) {
 
       const page = await getPage();
 
-      // CV targets have no fixed height: the viewport matches the paper width
-      // (plus the old A4-ratio height as a floor for short CVs), and the paper
-      // height is measured from the laid-out content so the PDF is always a
-      // single page. --hide-scrollbars keeps the viewport layout identical to
-      // the print layout, where no scrollbars take up width.
       if (target.width) {
         await page.setViewportSize({ width: target.width, height: 1662 });
       }
@@ -301,7 +261,6 @@ export async function postBuild(distDir, cacheDir, logger) {
         ? { format: target.format }
         : {
             width: target.width,
-            // +1px guards against sub-pixel rounding spilling a blank page.
             height: `${(await page.evaluate(() => document.documentElement.scrollHeight)) + 1}px`,
           };
 

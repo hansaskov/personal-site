@@ -1,44 +1,28 @@
 @import "tailwindcss";
 
-/* ---------------------------------------------------------------------------
-   Design system foundations
-   Three-tier tokens:
-     1. Primitives  (--pr-*)  raw values, never used directly in components
-     2. Semantic    (--ds-*)  purpose-named, swapped per [data-theme]
-     3. Theme map   (@theme inline) exposes semantics as Tailwind utilities
-
-   Shared breakpoints (Tailwind defaults): sm 40rem · md 48rem · lg 64rem · xl 80rem
-   Spacing scale: base-4 (Tailwind default) + two semantic steps below
---------------------------------------------------------------------------- */
-
-/* 1 ─ Primitives ---------------------------------------------------------- */
 :root {
-  /* Warm paper neutrals (surfaces) */
   --pr-paper-0: oklch(99.4% 0.002 85);
   --pr-paper-50: oklch(97.6% 0.005 80);
   --pr-paper-100: oklch(94.5% 0.007 78);
   --pr-paper-150: oklch(91% 0.008 76);
   --pr-paper-200: oklch(86% 0.01 74);
 
-  /* Ink neutrals (text, cool) */
   --pr-ink-400: oklch(55% 0.02 270);
   --pr-ink-500: oklch(46% 0.024 272);
   --pr-ink-800: oklch(25% 0.032 285);
   --pr-ink-900: oklch(17% 0.026 285);
 
-  /* Night neutrals (dark surfaces & text, pure neutral à la shadcn) */
-  --pr-night-50: oklch(0.985 0 0); /* foreground high        */
-  --pr-night-100: oklch(0.922 0 0); /* primary (inverted)     */
-  --pr-night-150: oklch(0.86 0 0); /* primary hover          */
-  --pr-night-300: oklch(0.708 0 0); /* foreground muted       */
-  --pr-night-400: oklch(0.65 0 0); /* foreground subtle      */
-  --pr-night-600: oklch(0.323 0 0); /* hover fills            */
-  --pr-night-700: oklch(0.269 0 0); /* active / muted fills   */
-  --pr-night-800: oklch(0.205 0 0); /* elevated surface (cards) */
-  --pr-night-900: oklch(0.155 0 0); /* page background        */
-  --pr-night-950: oklch(0.122 0 0); /* recessed surface (sidebar) */
+  --pr-night-50: oklch(0.985 0 0);
+  --pr-night-100: oklch(0.922 0 0);
+  --pr-night-150: oklch(0.86 0 0);
+  --pr-night-300: oklch(0.708 0 0);
+  --pr-night-400: oklch(0.65 0 0);
+  --pr-night-600: oklch(0.323 0 0);
+  --pr-night-700: oklch(0.269 0 0);
+  --pr-night-800: oklch(0.205 0 0);
+  --pr-night-900: oklch(0.155 0 0);
+  --pr-night-950: oklch(0.122 0 0);
 
-  /* Jade accent ramp — green with cool undertone (active nav, brand) */
   --pr-jade-300: oklch(84% 0.08 162);
   --pr-jade-400: oklch(78% 0.095 162);
   --pr-jade-500: oklch(72% 0.11 162);
@@ -46,69 +30,54 @@
   --pr-jade-800: oklch(43% 0.08 164);
   --pr-jade-900: oklch(32% 0.06 164);
 
-  /* Type scale: modular, ratio ≈ 1.25 (kept compact per feedback) */
-  --pr-fs-300: 0.8125rem; /* 13px caption floor   */
-  --pr-fs-400: 0.875rem; /* 14px dense body      */
-  --pr-fs-500: 0.9375rem; /* 15px default body    */
-  --pr-fs-600: 1.0625rem; /* 17px lead            */
-  --pr-fs-700: 1.1875rem; /* 19px sub-heading     */
-  --pr-fs-800: 1.375rem; /* 22px heading         */
-  --pr-fs-900: 1.625rem; /* 26px section title   */
+  --pr-fs-300: 0.8125rem;
+  --pr-fs-400: 0.875rem;
+  --pr-fs-500: 0.9375rem;
+  --pr-fs-600: 1.0625rem;
+  --pr-fs-700: 1.1875rem;
+  --pr-fs-800: 1.375rem;
+  --pr-fs-900: 1.625rem;
 
-  /* Easing */
   --pr-ease-out: cubic-bezier(0.32, 0.72, 0.35, 1);
 }
 
-/* 2 ─ Semantic tokens · Light --------------------------------------------- */
 :root,
 [data-theme="light"] {
   color-scheme: light;
 
-  /* Surfaces */
   --ds-color-bg-page: var(--pr-paper-50);
   --ds-color-bg-surface: var(--pr-paper-0);
   --ds-color-bg-subtle: var(--pr-paper-100);
   --ds-color-bg-active: var(--pr-paper-150);
 
-  /* Foreground */
   --ds-color-fg-default: var(--pr-ink-800);
   --ds-color-fg-muted: var(--pr-ink-500);
   --ds-color-fg-subtle: var(--pr-ink-400);
   --ds-color-fg-on-brand: var(--pr-jade-900);
 
-  /* Brand / interactive — jade */
   --ds-color-brand-default: var(--pr-jade-400);
   --ds-color-brand-hover: var(--pr-jade-500);
   --ds-color-brand-text: var(--pr-jade-800);
   --ds-color-brand-subtle: oklch(93% 0.04 162);
 
-  /* Lines */
   --ds-color-border-subtle: var(--pr-paper-150);
   --ds-color-border-strong: var(--pr-paper-200);
 
-  /* States */
   --ds-color-focus: var(--pr-jade-700);
   --ds-color-scrim: oklch(20% 0.02 260 / 0.45);
 
-  /* Elevation */
   --ds-shadow-card: 0 1px 2px oklch(25% 0.03 285 / 0.05);
   --ds-shadow-lift:
     0 2px 4px oklch(25% 0.03 285 / 0.05), 0 12px 32px -12px oklch(25% 0.03 285 / 0.18);
   --ds-shadow-panel: 0 16px 48px -12px oklch(20% 0.03 260 / 0.35);
 
-  /* Spacing semantics */
   --ds-space-gutter: clamp(1.25rem, 4vw, 2.5rem);
   --ds-space-section: clamp(2.75rem, 6vw, 4rem);
 
-  /* Layout metrics */
   --ds-sidebar-width: 19rem;
   --ds-measure-prose: 66ch;
 }
 
-/* 2 ─ Semantic tokens · Dark ----------------------------------------------
-   Elevation model, mirroring the light theme's hierarchy: surfaces get
-   brighter as they sit closer to the viewer (inverted lightness ramp).
-   Sidebar is the deepest recess → page background → cards are closest. */
 [data-theme="dark"] {
   color-scheme: dark;
 
@@ -138,9 +107,7 @@
   --ds-shadow-panel: 0 16px 48px -12px oklch(0 0 0 / 0.6);
 }
 
-/* 3 ─ Tailwind theme map --------------------------------------------------- */
 @theme inline {
-  /* Colors → utilities: bg-page, text-fg, text-fg-muted, border-line, … */
   --color-page: var(--ds-color-bg-page);
   --color-surface: var(--ds-color-bg-surface);
   --color-subtle: var(--ds-color-bg-subtle);
@@ -161,12 +128,10 @@
 
   --color-scrim: var(--ds-color-scrim);
 
-  /* Shadows → shadow-card, shadow-lift, shadow-panel */
   --shadow-card: var(--ds-shadow-card);
   --shadow-lift: var(--ds-shadow-lift);
   --shadow-panel: var(--ds-shadow-panel);
 
-  /* Semantic spacing steps → p-gutter, gap-section, mt-section, … */
   --spacing-gutter: var(--ds-space-gutter);
   --spacing-section: var(--ds-space-section);
 
@@ -175,8 +140,6 @@
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
-/* Typography: semantic text styles (role-named, never pixel-named) --------
-   Line-height groups: display 1.05 · titles 1.15 · headings 1.25 · body 1.6 */
 @layer components {
   .t-subheading {
     font-size: var(--pr-fs-700);
@@ -216,7 +179,6 @@
     color: var(--ds-color-fg-muted);
   }
 
-  /* Inline text link */
   .link {
     color: var(--ds-color-brand-text);
     text-decoration: underline;
@@ -227,7 +189,6 @@
   .link:hover {
     text-decoration-color: var(--ds-color-brand-text);
   }
-  /* Compat: underline only on hover/focus */
   .link.link-hover {
     text-decoration: none;
   }
@@ -236,9 +197,6 @@
     text-decoration: underline;
   }
 
-  /* Buttons -----------------------------------------------------------------
-     Sizes: md 44px tall (touch-safe) · sm 36px · icon 44×44
-     Variants carry their own state colors. */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -298,7 +256,6 @@
     border-color: var(--ds-color-fg-subtle);
   }
 
-  /* Icon-only ghost control (header/sidebar actions) */
   .icon-btn {
     display: inline-grid;
     place-items: center;
@@ -320,7 +277,6 @@
     transform: scale(0.94);
   }
 
-  /* Tag: quiet white pill */
   .tag {
     display: inline-flex;
     align-items: center;
@@ -336,7 +292,6 @@
     white-space: nowrap;
   }
 
-  /* Skip link, visible on keyboard focus only */
   .skip-link {
     position: fixed;
     top: 0.75rem;
@@ -356,7 +311,6 @@
     transform: none;
   }
 
-  /* Sidebar: hidden < lg (bottom drawer covers navigation), sticky column ≥ lg */
   .nav-panel {
     display: none;
   }
@@ -375,7 +329,6 @@
   }
 }
 
-/* 4 ─ Base ----------------------------------------------------------------- */
 @layer base {
   html {
     scrollbar-gutter: stable;
@@ -392,7 +345,6 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Heading hierarchy driven by the type scale */
   h1 {
     font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
     line-height: 1.05;
@@ -426,7 +378,6 @@
     color: var(--ds-color-fg-default);
   }
 
-  /* Single consistent focus treatment (WCAG-visible, offset from content) */
   :focus-visible {
     outline: 2px solid var(--ds-color-focus);
     outline-offset: 2px;

@@ -2,7 +2,6 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import { postBuildMedia } from "./scripts/post-build-integration.mjs";
 
-// https://astro.build/config
 export default defineConfig({
   site: "https://hans.askov.dk",
   output: "static",
@@ -20,8 +19,8 @@ export default defineConfig({
   image: {
     service: {
       config: {
-        webp: { effort: import.meta.env.PROD ? 6 : 0 }, // Run highest effort in prod
-        avif: { effort: import.meta.env.PROD ? 9 : 0 }, // Run highest effort in prod
+        webp: { effort: import.meta.env.PROD ? 6 : 0 },
+        avif: { effort: import.meta.env.PROD ? 9 : 0 },
       },
     },
   },
