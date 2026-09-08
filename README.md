@@ -26,6 +26,16 @@ To build the projcet, including generating the pdf files, simply run pnpm build.
 pnpm build
 ```
 
+To preview the build locally:
+```bash
+pnpm preview
+```
+
+To stop a preview server running in the background:
+```bash
+pnpm preview stop
+```
+
 ## Tech Stack
 
 - [Astro](https://astro.build)

@@ -356,61 +356,21 @@
     transform: none;
   }
 
-  /* Navigation drawer (pure CSS, no JS) -------------------------------------
-     < lg: fixed off-canvas panel + scrim, toggled by #site-nav checkbox
-     ≥ lg: static sticky column                                            */
+  /* Sidebar: hidden < lg (bottom drawer covers navigation), sticky column ≥ lg */
   .nav-panel {
-    position: fixed;
-    inset-block: 0;
-    left: 0;
-    z-index: 50;
-    width: min(var(--ds-sidebar-width), 86vw);
-    background: var(--ds-color-bg-subtle);
-    border-right: 1px solid var(--ds-color-border-subtle);
-    transform: translateX(-102%);
-    visibility: hidden;
-    transition:
-      transform 280ms var(--pr-ease-out),
-      visibility 0s 280ms;
+    display: none;
   }
-  :has(#site-nav:checked) .nav-panel {
-    transform: none;
-    visibility: visible;
-    box-shadow: var(--ds-shadow-panel);
-    transition-delay: 0s, 0s;
-  }
-  body:has(#site-nav:checked) {
-    overflow: hidden;
-  }
-
-  .nav-scrim {
-    position: fixed;
-    inset: 0;
-    z-index: 40;
-    background: var(--ds-color-scrim);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 200ms ease;
-  }
-  :has(#site-nav:checked) .nav-scrim {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
   @media (min-width: 64rem) {
     .nav-panel {
+      display: flex;
+      flex-direction: column;
       position: sticky;
       top: 0;
       height: 100dvh;
       width: var(--ds-sidebar-width);
       flex-shrink: 0;
-      transform: none;
-      visibility: visible;
-      box-shadow: none;
-      transition: none;
-    }
-    .nav-scrim {
-      display: none;
+      background: var(--ds-color-bg-subtle);
+      border-right: 1px solid var(--ds-color-border-subtle);
     }
   }
 }
@@ -474,10 +434,10 @@
   }
 
   /* sr-only inputs hide their own ring — put it on the visible control
-     instead: the theme toggle (input inside label) and the nav drawer
-     hamburger (label bound by for="#site-nav") */
+     instead: the theme toggle (input inside label) and the hamburger that
+     opens the bottom drawer (label bound by for="#bottom-drawer") */
   label:has(> input:focus-visible),
-  body:has(#site-nav:focus-visible) header label[for="site-nav"] {
+  body:has(.drawer-toggle:focus-visible) header label[for="bottom-drawer"] {
     outline: 2px solid var(--ds-color-focus);
     outline-offset: 2px;
   }

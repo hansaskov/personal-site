@@ -1,0 +1,88 @@
+---
+import type { Translation } from "@lib/i18n";
+
+interface Props {
+    t: Translation
+    id?: string
+    title?: string
+}
+
+const { t, id = "bottom-drawer", title } = Astro.props;
+---
+
+<input type="checkbox" id={id} class="sr-only drawer-toggle" aria-label={title ?? t.nav.menu} />
+<label for={id} class="drawer-scrim" aria-hidden="true"></label>
+<div class="drawer-panel" aria-label={title}>
+    <span class="drawer-handle" aria-hidden="true"></span>
+    {
+        title && (
+            <h2 class="t-subheading border-b border-line px-4 pt-1 pb-3.5">
+                {title}
+            </h2>
+        )
+    }
+    <slot />
+</div>
+
+<style>
+  /* Bottom drawer (pure CSS, same checkbox pattern as .nav-panel) ----------
+     Toggle: <input.drawer-toggle> + trigger <label for>, scrim click closes */
+  .drawer-panel {
+    position: fixed;
+    inset-block: auto 0;
+    inset-inline: 0;
+    z-index: 50;
+    margin-inline: auto;
+    width: 100%;
+    max-width: 32rem;
+    background: var(--ds-color-bg-surface);
+    border: 1px solid var(--ds-color-border-subtle);
+    border-bottom: 0;
+    border-radius: 1rem 1rem 0 0;
+    padding-block: 0.875rem calc(0.5rem + env(safe-area-inset-bottom));
+    padding-inline: 0.75rem;
+    box-shadow: var(--ds-shadow-panel);
+    max-height: 85dvh;
+    overflow-y: auto;
+    transform: translateY(102%);
+    visibility: hidden;
+    transition:
+      transform 280ms var(--pr-ease-out),
+      visibility 0s 280ms;
+  }
+  .drawer-toggle:checked ~ .drawer-panel {
+    transform: none;
+    visibility: visible;
+    transition-delay: 0s, 0s;
+  }
+  :global(body:has(.drawer-toggle:checked)) {
+    overflow: hidden;
+  }
+
+  .drawer-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: var(--ds-color-scrim);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+  .drawer-toggle:checked ~ .drawer-scrim {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .drawer-handle {
+    display: block;
+    width: 2.5rem;
+    height: 0.3rem;
+    margin: 0 auto 0.875rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--ds-color-fg-default) 25%, transparent);
+  }
+
+  .drawer-panel :global(nav ul) {
+    gap: 0.5rem;
+  }
+</style>

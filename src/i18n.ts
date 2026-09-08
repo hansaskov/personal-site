@@ -7,6 +7,7 @@ export type Translation = {
     home: string;
     projects: string;
     cv: string;
+    menu: string;
   };
   sections: {
     contact: string;
@@ -35,6 +36,7 @@ const en: Translation = {
     home: "Home",
     projects: "Projects",
     cv: "CV",
+    menu: "Menu",
   },
   sections: {
     contact: "Contact",
@@ -63,6 +65,7 @@ const da: Translation = {
     home: "Forside",
     projects: "Projekter",
     cv: "CV",
+    menu: "Menu",
   },
   sections: {
     contact: "Kontakt",
