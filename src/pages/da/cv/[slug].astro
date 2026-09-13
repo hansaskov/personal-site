@@ -1,0 +1,17 @@
+---
+import CvDetail from "@components/CvDetail.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const cvs = await getCollection("cvs", ({ data }) => data.locale === "da");
+
+    return cvs.map((cv) => ({
+        params: { slug: cv.data.slug },
+        props: { CV: cv },
+    }));
+}
+
+const { CV } = Astro.props;
+---
+
+<CvDetail {CV} />

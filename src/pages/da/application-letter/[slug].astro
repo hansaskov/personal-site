@@ -1,0 +1,20 @@
+---
+import ApplicationLetterDetail from "@components/ApplicationLetterDetail.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const letters = await getCollection(
+        "applicationLetters",
+        ({ data }) => data.locale === "da",
+    );
+
+    return letters.map((letter) => ({
+        params: { slug: letter.data.slug },
+        props: { letter },
+    }));
+}
+
+const { letter } = Astro.props;
+---
+
+<ApplicationLetterDetail {letter} />

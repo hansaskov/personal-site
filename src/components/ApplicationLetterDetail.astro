@@ -1,0 +1,63 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { ui } from "@lib/i18n";
+
+interface Props {
+  letter: CollectionEntry<"applicationLetters">;
+}
+
+const { letter } = Astro.props;
+const { Content } = await render(letter);
+const t = ui[letter.data.locale];
+---
+
+<BaseLayout
+    t={t}
+    title={letter.data.slug}
+    description={`Application letter for ${letter.data.slug}`}
+    theme="light"
+    prefetchUrls={[]}
+    includeSidebar={false}
+    includeHeader={false}
+    includeFooter={false}
+    shouldIndex={false}
+>
+    <article class="application-letter pt-16">
+        <Content />
+    </article>
+</BaseLayout>
+
+<style is:global>
+    .application-letter {
+        font-size: var(--pr-fs-600);
+        line-height: 1.75;
+        color: var(--ds-color-fg-default);
+    }
+
+    .application-letter h1,
+    .application-letter h2,
+    .application-letter h3 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .application-letter p {
+        margin-bottom: 1rem;
+    }
+
+    .application-letter ul,
+    .application-letter ol {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+    }
+
+    .application-letter ul {
+        list-style: disc;
+    }
+
+    .application-letter ol {
+        list-style: decimal;
+    }
+</style>

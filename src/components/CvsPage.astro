@@ -1,0 +1,70 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/Button.astro";
+import PageHeader from "@components/PageHeader.astro";
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import type { Locale } from "@lib/i18n";
+import { ui } from "@lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = ui[locale];
+
+const cvs = (await getCollection("cvs"))
+  .filter((cv) => cv.data.locale === locale)
+  .sort((a, b) => a.data.slug.localeCompare(b.data.slug));
+
+const prefetchUrls = [
+  getRelativeLocaleUrl(locale),
+  getRelativeLocaleUrl(locale, "cv"),
+  getRelativeLocaleUrl(locale, "projects"),
+];
+---
+
+<BaseLayout
+  t={t}
+  title={t.pages.cvs.title}
+  description={t.pages.cvs.metaDescription}
+  theme="light"
+  {prefetchUrls}
+  includeSidebar={true}
+  shouldIndex={false}
+>
+  <PageHeader
+    title={t.pages.cvs.title}
+    description={t.pages.cvs.description}
+  />
+
+  <ul class="mt-8 divide-y divide-line">
+    {
+      cvs.map((cv) => (
+        <li class="flex items-center justify-between gap-4 py-3.5">
+          <a
+            href={getRelativeLocaleUrl(locale, `cv/${cv.data.slug}`)}
+            class="link link-hover t-body-sm font-medium"
+          >
+            {cv.data.slug}
+          </a>
+          <Button
+            variant="secondary"
+            size="sm"
+            href={`/hans-askov-cv-${cv.data.slug}.pdf`}
+            download
+          >
+            {t.pages.cvs.download}
+          </Button>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-6 flex justify-end">
+    <Button href={getRelativeLocaleUrl(locale, "application-letters")} variant="secondary">
+      {t.pages.cvs.viewLetters}
+    </Button>
+  </div>
+</BaseLayout>

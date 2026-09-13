@@ -1,0 +1,62 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import TimeLine from "@components/TimeLine.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import type { CollectionEntry } from "astro:content";
+import { ui } from "@lib/i18n";
+
+interface Props {
+  CV: CollectionEntry<"cvs">;
+}
+
+const { CV } = Astro.props;
+const { title, intro, skills, experiances, educations } = CV.data;
+const t = ui[CV.data.locale];
+const otherLocale = CV.data.locale === "en" ? "da" : "en";
+const prefetchUrls = [
+  getRelativeLocaleUrl(CV.data.locale),
+  getRelativeLocaleUrl(CV.data.locale, "projects"),
+];
+---
+
+<BaseLayout
+    t={t}
+    localeToggle={{
+        locale: CV.data.locale,
+        href: getRelativeLocaleUrl(otherLocale, "cv"),
+    }}
+    title={title}
+    description={intro}
+    theme="light"
+    {prefetchUrls}
+    includeSidebar={true}
+    download_button={{
+        title: t.cv.download,
+        url: `/hans-askov-cv-${CV.data.slug}.pdf`,
+    }}
+    personalInfo={{
+        name: "Hans Askov",
+        email: "hans@askov.dk",
+        phone: "+45 24 96 51 87",
+        location: t.location,
+    }}
+    languages={t.spokenLanguages}
+    skills={skills}
+    aboutMe={t.cv.aboutMe}
+    shouldIndex={false}
+>
+    <header class="space-y-3.5">
+        <h1 class="text-balance">{title}</h1>
+        <p class="text-fg-muted">{intro}</p>
+    </header>
+
+    <div class="mt-section space-y-2">
+        <h2>{t.cv.experience}</h2>
+        <TimeLine experiances={experiances} />
+    </div>
+
+    <div class="mt-section space-y-2">
+        <h2>{t.cv.education}</h2>
+        <TimeLine experiances={educations} />
+    </div>
+</BaseLayout>

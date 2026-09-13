@@ -1,0 +1,157 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/Button.astro";
+import HorizontalCard from "@components/HorizontalCard.astro";
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import type { Locale } from "@lib/i18n";
+import { ui } from "@lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = ui[locale];
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const featuredProjects = projects.slice(0, 3);
+const prefetchUrls = [
+  getRelativeLocaleUrl(locale, "cv"),
+  getRelativeLocaleUrl(locale, "projects"),
+];
+const cvUrl = getRelativeLocaleUrl(locale, "cv");
+const projectsUrl = getRelativeLocaleUrl(locale, "projects");
+
+type Segment = string | { text: string; href: string };
+const about: Segment[][] =
+  locale === "en"
+    ? [
+        [
+          "I'm Hans, a software engineer who specializes in fullstack web development and building systems that hold up under real load.",
+        ],
+        [
+          "I care deeply about reducing complexity and about the developer experience. I have tried and do love many frontend frameworks like React, Vue, and Svelte, but in my experience, they all suffer from the same fundamental issue of duplicated logic between the frontend and backend. As a fullstack developer, this adds a lot of complexity to any one project. Most modern frameworks attempt to solve this by using javascript on both the client and server, as it allows for shared logic like form validation. While this does help, the core issue of duplicated state still remains. The solution is to let go of client side javascript and shift where the state is supposed to be, in the url or as part of the hypermedia. If you want to learn more, i highly suggest reading ",
+          {
+            text: "this post",
+            href: "https://htmx.org/essays/hateoas/",
+          },
+          " by Carson Gross, the creator of HTMX.",
+        ],
+        [
+          "To put my money where my mouth is, this website uses zero JavaScript and achieves instant page navigations using modern browser APIs like the Speculations API. Currently, this is only available in Chrome, but it is expected to come to Safari and Firefox eventually.",
+        ],
+        [
+          "These days I'm looking for a backend or fullstack role where engineering quality and cost discipline matter. If that's the kind of team you're building, ",
+          { text: "the inbox is open", href: "mailto:hans@askov.dk" },
+          ".",
+        ],
+      ]
+    : [
+        [
+          "Jeg er Hans, en softwareingeniør med speciale i fullstack webudvikling og i at bygge systemer, der holder, når belastningen er rigtig.",
+        ],
+        [
+          "Jeg brænder for at reducere kompleksitet og for udvikleroplevelsen. Jeg har prøvet og elsker mange frontend-frameworks som React, Vue og Svelte, men efter min erfaring lider de alle under det samme grundlæggende problem: duplikeret logik mellem frontend og backend. Som fullstack-udvikler tilføjer det meget kompleksitet til ethvert projekt. De fleste moderne frameworks forsøger at løse det ved at bruge JavaScript på både klient og server, så logik som formvalidering kan deles. Det hjælper, men kerneproblemet med duplikeret state består stadig. Løsningen er at droppe klient-JavaScript og flytte staten derhen, hvor den hører hjemme: i URL'en eller som en del af hypermediet. Vil du vide mere, kan jeg varmt anbefale ",
+          {
+            text: "dette indlæg",
+            href: "https://htmx.org/essays/hateoas/",
+          },
+          " af Carson Gross, skaberen af HTMX.",
+        ],
+        [
+          "For at vise, at jeg mener det, bruger denne hjemmeside nul JavaScript og opnår øjeblikkelige sideskift med moderne browser-API'er som Speculations API. I dag virker det kun i Chrome, men det forventes på et tidspunkt at komme i Safari og Firefox.",
+        ],
+        [
+          "Lige nu søger jeg en backend- eller fullstack-stilling, hvor ingeniørkvalitet og omkostningsdisciplin betyder noget. Hvis det er den slags team, du bygger, ",
+          { text: "er indbakken åben", href: "mailto:hans@askov.dk" },
+          ".",
+        ],
+      ];
+---
+
+<BaseLayout
+  t={t}
+  title={t.pages.home.title}
+  description={t.pages.home.description}
+  theme="light"
+  {prefetchUrls}
+  includeSidebar={true}
+  hreflang={{
+    en: getRelativeLocaleUrl("en"),
+    da: getRelativeLocaleUrl("da"),
+  }}
+>
+  <section aria-label="Introduction">
+    <h1 class="text-balance">Hans Askov</h1>
+
+    <p class="t-lead mt-3 text-fg-muted">{t.pages.home.role}</p>
+
+    <p class="t-caption mt-2 flex items-center gap-1.5 text-fg-subtle">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        aria-hidden="true"
+        class="shrink-0"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"></path>
+      </svg>
+      {t.pages.home.location}
+    </p>
+
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <Button variant="primary" href={cvUrl}>{t.pages.home.viewCv}</Button>
+      <Button variant="secondary" href={projectsUrl}
+        >{t.pages.home.browseProjects}</Button
+      >
+    </div>
+  </section>
+
+  <section aria-labelledby="about-heading" class="mt-section">
+    <h2 id="about-heading">{t.pages.home.aboutHeading}</h2>
+    <div class="t-body mt-4 space-y-4 text-fg-muted">
+      {
+        about.map((paragraph) => (
+          <p>
+            {paragraph.map((segment) =>
+              typeof segment === "string" ? (
+                segment
+              ) : (
+                <a class="link" href={segment.href}>{segment.text}</a>
+              )
+            )}
+          </p>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="projects-heading" class="mt-section">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 id="projects-heading" class="text-balance"
+        >{t.pages.home.latestProjects}</h2
+      >
+      <a href={projectsUrl} class="link link-hover t-body-sm shrink-0 font-medium"
+        >{t.pages.home.allProjects}</a
+      >
+    </div>
+
+    <div class="mt-5 space-y-4">
+      {featuredProjects.map((project) => <HorizontalCard {...project.data} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import type { Locale } from "@lib/i18n";
+
+interface Props {
+  locale?: Locale;
+  href?: string;
+}
+
+const { locale, href: hrefOverride } = Astro.props;
+const current = locale ?? (Astro.currentLocale as Locale | undefined) ?? "en";
+const other: Locale = current === "en" ? "da" : "en";
+const pathname = Astro.url.pathname
+  .replace(/^\/da(?=\/|$)/, "")
+  .replace(/\/+$/, "");
+const href =
+  hrefOverride ??
+  getRelativeLocaleUrl(other, pathname === "" ? undefined : pathname);
+const label = current === "en" ? "Skift til dansk" : "Switch to English";
+---
+
+<a
+  class="icon-btn t-caption font-semibold tracking-wide"
+  href={href}
+  hreflang={other}
+  rel="alternate"
+  title={label}
+  aria-label={label}
+>
+  {current === "en" ? "DA" : "EN"}
+</a>
