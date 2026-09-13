@@ -7,9 +7,10 @@ export interface Props {
 	image?: string;
 	ogType?: string;
 	shouldIndex?: boolean;
+	hreflang?: { en: string; da: string };
 }
 
-const { title, description, image = '/preview.jpg', ogType = 'website', shouldIndex = true } = Astro.props;
+const { title, description, image = '/preview.jpg', ogType = 'website', shouldIndex = true, hreflang } = Astro.props;
 ---
 
 <meta charset="utf-8" />

@@ -27,11 +27,13 @@ pnpm build
 ```
 
 To preview the build locally:
+
 ```bash
 pnpm preview
 ```
 
 To stop a preview server running in the background:
+
 ```bash
 pnpm preview stop
 ```

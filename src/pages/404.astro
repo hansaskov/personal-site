@@ -1,15 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import type { Locale } from "@lib/i18n";
 import { ui } from "@lib/i18n";
-const prefetchUrls = ["/"];
+
+const locale = (Astro.currentLocale as Locale | undefined) ?? "en";
+const otherLocale = locale === "en" ? "da" : "en";
+const t = ui[locale];
+const prefetchUrls = [getRelativeLocaleUrl(locale)];
 const includeSidebar = false;
 ---
 
 <BaseLayout
-  t={ui.en}
-  title="404: Not Found"
-  description="Oops, something went wrong"
+  t={t}
+  localeToggle={{
+    locale,
+    href: getRelativeLocaleUrl(otherLocale),
+  }}
+  title={t.pages.notFound.title}
+  description={t.pages.notFound.description}
   theme="light"
   {includeSidebar}
   {prefetchUrls}
@@ -19,15 +29,20 @@ const includeSidebar = false;
     <p class="text-8xl" aria-hidden="true">🏝</p>
     <h1 class="mt-6">404</h1>
     <p class="t-lead mx-auto mt-3 max-w-prose text-fg-muted text-balance">
-      The page you're looking for couldn't be found. It may have been moved or
-      never existed.
+      {t.pages.notFound.body}
     </p>
     <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-      <Button variant="primary" href="/">Back home</Button>
-      <Button variant="secondary" href="/projects">Browse projects</Button>
+      <Button variant="primary" href={getRelativeLocaleUrl(locale)}
+        >{t.pages.notFound.backHome}</Button
+      >
+      <Button variant="secondary" href={getRelativeLocaleUrl(locale, "projects")}
+        >{t.pages.notFound.browseProjects}</Button
+      >
     </div>
     <p class="t-body-sm mt-6 text-fg-muted">
-      Or <a class="link" href="mailto:hans@askov.dk">send me an email</a>.
+      {t.pages.notFound.or}
+      <a class="link" href="mailto:hans@askov.dk">{t.pages.notFound.sendEmail}</a
+      >.
     </p>
   </div>
 </BaseLayout>

@@ -1,6 +1,6 @@
 {
   "slug": "softwareingenior",
-  "lang": "da",
+  "locale": "da",
   "title": "Softwareingeniør",
   "intro": "Jeg er Hans, en softwareingeniør med fokus på backend systemer og data tunge applikationer. Jeg leverede Production Intelligence V4, en platform der behandler 420M+ machine vision inspektioner om året, og reducerede dashboard loading tider fra 10s til 0,1s samt reducerede jeg lageromkostninger med 92%.",
   "skills": [

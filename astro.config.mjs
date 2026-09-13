@@ -6,6 +6,17 @@ export default defineConfig({
   site: "https://hans.askov.dk",
   output: "static",
   integrations: [postBuildMedia()],
+  i18n: {
+    locales: ["en", "da"],
+    defaultLocale: "en",
+    routing: {
+      prefixDefaultLocale: false,
+      fallbackType: "redirect",
+    },
+    fallback: {
+      da: "en",
+    },
+  },
   build: {
     inlineStylesheets: "always",
   },

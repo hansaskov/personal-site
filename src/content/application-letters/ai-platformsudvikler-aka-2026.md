@@ -1,5 +1,6 @@
 ---
 slug: ai-platformsudvikler-aka-2026-v4
+locale: da
 ---
 
 **Kære Akademikernes A-kasse**

@@ -1,5 +1,6 @@
 ---
 import type { Translation } from "@lib/i18n";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
     t: Translation
@@ -25,15 +26,15 @@ const {
     t,
     pages = [
         {
-            url: "/",
+            url: getRelativeLocaleUrl(t.code),
             name: t.nav.home,
         },
         {
-            url: "/projects",
+            url: getRelativeLocaleUrl(t.code, "projects"),
             name: t.nav.projects,
         },
         {
-            url: "/cv",
+            url: getRelativeLocaleUrl(t.code, "cv"),
             name: t.nav.cv,
         }
     ],
@@ -43,17 +44,21 @@ const {
     aboutMe
 } = Astro.props
 
-const pathname = Astro.url.pathname;
+const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
+const pathname = normalize(Astro.url.pathname);
+const homeUrl = normalize(getRelativeLocaleUrl(t.code));
 
 ---
 
 <nav class="py-2 lg:py-4 flex-1">
     <ul class="flex flex-col gap-1" aria-label="Main navigation">
         {
-            pages.map(({ name, url }) => {
-                const active = url === "/"
-                    ? pathname === url
-                    : pathname.startsWith(url);
+            pages.map(({ name, url: rawUrl }) => {
+                const url = normalize(rawUrl);
+                const active =
+                    url === homeUrl
+                        ? pathname === url
+                        : pathname === url || pathname.startsWith(`${url}/`);
                 return (
                     <li>
                         <a

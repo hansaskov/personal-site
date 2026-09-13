@@ -6,6 +6,7 @@ const applicationLetters = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/application-letters" }),
   schema: z.object({
     slug: z.string(),
+    locale: z.enum(["en", "da"]),
   }),
 });
 
@@ -30,7 +31,7 @@ const cvs = defineCollection({
 
     return z.object({
       slug: z.string(),
-      lang: z.enum(["en", "da"]),
+      locale: z.enum(["en", "da"]),
       title: z.string(),
       intro: z.string(),
       skills: z.array(z.string()),

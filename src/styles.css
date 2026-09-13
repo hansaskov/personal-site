@@ -384,7 +384,6 @@
     border-radius: 0.25rem;
   }
 
-  
   label:has(> input:focus-visible),
   body:has(.drawer-toggle:focus-visible) header label[for="bottom-drawer"] {
     outline: 2px solid var(--ds-color-focus);

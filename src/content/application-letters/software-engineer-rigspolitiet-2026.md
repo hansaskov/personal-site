@@ -1,5 +1,6 @@
 ---
 slug: software-engineer-rigspolitiet-2026
+locale: da
 ---
 
 **Kære Politiets Efterretningstjeneste**

@@ -1,5 +1,6 @@
 ---
 slug: cyber-risk-quantification-specialist
+locale: en
 ---
 
 **Dear ACI Risk Measure**,

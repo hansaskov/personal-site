@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
@@ -21,27 +21,48 @@ function listSlugs(dir) {
     .sort();
 }
 
+// Astro i18n fallback pages are meta-refresh stubs, not real content.
+function isRedirectStub(htmlPath) {
+  return readFileSync(htmlPath, "utf8").includes('http-equiv="refresh"');
+}
+
 function collectTargets(distDir) {
   const targets = [];
 
-  for (const slug of ["", ...listSlugs(join(distDir, "cv"))]) {
-    const htmlPath = join(distDir, "cv", slug, "index.html");
-    if (!existsSync(htmlPath)) continue;
-    targets.push({
-      url: `/cv/${slug}`,
-      htmlPath,
-      outputPath: join(distDir, slug ? `hans-askov-cv-${slug}.pdf` : "hans-askov-cv.pdf"),
-      width: 1200,
-    });
+  for (const [dir, url] of [
+    ["cv", "/cv"],
+    ["da/cv", "/da/cv"],
+  ]) {
+    for (const slug of ["", ...listSlugs(join(distDir, dir))]) {
+      const htmlPath = join(distDir, dir, slug, "index.html");
+      if (!existsSync(htmlPath)) continue;
+      if (isRedirectStub(htmlPath)) continue;
+      // The /da/cv landing renders a CV that already has its own PDF route.
+      if (dir === "da/cv" && slug === "") continue;
+      targets.push({
+        url: `${url}/${slug}`,
+        htmlPath,
+        outputPath: join(distDir, slug ? `hans-askov-cv-${slug}.pdf` : "hans-askov-cv.pdf"),
+        width: 1200,
+      });
+    }
   }
 
-  for (const slug of listSlugs(join(distDir, "application-letter"))) {
-    targets.push({
-      url: `/application-letter/${slug}`,
-      htmlPath: join(distDir, "application-letter", slug, "index.html"),
-      outputPath: join(distDir, `application-letter-${slug}.pdf`),
-      format: "A3",
-    });
+  for (const [dir, url] of [
+    ["application-letter", "/application-letter"],
+    ["da/application-letter", "/da/application-letter"],
+  ]) {
+    for (const slug of listSlugs(join(distDir, dir))) {
+      const htmlPath = join(distDir, dir, slug, "index.html");
+      if (!existsSync(htmlPath)) continue;
+      if (isRedirectStub(htmlPath)) continue;
+      targets.push({
+        url: `${url}/${slug}`,
+        htmlPath,
+        outputPath: join(distDir, `application-letter-${slug}.pdf`),
+        format: "A3",
+      });
+    }
   }
 
   return targets;
