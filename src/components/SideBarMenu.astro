@@ -1,9 +1,10 @@
 ---
-import type { Translation } from "@lib/i18n";
+import type { LayoutData } from "@lib/content.config";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
-    t: Translation
+    t: LayoutData
+    path?: string
     pages?: {
         url: string,
         name: string
@@ -24,17 +25,18 @@ interface Props {
 
 const {
     t,
+    path,
     pages = [
         {
-            url: getRelativeLocaleUrl(t.code),
+            url: getRelativeLocaleUrl(t.locale),
             name: t.nav.home,
         },
         {
-            url: getRelativeLocaleUrl(t.code, "projects"),
+            url: getRelativeLocaleUrl(t.locale, "projects"),
             name: t.nav.projects,
         },
         {
-            url: getRelativeLocaleUrl(t.code, "cv"),
+            url: getRelativeLocaleUrl(t.locale, "cv"),
             name: t.nav.cv,
         }
     ],
@@ -45,13 +47,13 @@ const {
 } = Astro.props
 
 const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
-const pathname = normalize(Astro.url.pathname);
-const homeUrl = normalize(getRelativeLocaleUrl(t.code));
+const pathname = normalize(path ?? Astro.url.pathname);
+const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
 
 ---
 
 <nav class="py-2 lg:py-4 flex-1">
-    <ul class="flex flex-col gap-1" aria-label="Main navigation">
+    <ul class="flex flex-col gap-1" aria-label={t.nav.main}>
         {
             pages.map(({ name, url: rawUrl }) => {
                 const url = normalize(rawUrl);

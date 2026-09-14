@@ -1,5 +1,5 @@
 ---
-import type { Translation } from "@lib/i18n";
+import type { LayoutData } from "@lib/content.config";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import ProfilePicture from "../media/profile.jpg";
 import { getImage } from "astro:assets";
@@ -12,7 +12,7 @@ const hero = await getImage({
 });
 
 interface Props {
-  t: Translation
+  t: LayoutData
 }
 
 const props = Astro.props;
@@ -24,7 +24,7 @@ const props = Astro.props;
 </Fragment>
 
 <div class="w-fit mx-auto">
-    <a href={getRelativeLocaleUrl(props.t.code)} class="group block rounded-full" title={props.t.nav.home}>
+    <a href={getRelativeLocaleUrl(props.t.locale)} class="group block rounded-full" title={props.t.nav.home}>
         <img
             width={384}
             height={384}

@@ -9,13 +9,7 @@ export default defineConfig({
   i18n: {
     locales: ["en", "da"],
     defaultLocale: "en",
-    routing: {
-      prefixDefaultLocale: false,
-      fallbackType: "redirect",
-    },
-    fallback: {
-      da: "en",
-    },
+    routing: "manual",
   },
   build: {
     inlineStylesheets: "always",

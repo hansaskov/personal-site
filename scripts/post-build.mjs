@@ -21,7 +21,7 @@ function listSlugs(dir) {
     .sort();
 }
 
-// Astro i18n fallback pages are meta-refresh stubs, not real content.
+// Skip stub pages with no real content (e.g. meta-refresh redirects).
 function isRedirectStub(htmlPath) {
   return readFileSync(htmlPath, "utf8").includes('http-equiv="refresh"');
 }
@@ -30,7 +30,7 @@ function collectTargets(distDir) {
   const targets = [];
 
   for (const [dir, url] of [
-    ["cv", "/cv"],
+    ["en/cv", "/en/cv"],
     ["da/cv", "/da/cv"],
   ]) {
     for (const slug of ["", ...listSlugs(join(distDir, dir))]) {
@@ -49,7 +49,7 @@ function collectTargets(distDir) {
   }
 
   for (const [dir, url] of [
-    ["application-letter", "/application-letter"],
+    ["en/application-letter", "/en/application-letter"],
     ["da/application-letter", "/da/application-letter"],
   ]) {
     for (const slug of listSlugs(join(distDir, dir))) {

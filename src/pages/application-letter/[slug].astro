@@ -1,5 +1,4 @@
 ---
-import ApplicationLetterDetail from "@components/ApplicationLetterDetail.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -10,11 +9,8 @@ export async function getStaticPaths() {
 
     return letters.map((letter) => ({
         params: { slug: letter.data.slug },
-        props: { letter },
     }));
 }
 
-const { letter } = Astro.props;
+return Astro.rewrite(`/en/application-letter/${Astro.params.slug}`);
 ---
-
-<ApplicationLetterDetail {letter} />

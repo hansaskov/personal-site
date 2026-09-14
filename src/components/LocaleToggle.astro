@@ -1,31 +1,24 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import type { LayoutData } from "@lib/content.config";
 import type { Locale } from "@lib/i18n";
 
 interface Props {
-  locale?: Locale;
-  href?: string;
+  target: Locale;
+  href: string;
+  t: LayoutData;
 }
 
-const { locale, href: hrefOverride } = Astro.props;
-const current = locale ?? (Astro.currentLocale as Locale | undefined) ?? "en";
-const other: Locale = current === "en" ? "da" : "en";
-const pathname = Astro.url.pathname
-  .replace(/^\/da(?=\/|$)/, "")
-  .replace(/\/+$/, "");
-const href =
-  hrefOverride ??
-  getRelativeLocaleUrl(other, pathname === "" ? undefined : pathname);
-const label = current === "en" ? "Skift til dansk" : "Switch to English";
+const { target, href, t } = Astro.props;
+const label = t.localeToggle[target];
 ---
 
 <a
   class="icon-btn t-caption font-semibold tracking-wide"
   href={href}
-  hreflang={other}
+  hreflang={target}
   rel="alternate"
   title={label}
   aria-label={label}
 >
-  {current === "en" ? "DA" : "EN"}
+  {target.toUpperCase()}
 </a>

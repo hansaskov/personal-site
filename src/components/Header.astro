@@ -3,16 +3,17 @@ import type { ComponentProps } from "astro/types";
 import ThemeSelector from "./ThemeSelector.astro";
 import LocaleToggle from "./LocaleToggle.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import type { Translation } from "@lib/i18n";
+import type { LayoutData } from "@lib/content.config";
+import type { Locale } from "@lib/i18n";
 
 interface Props extends ComponentProps<typeof ThemeSelector> {
   includeSidebar: boolean;
-  t: Translation;
-  localeToggle?: ComponentProps<typeof LocaleToggle>;
+  t: LayoutData;
+  localeToggle: { target: Locale; href: string };
 }
 
 const { includeSidebar, t, localeToggle, ...props } = Astro.props;
-const homeUrl = getRelativeLocaleUrl(t.code);
+const homeUrl = getRelativeLocaleUrl(t.locale);
 ---
 
 <header
@@ -44,7 +45,7 @@ const homeUrl = getRelativeLocaleUrl(t.code);
     </div>
 
     <div class="ml-auto flex items-center justify-end">
-      <LocaleToggle {...localeToggle} />
+      <LocaleToggle {...localeToggle} t={t} />
       <ThemeSelector {...props} />
     </div>
   </div>

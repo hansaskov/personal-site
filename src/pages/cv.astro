@@ -1,3 +1,5 @@
 ---
-return Astro.rewrite("/cv/software-developer");
+import { defaultCvSlug } from "@lib/i18n";
+
+return Astro.rewrite(`/en/cv/${defaultCvSlug.en}`);
 ---
