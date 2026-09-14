@@ -1,80 +1,42 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
+import DocumentList from "@components/DocumentList.astro";
 import PageHeader from "@components/PageHeader.astro";
-import { getCollection } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import {
-  getLocalized,
-  localeStaticPaths,
-  otherLocale,
-  type Locale,
-} from "@lib/i18n";
+import { getLocalized, getLocaleDocs, localeStaticPaths, localeToggle, pageUrl, type Locale } from "@lib/i18n";
 
-export function getStaticPaths() {
-  return localeStaticPaths();
-}
+export const getStaticPaths = localeStaticPaths;
 
 const locale = Astro.params.locale as Locale;
-const t = await getLocalized("layout", locale);
-const page = await getLocalized("cvsPage", locale);
-const { title, description, metaDescription, download, viewLetters } = page.data;
+const { data: layout } = await getLocalized("layout", locale);
+const { data: page } = await getLocalized("cvsPage", locale);
 
-const cvs = (await getCollection("cvs"))
-  .filter((cv) => cv.data.locale === locale)
-  .sort((a, b) => a.data.slug.localeCompare(b.data.slug));
+const path = pageUrl(locale, "cvs");
+const toggle = localeToggle(locale, "cvs");
+const prefetchUrls = [pageUrl(locale), pageUrl(locale, "cv"), pageUrl(locale, "projects")];
+const lettersUrl = pageUrl(locale, "application-letters");
 
-const path = getRelativeLocaleUrl(locale, "cvs");
-const prefetchUrls = [
-  getRelativeLocaleUrl(locale),
-  getRelativeLocaleUrl(locale, "cv"),
-  getRelativeLocaleUrl(locale, "projects"),
-];
-const other = otherLocale(locale);
+const cvHref = (slug: string) => pageUrl(locale, `cv/${slug}`);
+const pdfHref = (slug: string) => `/hans-askov-cv-${slug}.pdf`;
+const items = (await getLocaleDocs("cvs", locale)).map((cv) => ({
+  title: cv.data.slug,
+  href: cvHref(cv.data.slug),
+  pdfUrl: pdfHref(cv.data.slug),
+}));
 ---
 
 <BaseLayout
-  t={t.data}
+  t={layout}
   path={path}
-  localeToggle={{ target: other, href: getRelativeLocaleUrl(other, "cvs") }}
-  title={title}
-  description={metaDescription}
-  theme="light"
-  {prefetchUrls}
-  includeSidebar={true}
+  localeToggle={toggle}
+  title={page.title}
+  description={page.metaDescription}
+  prefetchUrls={prefetchUrls}
   shouldIndex={false}
 >
-  <PageHeader title={title} description={description} />
-
-  <ul class="mt-8 divide-y divide-line">
-    {
-      cvs.map((cv) => (
-        <li class="flex items-center justify-between gap-4 py-3.5">
-          <a
-            href={getRelativeLocaleUrl(locale, `cv/${cv.data.slug}`)}
-            class="link link-hover t-body-sm font-medium"
-          >
-            {cv.data.slug}
-          </a>
-          <Button
-            variant="secondary"
-            size="sm"
-            href={`/hans-askov-cv-${cv.data.slug}.pdf`}
-            download
-          >
-            {download}
-          </Button>
-        </li>
-      ))
-    }
-  </ul>
-
+  <PageHeader title={page.title} description={page.description} />
+  <DocumentList items={items} downloadLabel={page.download} />
   <div class="mt-6 flex justify-end">
-    <Button
-      href={getRelativeLocaleUrl(locale, "application-letters")}
-      variant="secondary"
-    >
-      {viewLetters}
-    </Button>
+    <Button href={lettersUrl} variant="secondary">{page.viewLetters}</Button>
   </div>
 </BaseLayout>

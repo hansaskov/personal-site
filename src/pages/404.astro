@@ -1,44 +1,36 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { getLocalized } from "@lib/i18n";
+import { getLocalized, localeToggle, pageUrl } from "@lib/i18n";
 
-const t = await getLocalized("layout", "en");
-const page = await getLocalized("notFound", "en");
-const { title, description, body, backHome, browseProjects, or, sendEmail } =
-  page.data;
-const prefetchUrls = [getRelativeLocaleUrl("en")];
-const includeSidebar = false;
+const { data: layout } = await getLocalized("layout", "en");
+const { data: page } = await getLocalized("notFound", "en");
+
+const toggle = localeToggle("en");
+const homeUrl = pageUrl("en");
+const projectsUrl = pageUrl("en", "projects");
+const prefetchUrls = [homeUrl];
 ---
 
 <BaseLayout
-  t={t.data}
-  localeToggle={{ target: "da", href: getRelativeLocaleUrl("da") }}
-  title={title}
-  description={description}
-  theme="light"
-  {includeSidebar}
-  {prefetchUrls}
+  t={layout}
+  localeToggle={toggle}
+  title={page.title}
+  description={page.description}
+  prefetchUrls={prefetchUrls}
+  includeSidebar={false}
   shouldIndex={false}
 >
   <div class="pt-16 text-center">
     <p class="text-8xl" aria-hidden="true">🏝</p>
     <h1 class="mt-6">404</h1>
-    <p class="t-lead mx-auto mt-3 max-w-prose text-fg-muted text-balance">
-      {body}
-    </p>
+    <p class="t-lead mx-auto mt-3 max-w-prose text-fg-muted text-balance">{page.body}</p>
     <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-      <Button variant="primary" href={getRelativeLocaleUrl("en")}
-        >{backHome}</Button
-      >
-      <Button variant="secondary" href={getRelativeLocaleUrl("en", "projects")}
-        >{browseProjects}</Button
-      >
+      <Button variant="primary" href={homeUrl}>{page.backHome}</Button>
+      <Button variant="secondary" href={projectsUrl}>{page.browseProjects}</Button>
     </div>
     <p class="t-body-sm mt-6 text-fg-muted">
-      {or}
-      <a class="link" href="mailto:hans@askov.dk">{sendEmail}</a>.
+      {page.or} <a class="link" href="mailto:hans@askov.dk">{page.sendEmail}</a>.
     </p>
   </div>
 </BaseLayout>

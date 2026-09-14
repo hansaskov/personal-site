@@ -2,17 +2,13 @@
 import { getCollection } from "astro:content";
 import { defaultCvSlug, localeStaticPaths, type Locale } from "@lib/i18n";
 
-export function getStaticPaths() {
-  return localeStaticPaths();
-}
+export const getStaticPaths = localeStaticPaths;
 
 const locale = Astro.params.locale as Locale;
-const slug = defaultCvSlug[locale];
-const exists = (await getCollection("cvs")).some(
-  (cv) => cv.data.locale === locale && cv.data.slug === slug,
+const found = (await getCollection("cvs")).some(
+  (cv) => cv.data.locale === locale && cv.data.slug === defaultCvSlug[locale],
 );
-if (!exists) {
-  throw new Error(`Default CV slug '${slug}' for locale '${locale}' not found in the 'cvs' collection`);
-}
-return Astro.rewrite(`/${locale}/cv/${slug}`);
+if (!found) throw new Error(`Default CV slug '${defaultCvSlug[locale]}' for locale '${locale}' not found`);
+
+return Astro.rewrite(`/${locale}/cv/${defaultCvSlug[locale]}`);
 ---

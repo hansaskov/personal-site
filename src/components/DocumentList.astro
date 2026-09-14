@@ -1,0 +1,25 @@
+---
+import Button from "@components/Button.astro";
+
+export interface DocumentItem {
+  title: string;
+  href: string;
+  pdfUrl: string;
+}
+
+interface Props {
+  items: DocumentItem[];
+  downloadLabel: string;
+}
+
+const { items, downloadLabel } = Astro.props;
+---
+
+<ul class="mt-8 divide-y divide-line">
+  {items.map((item) => (
+    <li class="flex items-center justify-between gap-4 py-3.5">
+      <a href={item.href} class="link link-hover t-body-sm font-medium">{item.title}</a>
+      <Button variant="secondary" size="sm" href={item.pdfUrl} download>{downloadLabel}</Button>
+    </li>
+  ))}
+</ul>

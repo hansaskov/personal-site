@@ -2,51 +2,32 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import HorizontalCard from "@components/HorizontalCard.astro";
 import PageHeader from "@components/PageHeader.astro";
-import { getCollection } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import {
-  getLocalized,
-  localeStaticPaths,
-  otherLocale,
-  type Locale,
-} from "@lib/i18n";
+import { getLocalized, getSortedProjects, hreflangUrls, localeStaticPaths, localeToggle, pageUrl, type Locale } from "@lib/i18n";
 
-export function getStaticPaths() {
-  return localeStaticPaths();
-}
+export const getStaticPaths = localeStaticPaths;
 
 const locale = Astro.params.locale as Locale;
-const t = await getLocalized("layout", locale);
-const page = await getLocalized("projectsPage", locale);
-const { title, description, metaDescription } = page.data;
+const { data: layout } = await getLocalized("layout", locale);
+const { data: page } = await getLocalized("projectsPage", locale);
 
-const projects = (await getCollection("projects")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-const path = getRelativeLocaleUrl(locale, "projects");
-const prefetchUrls = [
-  getRelativeLocaleUrl(locale),
-  getRelativeLocaleUrl(locale, "cv"),
-];
-const other = otherLocale(locale);
+const path = pageUrl(locale, "projects");
+const toggle = localeToggle(locale, "projects");
+const hreflang = hreflangUrls("projects");
+const prefetchUrls = [pageUrl(locale), pageUrl(locale, "cv")];
+
+const projects = await getSortedProjects();
 ---
 
 <BaseLayout
-  t={t.data}
+  t={layout}
   path={path}
-  localeToggle={{ target: other, href: getRelativeLocaleUrl(other, "projects") }}
-  title={title}
-  description={metaDescription}
-  theme="light"
-  {prefetchUrls}
-  includeSidebar={true}
-  hreflang={{
-    en: getRelativeLocaleUrl("en", "projects"),
-    da: getRelativeLocaleUrl("da", "projects"),
-  }}
+  localeToggle={toggle}
+  title={page.title}
+  description={page.metaDescription}
+  prefetchUrls={prefetchUrls}
+  hreflang={hreflang}
 >
-  <PageHeader title={title} description={description} />
-
+  <PageHeader title={page.title} description={page.description} />
   <div class="mt-8 space-y-4">
     {projects.map((project) => <HorizontalCard {...project.data} />)}
   </div>

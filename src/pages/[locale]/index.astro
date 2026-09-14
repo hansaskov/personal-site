@@ -2,122 +2,66 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
 import HorizontalCard from "@components/HorizontalCard.astro";
-import { getCollection } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import {
-  getLocalized,
-  localeStaticPaths,
-  otherLocale,
-  type Locale,
-} from "@lib/i18n";
+import { getLocalized, getSortedProjects, hreflangUrls, localeStaticPaths, localeToggle, pageUrl, type Locale } from "@lib/i18n";
 
-export function getStaticPaths() {
-  return localeStaticPaths();
-}
+export const getStaticPaths = localeStaticPaths;
+
+type Segment = string | { text: string; href: string };
+const isLink = (segment: Segment): segment is { text: string; href: string } => typeof segment !== "string";
 
 const locale = Astro.params.locale as Locale;
-const t = await getLocalized("layout", locale);
-const page = await getLocalized("home", locale);
-const {
-  title,
-  description,
-  role,
-  location,
-  viewCv,
-  browseProjects,
-  aboutHeading,
-  latestProjects,
-  allProjects,
-  about,
-} = page.data;
+const { data: layout } = await getLocalized("layout", locale);
+const { data: page } = await getLocalized("home", locale);
 
-const projects = (await getCollection("projects")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-const featuredProjects = projects.slice(0, 3);
-const path = getRelativeLocaleUrl(locale);
-const cvUrl = getRelativeLocaleUrl(locale, "cv");
-const projectsUrl = getRelativeLocaleUrl(locale, "projects");
+const path = pageUrl(locale);
+const toggle = localeToggle(locale);
+const hreflang = hreflangUrls();
+const cvUrl = pageUrl(locale, "cv");
+const projectsUrl = pageUrl(locale, "projects");
 const prefetchUrls = [cvUrl, projectsUrl];
-const other = otherLocale(locale);
+
+const featuredProjects = await getSortedProjects(3);
 ---
 
 <BaseLayout
-  t={t.data}
+  t={layout}
   path={path}
-  localeToggle={{ target: other, href: getRelativeLocaleUrl(other) }}
-  title={title}
-  description={description}
-  theme="light"
-  {prefetchUrls}
-  includeSidebar={true}
-  hreflang={{
-    en: getRelativeLocaleUrl("en"),
-    da: getRelativeLocaleUrl("da"),
-  }}
+  localeToggle={toggle}
+  title={page.title}
+  description={page.description}
+  prefetchUrls={prefetchUrls}
+  hreflang={hreflang}
 >
   <section aria-label="Introduction">
     <h1 class="text-balance">Hans Askov</h1>
-
-    <p class="t-lead mt-3 text-fg-muted">{role}</p>
-
+    <p class="t-lead mt-3 text-fg-muted">{page.role}</p>
     <p class="t-caption mt-2 flex items-center gap-1.5 text-fg-subtle">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        aria-hidden="true"
-        class="shrink-0"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"></path>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="14" height="14" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="shrink-0">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
       </svg>
-      {location}
+      {page.location}
     </p>
-
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-      <Button variant="primary" href={cvUrl}>{viewCv}</Button>
-      <Button variant="secondary" href={projectsUrl}>{browseProjects}</Button>
+      <Button variant="primary" href={cvUrl}>{page.viewCv}</Button>
+      <Button variant="secondary" href={projectsUrl}>{page.browseProjects}</Button>
     </div>
   </section>
 
   <section aria-labelledby="about-heading" class="mt-section">
-    <h2 id="about-heading">{aboutHeading}</h2>
+    <h2 id="about-heading">{page.aboutHeading}</h2>
     <div class="t-body mt-4 space-y-4 text-fg-muted">
-      {
-        about.map((paragraph) => (
-          <p>
-            {paragraph.map((segment) =>
-              typeof segment === "string" ? (
-                segment
-              ) : (
-                <a class="link" href={segment.href}>{segment.text}</a>
-              )
-            )}
-          </p>
-        ))
-      }
+      {page.about.map((paragraph) => (
+        <p>{paragraph.map((segment) => (isLink(segment) ? <a class="link" href={segment.href}>{segment.text}</a> : segment))}</p>
+      ))}
     </div>
   </section>
 
   <section aria-labelledby="projects-heading" class="mt-section">
     <div class="flex items-baseline justify-between gap-4">
-      <h2 id="projects-heading" class="text-balance">{latestProjects}</h2>
-      <a href={projectsUrl} class="link link-hover t-body-sm shrink-0 font-medium"
-        >{allProjects}</a
-      >
+      <h2 id="projects-heading" class="text-balance">{page.latestProjects}</h2>
+      <a href={projectsUrl} class="link link-hover t-body-sm shrink-0 font-medium">{page.allProjects}</a>
     </div>
-
     <div class="mt-5 space-y-4">
       {featuredProjects.map((project) => <HorizontalCard {...project.data} />)}
     </div>

@@ -1,16 +1,7 @@
 ---
-import { getCollection } from "astro:content";
+import { enSlugStaticPaths } from "@lib/i18n";
 
-export async function getStaticPaths() {
-    const letters = await getCollection(
-        "applicationLetters",
-        ({ data }) => data.locale === "en",
-    );
-
-    return letters.map((letter) => ({
-        params: { slug: letter.data.slug },
-    }));
-}
+export const getStaticPaths = () => enSlugStaticPaths("applicationLetters");
 
 return Astro.rewrite(`/en/application-letter/${Astro.params.slug}`);
 ---

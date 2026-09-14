@@ -1,10 +1,10 @@
 ---
 interface Props {
-    prefetchUrls: string[];
+    prefetchUrls?: string[];
     eagerness?: "immediate" | "eager" | "moderate" | "conservative";
 }
 
-const { prefetchUrls, eagerness = "immediate" } = Astro.props;
+const { prefetchUrls = [], eagerness = "immediate" } = Astro.props;
 ---
 
 <script

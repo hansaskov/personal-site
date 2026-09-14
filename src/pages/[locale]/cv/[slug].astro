@@ -1,67 +1,50 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import TimeLine from "@components/TimeLine.astro";
-import { getCollection } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { getLocalized, otherLocale } from "@lib/i18n";
+import { getLocalized, localeToggle, pageUrl } from "@lib/i18n";
+import { localeSlugStaticPaths } from "@lib/i18n";
 
-export async function getStaticPaths() {
-    const cvs = await getCollection("cvs");
+export const getStaticPaths = () => localeSlugStaticPaths("cvs");
 
-    return cvs.map((cv) => ({
-        params: { locale: cv.data.locale, slug: cv.data.slug },
-        props: { CV: cv },
-    }));
-}
+const { entry: CV } = Astro.props;
+const { locale, slug, title, intro, skills, experiances, educations } = CV.data;
+const { data: layout } = await getLocalized("layout", locale);
 
-const { CV } = Astro.props;
-const locale = CV.data.locale;
-const t = await getLocalized("layout", locale);
-const { title, intro, skills, experiances, educations } = CV.data;
-const other = otherLocale(locale);
-const path = getRelativeLocaleUrl(locale, `cv/${CV.data.slug}`);
-const prefetchUrls = [
-    getRelativeLocaleUrl(locale),
-    getRelativeLocaleUrl(locale, "projects"),
+const path = pageUrl(locale, `cv/${slug}`);
+const toggle = localeToggle(locale, "cv");
+const prefetchUrls = [pageUrl(locale), pageUrl(locale, "projects")];
+const pdfUrl = `/hans-askov-cv-${slug}.pdf`;
+
+const personalInfo = { name: "Hans Askov", email: "hans@askov.dk", phone: "+45 24 96 51 87", location: layout.location };
+const download_button = { title: layout.cv.download, url: pdfUrl };
+const sections = [
+  { heading: layout.cv.experience, items: experiances },
+  { heading: layout.cv.education, items: educations },
 ];
 ---
 
 <BaseLayout
-    t={t.data}
-    path={path}
-    localeToggle={{ target: other, href: getRelativeLocaleUrl(other, "cv") }}
-    title={title}
-    description={intro}
-    theme="light"
-    {prefetchUrls}
-    includeSidebar={true}
-    download_button={{
-        title: t.data.cv.download,
-        url: `/hans-askov-cv-${CV.data.slug}.pdf`,
-    }}
-    personalInfo={{
-        name: "Hans Askov",
-        email: "hans@askov.dk",
-        phone: "+45 24 96 51 87",
-        location: t.data.location,
-    }}
-    languages={t.data.spokenLanguages}
-    skills={skills}
-    aboutMe={t.data.cv.aboutMe}
-    shouldIndex={false}
+  t={layout}
+  path={path}
+  localeToggle={toggle}
+  title={title}
+  description={intro}
+  prefetchUrls={prefetchUrls}
+  download_button={download_button}
+  personalInfo={personalInfo}
+  languages={layout.spokenLanguages}
+  skills={skills}
+  aboutMe={layout.cv.aboutMe}
+  shouldIndex={false}
 >
-    <header class="space-y-3.5">
-        <h1 class="text-balance">{title}</h1>
-        <p class="text-fg-muted">{intro}</p>
-    </header>
-
+  <header class="space-y-3.5">
+    <h1 class="text-balance">{title}</h1>
+    <p class="text-fg-muted">{intro}</p>
+  </header>
+  {sections.map(({ heading, items }) => (
     <div class="mt-section space-y-2">
-        <h2>{t.data.cv.experience}</h2>
-        <TimeLine experiances={experiances} />
+      <h2>{heading}</h2>
+      <TimeLine experiances={items} />
     </div>
-
-    <div class="mt-section space-y-2">
-        <h2>{t.data.cv.education}</h2>
-        <TimeLine experiances={educations} />
-    </div>
+  ))}
 </BaseLayout>

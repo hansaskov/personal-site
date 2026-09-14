@@ -1,13 +1,7 @@
 ---
-import { getCollection } from "astro:content";
+import { enSlugStaticPaths } from "@lib/i18n";
 
-export async function getStaticPaths() {
-    const cvs = await getCollection("cvs", ({ data }) => data.locale === "en");
-
-    return cvs.map((cv) => ({
-        params: { slug: cv.data.slug },
-    }));
-}
+export const getStaticPaths = () => enSlugStaticPaths("cvs");
 
 return Astro.rewrite(`/en/cv/${Astro.params.slug}`);
 ---
