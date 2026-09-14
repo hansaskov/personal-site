@@ -1,0 +1,32 @@
+{
+  "locale": "da",
+  "localeToggle": {
+    "da": "Skift til dansk",
+    "en": "Switch to English"
+  },
+  "nav": {
+    "home": "Forside",
+    "projects": "Projekter",
+    "cv": "CV",
+    "menu": "Menu",
+    "main": "Hovednavigation"
+  },
+  "sections": {
+    "contact": "Kontakt",
+    "languages": "Sprog",
+    "skills": "Kompetencer",
+    "aboutMe": "Om mig"
+  },
+  "cv": {
+    "experience": "Erhvervserfaring",
+    "education": "Uddannelse",
+    "download": "Download CV",
+    "aboutMe": "I min fritid roder jeg med hjemmeservere og jogger langs Odense Å.",
+    "ratingOutOf": "ud af 4"
+  },
+  "location": "Odense C, 5000, Danmark",
+  "spokenLanguages": [
+    { "name": "Dansk", "rating": 4 },
+    { "name": "Engelsk", "rating": 4 }
+  ]
+}

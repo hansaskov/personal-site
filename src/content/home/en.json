@@ -1,0 +1,30 @@
+{
+  "locale": "en",
+  "title": "Home",
+  "description": "Personal website for Hans Askov",
+  "role": "Software Engineer",
+  "location": "Odense C, Region of Southern Denmark, Denmark",
+  "viewCv": "View CV",
+  "browseProjects": "Browse projects",
+  "aboutHeading": "About Me",
+  "latestProjects": "Latest Projects",
+  "allProjects": "All projects",
+  "about": [
+    [
+      "I'm Hans, a software engineer who specializes in fullstack web development and building systems that hold up under real load."
+    ],
+    [
+      "I care deeply about reducing complexity and about the developer experience. I have tried and do love many frontend frameworks like React, Vue, and Svelte, but in my experience, they all suffer from the same fundamental issue of duplicated logic between the frontend and backend. As a fullstack developer, this adds a lot of complexity to any one project. Most modern frameworks attempt to solve this by using javascript on both the client and server, as it allows for shared logic like form validation. While this does help, the core issue of duplicated state still remains. The solution is to let go of client side javascript and shift where the state is supposed to be, in the url or as part of the hypermedia. If you want to learn more, i highly suggest reading ",
+      { "text": "this post", "href": "https://htmx.org/essays/hateoas/" },
+      " by Carson Gross, the creator of HTMX."
+    ],
+    [
+      "To put my money where my mouth is, this website uses zero JavaScript and achieves instant page navigations using modern browser APIs like the Speculations API. Currently, this is only available in Chrome, but it is expected to come to Safari and Firefox eventually."
+    ],
+    [
+      "These days I'm looking for a backend or fullstack role where engineering quality and cost discipline matter. If that's the kind of team you're building, ",
+      { "text": "the inbox is open", "href": "mailto:hans@askov.dk" },
+      "."
+    ]
+  ]
+}

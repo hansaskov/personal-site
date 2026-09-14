@@ -1,0 +1,10 @@
+{
+  "locale": "en",
+  "title": "404: Not Found",
+  "description": "Oops, something went wrong",
+  "body": "The page you're looking for couldn't be found. It may have been moved or never existed.",
+  "backHome": "Back home",
+  "browseProjects": "Browse projects",
+  "or": "Or",
+  "sendEmail": "send me an email"
+}

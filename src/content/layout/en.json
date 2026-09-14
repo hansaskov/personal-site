@@ -1,0 +1,32 @@
+{
+  "locale": "en",
+  "localeToggle": {
+    "da": "Skift til dansk",
+    "en": "Switch to English"
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "cv": "CV",
+    "menu": "Menu",
+    "main": "Main navigation"
+  },
+  "sections": {
+    "contact": "Contact",
+    "languages": "Languages",
+    "skills": "Skills",
+    "aboutMe": "About me"
+  },
+  "cv": {
+    "experience": "Experience",
+    "education": "Education",
+    "download": "Download CV",
+    "aboutMe": "My hobbies include tinkering with homeservers and jogging along Odense River.",
+    "ratingOutOf": "out of 4"
+  },
+  "location": "Odense C, 5000, Denmark",
+  "spokenLanguages": [
+    { "name": "Danish", "rating": 4 },
+    { "name": "English", "rating": 4 }
+  ]
+}

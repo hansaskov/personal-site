@@ -1,0 +1,67 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import TimeLine from "@components/TimeLine.astro";
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getLocalized, otherLocale } from "@lib/i18n";
+
+export async function getStaticPaths() {
+    const cvs = await getCollection("cvs");
+
+    return cvs.map((cv) => ({
+        params: { locale: cv.data.locale, slug: cv.data.slug },
+        props: { CV: cv },
+    }));
+}
+
+const { CV } = Astro.props;
+const locale = CV.data.locale;
+const t = await getLocalized("layout", locale);
+const { title, intro, skills, experiances, educations } = CV.data;
+const other = otherLocale(locale);
+const path = getRelativeLocaleUrl(locale, `cv/${CV.data.slug}`);
+const prefetchUrls = [
+    getRelativeLocaleUrl(locale),
+    getRelativeLocaleUrl(locale, "projects"),
+];
+---
+
+<BaseLayout
+    t={t.data}
+    path={path}
+    localeToggle={{ target: other, href: getRelativeLocaleUrl(other, "cv") }}
+    title={title}
+    description={intro}
+    theme="light"
+    {prefetchUrls}
+    includeSidebar={true}
+    download_button={{
+        title: t.data.cv.download,
+        url: `/hans-askov-cv-${CV.data.slug}.pdf`,
+    }}
+    personalInfo={{
+        name: "Hans Askov",
+        email: "hans@askov.dk",
+        phone: "+45 24 96 51 87",
+        location: t.data.location,
+    }}
+    languages={t.data.spokenLanguages}
+    skills={skills}
+    aboutMe={t.data.cv.aboutMe}
+    shouldIndex={false}
+>
+    <header class="space-y-3.5">
+        <h1 class="text-balance">{title}</h1>
+        <p class="text-fg-muted">{intro}</p>
+    </header>
+
+    <div class="mt-section space-y-2">
+        <h2>{t.data.cv.experience}</h2>
+        <TimeLine experiances={experiances} />
+    </div>
+
+    <div class="mt-section space-y-2">
+        <h2>{t.data.cv.education}</h2>
+        <TimeLine experiances={educations} />
+    </div>
+</BaseLayout>
