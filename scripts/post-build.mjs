@@ -227,6 +227,7 @@ export async function postBuild(distDir, cacheDir, logger) {
   const { server, hitsServed } = await serveStatic(distDir);
   const { port } = server.address();
 
+  /** @type {Promise<import("playwright-core").Browser> | undefined} */
   let browserPromise;
   const getBrowser = () => {
     browserPromise ??= launchBrowser(

@@ -5,8 +5,7 @@ export type Locale = "en" | "da";
 
 export const locales: Locale[] = ["en", "da"];
 
-export const localeStaticPaths = () =>
-  locales.map((locale) => ({ params: { locale } }));
+export const localeStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
 
 export const otherLocale = (locale: Locale): Locale => (locale === "en" ? "da" : "en");
 
@@ -35,7 +34,11 @@ export const getSortedProjects = async (limit?: number) => {
 
 type DocCollection = "cvs" | "applicationLetters";
 
-export const getLocaleDocs = async (collection: DocCollection, locale: Locale, dir: "asc" | "desc" = "asc") => {
+export const getLocaleDocs = async (
+  collection: DocCollection,
+  locale: Locale,
+  dir: "asc" | "desc" = "asc",
+) => {
   const docs = (await getCollection(collection)).filter((doc) => doc.data.locale === locale);
   const factor = dir === "asc" ? 1 : -1;
   return docs.sort((a, b) => factor * a.data.slug.localeCompare(b.data.slug));

@@ -1,5 +1,7 @@
 ---
 import { defaultCvSlug } from "@lib/i18n";
 
-return Astro.rewrite(`/en/cv/${defaultCvSlug.en}`);
+const newPage = `/en/cv/${defaultCvSlug.en}`
+
+return Astro.rewrite(newPage);
 ---
