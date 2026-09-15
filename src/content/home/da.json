@@ -11,19 +11,19 @@
   "allProjects": "Alle projekter",
   "about": [
     [
-      "Jeg er Hans, en softwareingeniør med speciale i fullstack webudvikling og i at bygge systemer, der holder, når belastningen er rigtig."
+      "Goddag, mit navn er Hans. Jeg identificerer mig som en software udvikler der specialiserer sig i fullstack webudvikling, samt bygge systemer der kan skalere under høj belastning."
     ],
     [
-      "Jeg brænder for at reducere kompleksitet og for udvikleroplevelsen. Jeg har prøvet og elsker mange frontend-frameworks som React, Vue og Svelte, men efter min erfaring lider de alle under det samme grundlæggende problem: duplikeret logik mellem frontend og backend. Som fullstack-udvikler tilføjer det meget kompleksitet til ethvert projekt. De fleste moderne frameworks forsøger at løse det ved at bruge JavaScript på både klient og server, så logik som formvalidering kan deles. Det hjælper, men kerneproblemet med duplikeret state består stadig. Løsningen er at droppe klient-JavaScript og flytte staten derhen, hvor den hører hjemme: i URL'en eller som en del af hypermediet. Vil du vide mere, kan jeg varmt anbefale ",
+      "Jeg brænder for at reducere kompleksitet og for udvikleroplevelsen. Jeg har prøvet og elsker mange frontend-frameworks som React, Vue og Svelte, men efter min erfaring lider de alle under det samme grundlæggende problem: duplikeret logik mellem frontend og backend. Som fullstack-udvikler tilføjer det meget kompleksitet til ethvert projekt. De fleste moderne frameworks forsøger at løse det ved at bruge JavaScript på både klient og server, så logik som formvalidering kan deles. Det hjælper, men kerneproblemet med duplikeret kode forblir. Løsningen er at droppe klient-JavaScript og flytte staten derhen, hvor den hører hjemme: i URL'en eller som en del af hypermediet. Jeg kan stærkt anbefale at læse ",
       { "text": "dette indlæg", "href": "https://htmx.org/essays/hateoas/" },
       " af Carson Gross, skaberen af HTMX."
     ],
     [
-      "For at vise, at jeg mener det, bruger denne hjemmeside nul JavaScript og opnår øjeblikkelige sideskift med moderne browser-API'er som Speculations API. I dag virker det kun i Chrome, men det forventes på et tidspunkt at komme i Safari og Firefox."
+      "Som et simpelt eksempel bruger denne hjemmeside ingen JavaScript og opnår stadig hurtig navigering imellem sider ved brug af moderne browser-API'er som Speculations API. I dag virker det kun i Chrome, men det forventes at komme til Safari og Firefox i fremtiden."
     ],
     [
-      "Lige nu søger jeg en backend- eller fullstack-stilling, hvor ingeniørkvalitet og omkostningsdisciplin betyder noget. Hvis det er den slags team, du bygger, ",
-      { "text": "er indbakken åben", "href": "mailto:hans@askov.dk" },
+      "Lige nu søger jeg en backend- eller fullstack-stilling, Hvis det er den slags team, du bygger, er de velkommen til at kontakte mig via ",
+      { "text": "hans@askov.dk", "href": "mailto:hans@askov.dk" },
       "."
     ]
   ]

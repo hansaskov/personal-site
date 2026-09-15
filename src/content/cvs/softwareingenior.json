@@ -2,7 +2,7 @@
   "slug": "softwareingenior",
   "locale": "da",
   "title": "Softwareingeniør",
-  "intro": "Jeg er Hans, en softwareingeniør med fokus på backend systemer og data tunge applikationer. Jeg leverede Production Intelligence V4, en platform der behandler 420M+ machine vision inspektioner om året, og reducerede dashboard loading tider fra 10s til 0,1s samt reducerede jeg lageromkostninger med 92%.",
+  "intro": "En softwareingeniør med fokus på backend systemer og data tunge applikationer. Har udviklet data intensive analytiske platforme som behanlder mere end 420M+ inspektioner om året. Yderligere har jeg reduceredet dashboard loading tider fra 10s til 0,1s samt reduceret lageromkostninger med 92%. Vælg mig for en ambitiøs udvilker der ikke er bange for at tage initiativ",
   "skills": [
     "AWS",
     "Backend",
@@ -33,7 +33,7 @@
           "year": "februar 2024 - august 2025",
           "duration": "1 år 7 måneder",
           "location": "Odense",
-          "description": "Designede data pipelinen bag Production Intelligence V4 og evaluerede kolonnebaserede lagringsformater, der senere reducerede lagringsomkostninger med 92%. Byggede backend functionalitet i med SQL i et rigtigt produktionsmiljø og omsatte viden fra distribuerede systemer til robust, skalerbar systemudvikling."
+          "description": "Designede data pipelinen bag Production Intelligence V4 og evaluerede kolonnebaserede lagringsformater, der senere reducerede lagringsomkostninger med 92%. Arbejdet med backend functionalitet i form af SQL i et rigtigt produktionsmiljø og omsatte viden fra distribuerede systemer til robust, skalerbar systemudvikling."
         }
       ]
     },
@@ -48,7 +48,7 @@
           "year": "september 2022 - februar 2023",
           "duration": "6 måneder",
           "location": "Hillerød",
-          "description": "Byggede en pipeline, der renderer syntetiske billeder til at træne to deep learning-modeller til objektdetektion og 6DoF pose estimation af dele i en beholder. Udgivet som open source-projektet BlenderBin på github.com/hansaskov/BlenderBin."
+          "description": "Byggede en pipeline, der renderer syntetiske billeder til at træne to deep learning-modeller til objektdetektion og 6DoF pose estimation af dele i en beholder. Udgivet som open source-projektet BlenderBin."
         }
       ]
     },
@@ -63,7 +63,7 @@
           "year": "februar 2022 - februar 2023",
           "duration": "1 år 1 måned",
           "location": "Odense",
-          "description": "Indsamlede og analyserede data fra distribuerede IoT-enheder. Byggede et website, der viser dataene i realtid, så teamet kunne overvåge deres produkter."
+          "description": "Indsamlede og analyserede data fra distribuerede IoT-enheder. Byggede en hjemmeside, der viser dataene i realtid, så teamet og deres kunder kunne overvåge deres produkter."
         }
       ]
     }
