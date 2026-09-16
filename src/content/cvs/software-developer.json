@@ -3,16 +3,7 @@
   "locale": "en",
   "title": "Software Developer",
   "intro": "I'm Hans, a software engineer focused on pragmatic software development, backend systems, and data-heavy applications. I have shipped production software across analytics, computer vision, IoT, and synthetic data generation, with a strong interest in building reliable systems that are easy to operate and improve.",
-  "skills": [
-    "Backend",
-    "C++",
-    "Computer Vision",
-    "Docker",
-    "IoT",
-    "PostgreSQL",
-    "Python",
-    "Typescript"
-  ],
+  "skills": ["Backend", "C++", "Computer Vision", "Docker", "IoT", "PostgreSQL", "Python", "Typescript"],
   "experiances": [
     {
       "company": "TriVision A/S",

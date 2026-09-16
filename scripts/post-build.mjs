@@ -94,10 +94,7 @@ async function installFonts() {
 
 function browserArgs() {
   const onServerless = Boolean(
-    process.env.VERCEL ||
-    process.env.AWS_EXECUTION_ENV ||
-    process.env.AWS_LAMBDA_JS_RUNTIME ||
-    process.env.CODEBUILD_BUILD_IMAGE,
+    process.env.VERCEL || process.env.AWS_EXECUTION_ENV || process.env.AWS_LAMBDA_JS_RUNTIME || process.env.CODEBUILD_BUILD_IMAGE,
   );
 
   if (onServerless) return chromiumBin.args;
@@ -115,10 +112,7 @@ const shortHash = async (filePath, extra = "") =>
     .slice(0, 16);
 
 const cachedPdfPath = async (target) => {
-  return join(
-    PDF_CACHE_DIR,
-    `${await shortHash(target.htmlPath, target.format ?? `auto@${target.width}`)}.pdf`,
-  );
+  return join(PDF_CACHE_DIR, `${await shortHash(target.htmlPath, target.format ?? `auto@${target.width}`)}.pdf`);
 };
 
 const GREEN = "\x1b[32m";
@@ -126,10 +120,7 @@ const RESET = "\x1b[39m";
 const DIM = "\x1b[2m";
 const dim = (text) => `${DIM}${text}${RESET}`;
 const logArrow = (logger, message, startedAt) =>
-  logger.info(
-    `${GREEN}  ▶${RESET} ${message}` +
-      (startedAt === undefined ? "" : ` ${dim(`(+${Date.now() - startedAt}ms)`)}`),
-  );
+  logger.info(`${GREEN}  ▶${RESET} ${message}` + (startedAt === undefined ? "" : ` ${dim(`(+${Date.now() - startedAt}ms)`)}`));
 
 const FIXED_PDF_DATE = "D:20000101000000+00'00'";
 
@@ -148,9 +139,7 @@ async function normalizePdfDates(filePath) {
   const normalized = Buffer.from(text.replace(PDF_DATE_RE, `$1${FIXED_PDF_DATE})`), "latin1");
 
   if (normalized.length !== raw.length) {
-    throw new Error(
-      `PDF date normalization changed the byte length of ${displayPath(filePath)}, refusing to write it.`,
-    );
+    throw new Error(`PDF date normalization changed the byte length of ${displayPath(filePath)}, refusing to write it.`);
   }
 
   await writeFile(filePath, normalized);
@@ -165,9 +154,7 @@ async function launchBrowser(logger, hostRules) {
   try {
     return await chromium.launch({ args: [hostRules, "--hide-scrollbars"], headless: true });
   } catch (error) {
-    logger.info(
-      `No environment Chromium available (${error.message.split("\n")[0]}), falling back to @sparticuz/chromium.`,
-    );
+    logger.info(`No environment Chromium available (${error.message.split("\n")[0]}), falling back to @sparticuz/chromium.`);
     return chromium.launch({
       args: [...browserArgs(), hostRules, "--hide-scrollbars"],
       executablePath: await chromiumBin.executablePath(),
@@ -210,11 +197,7 @@ async function capturePreview(getPage, logger, distDir, startedAt) {
 
   await writeFile(PREVIEW_PATH, preview);
   await storeInCache(PREVIEW_PATH, cachePath);
-  logArrow(
-    logger,
-    `${displayPath(PREVIEW_PATH)} ${dim("(picked up by the next build)")}`,
-    startedAt,
-  );
+  logArrow(logger, `${displayPath(PREVIEW_PATH)} ${dim("(picked up by the next build)")}`, startedAt);
 }
 
 export async function postBuild(distDir, cacheDir, logger) {
@@ -230,10 +213,7 @@ export async function postBuild(distDir, cacheDir, logger) {
   /** @type {Promise<import("playwright-core").Browser> | undefined} */
   let browserPromise;
   const getBrowser = () => {
-    browserPromise ??= launchBrowser(
-      logger,
-      `--host-resolver-rules=MAP hans.askov.dk 127.0.0.1:${port}`,
-    );
+    browserPromise ??= launchBrowser(logger, `--host-resolver-rules=MAP hans.askov.dk 127.0.0.1:${port}`);
     return browserPromise;
   };
 
@@ -257,11 +237,7 @@ export async function postBuild(distDir, cacheDir, logger) {
 
       if (existsSync(cachePath)) {
         await copyFile(cachePath, target.outputPath);
-        logArrow(
-          logger,
-          `${displayPath(target.outputPath)} ${dim("(reused cache entry)")}`,
-          itemStartedAt,
-        );
+        logArrow(logger, `${displayPath(target.outputPath)} ${dim("(reused cache entry)")}`, itemStartedAt);
         continue;
       }
 
@@ -274,9 +250,7 @@ export async function postBuild(distDir, cacheDir, logger) {
       await loadPage(page, target.url);
 
       if (printed === 0 && hitsServed() === 0) {
-        throw new Error(
-          `--host-resolver-rules did not map ${SITE_ORIGIN} to the local static server; refusing to print the live site.`,
-        );
+        throw new Error(`--host-resolver-rules did not map ${SITE_ORIGIN} to the local static server; refusing to print the live site.`);
       }
 
       const pdfOptions = target.format

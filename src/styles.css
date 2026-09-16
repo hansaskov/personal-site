@@ -67,8 +67,7 @@
   --ds-color-scrim: oklch(20% 0.02 260 / 0.45);
 
   --ds-shadow-card: 0 1px 2px oklch(25% 0.03 285 / 0.05);
-  --ds-shadow-lift:
-    0 2px 4px oklch(25% 0.03 285 / 0.05), 0 12px 32px -12px oklch(25% 0.03 285 / 0.18);
+  --ds-shadow-lift: 0 2px 4px oklch(25% 0.03 285 / 0.05), 0 12px 32px -12px oklch(25% 0.03 285 / 0.18);
   --ds-shadow-panel: 0 16px 48px -12px oklch(20% 0.03 260 / 0.35);
 
   --ds-space-gutter: clamp(1.25rem, 4vw, 2.5rem);
@@ -136,8 +135,7 @@
   --spacing-section: var(--ds-space-section);
 
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
 @layer components {

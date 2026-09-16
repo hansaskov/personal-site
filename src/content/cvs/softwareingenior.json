@@ -3,17 +3,7 @@
   "locale": "da",
   "title": "Softwareingeniør",
   "intro": "En softwareingeniør med fokus på backend systemer og data tunge applikationer. Har udviklet data intensive analytiske platforme som behanlder mere end 420M+ inspektioner om året. Yderligere har jeg reduceredet dashboard loading tider fra 10s til 0,1s samt reduceret lageromkostninger med 92%. Vælg mig for en ambitiøs udvilker der ikke er bange for at tage initiativ",
-  "skills": [
-    "AWS",
-    "Backend",
-    "Cybersikkerhed",
-    "Datapipelines",
-    "Docker",
-    "IoT",
-    "PostgreSQL",
-    "Python",
-    "Typescript"
-  ],
+  "skills": ["AWS", "Backend", "Cybersikkerhed", "Datapipelines", "Docker", "IoT", "PostgreSQL", "Python", "Typescript"],
   "experiances": [
     {
       "company": "TriVision A/S",

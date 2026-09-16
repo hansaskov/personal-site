@@ -34,11 +34,7 @@ export const getSortedProjects = async (limit?: number) => {
 
 type DocCollection = "cvs" | "applicationLetters";
 
-export const getLocaleDocs = async (
-  collection: DocCollection,
-  locale: Locale,
-  dir: "asc" | "desc" = "asc",
-) => {
+export const getLocaleDocs = async (collection: DocCollection, locale: Locale, dir: "asc" | "desc" = "asc") => {
   const docs = (await getCollection(collection)).filter((doc) => doc.data.locale === locale);
   const factor = dir === "asc" ? 1 : -1;
   return docs.sort((a, b) => factor * a.data.slug.localeCompare(b.data.slug));
@@ -62,13 +58,7 @@ export const defaultCvSlug: Record<Locale, string> = {
   da: "softwareingenior",
 };
 
-type LocalizedCollection =
-  | "layout"
-  | "home"
-  | "projectsPage"
-  | "cvsPage"
-  | "applicationLettersPage"
-  | "notFound";
+type LocalizedCollection = "layout" | "home" | "projectsPage" | "cvsPage" | "applicationLettersPage" | "notFound";
 
 export async function getLocalized<C extends LocalizedCollection>(collection: C, locale: Locale) {
   const entries = await getCollection(collection);
