@@ -39,6 +39,7 @@ jobs:
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_SECRET }}
           JOBHUNTER_TOKEN: ${{ secrets.JOBHUNTER_TOKEN || secrets.GITHUB_TOKEN }}
-          OPENCODE_MODEL: opencode-go/glm-5.3
+          OPENCODE_MODEL: opencode-go/glm-5.3-flash
+          OPENCODE_VARIANT: high
           WRITER_MODEL: opencode-go/kimi-k2.6
         run: node scripts/job-hunter.mjs

@@ -7,6 +7,7 @@ const SERVER = process.env.GITHUB_SERVER_URL || "https://git.hjemmet.net";
 const API = `${SERVER}/api/v1/repos/${REPO}`;
 const TOKEN = process.env.JOBHUNTER_TOKEN || process.env.GITHUB_TOKEN;
 const MODEL = process.env.OPENCODE_MODEL || "";
+const MODEL_VARIANT = process.env.OPENCODE_VARIANT || "";
 const WRITER_MODEL = process.env.WRITER_MODEL || MODEL;
 const BRANCH_PREFIX = "job-scan/";
 const BASE = "main";
@@ -40,6 +41,7 @@ function opencode(prompt, model) {
   const args = ["run", "--auto", "--agent", "jobhunter"];
   const use = model || MODEL;
   if (use) args.push("-m", use);
+  if (MODEL_VARIANT && use === MODEL) args.push("--variant", MODEL_VARIANT);
   args.push(prompt);
   const res = spawnSync("opencode", args, { encoding: "utf8" });
   if (res.status !== 0) {
