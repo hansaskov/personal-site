@@ -1,0 +1,44 @@
+# Nightly job hunt: scans job postings, opens a PR with the top 5,
+# and once you comment your choice on that PR, researches it and writes
+# an application letter + CV on the same PR branch.
+#
+# Secrets needed:
+#   OPENCODE_SECRET  - opencode API key (already added)
+#   JOBHUNTER_TOKEN  - optional Forgejo token (repo+issue scope) used for
+#                      git push / PR API. Falls back to the automatic
+#                      GITHUB_TOKEN if not set.
+#
+# OPENCODE_MODEL below must match the provider of OPENCODE_SECRET
+# (run `opencode models` locally to see valid ids).
+# WRITER_MODEL is used for the apply phase (letter + CV writing).
+
+name: Job hunter
+
+on:
+  schedule:
+    - cron: "15 2 * * *" # 04:15 Danish time, nightly
+  workflow_dispatch:
+
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install opencode
+        run: npm install -g opencode-ai@latest
+
+      - name: Run job hunter
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_SECRET }}
+          JOBHUNTER_TOKEN: ${{ secrets.JOBHUNTER_TOKEN || secrets.GITHUB_TOKEN }}
+          OPENCODE_MODEL: opencode-go/glm-5.3
+          WRITER_MODEL: opencode-go/kimi-k2.6
+        run: node scripts/job-hunter.mjs
