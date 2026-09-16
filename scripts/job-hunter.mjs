@@ -8,6 +8,7 @@ const API = `${SERVER}/api/v1/repos/${REPO}`;
 const TOKEN = process.env.JOBHUNTER_TOKEN || process.env.GITHUB_TOKEN;
 const MODEL = process.env.OPENCODE_MODEL || "";
 const MODEL_VARIANT = process.env.OPENCODE_VARIANT || "";
+const TRIGGER_ISSUE = Number(process.env.COMMENT_ISSUE) || null;
 const WRITER_MODEL = process.env.WRITER_MODEL || MODEL;
 const BRANCH_PREFIX = "job-scan/";
 const BASE = "main";
@@ -43,9 +44,9 @@ function opencode(prompt, model) {
   if (use) args.push("-m", use);
   if (MODEL_VARIANT && use === MODEL) args.push("--variant", MODEL_VARIANT);
   args.push(prompt);
-  const res = spawnSync("opencode", args, { encoding: "utf8" });
+  const res = spawnSync("opencode", args, { stdio: "inherit" });
   if (res.status !== 0) {
-    throw new Error(`opencode run failed:\n${res.stdout}\n${res.stderr}`);
+    throw new Error(`opencode run failed with exit code ${res.status} (output above)`);
   }
   return res.stdout;
 }
@@ -99,6 +100,11 @@ async function main() {
   git('git config user.email "job-hunter@' + (REPO.split("/")[1] || "local") + '"');
 
   const scanPr = await findScanPr();
+
+  if (TRIGGER_ISSUE && (!scanPr || scanPr.number !== TRIGGER_ISSUE)) {
+    console.log(`Run was triggered by a comment on issue #${TRIGGER_ISSUE}, which is not the job-scan PR; skipping`);
+    process.exit(0);
+  }
 
   if (!scanPr) {
     console.log("No open job-scan PR, running scan phase");

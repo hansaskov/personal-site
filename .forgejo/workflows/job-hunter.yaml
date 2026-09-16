@@ -1,6 +1,7 @@
 # Nightly job hunt: scans job postings, opens a PR with the top 5,
 # and once you comment your choice on that PR, researches it and writes
 # an application letter + CV on the same PR branch.
+# A comment on the job-scan PR triggers the apply phase immediately.
 #
 # Secrets needed:
 #   OPENCODE_SECRET  - opencode API key (already added)
@@ -18,10 +19,17 @@ on:
   schedule:
     - cron: "15 2 * * *" # 04:15 Danish time, nightly
   workflow_dispatch:
+  issue_comment:
+    types: [created, edited]
+
+concurrency:
+  group: job-hunter
 
 jobs:
   hunt:
     runs-on: ubuntu-latest
+    # Skip runs triggered by comments on issues/PRs other than a job-scan PR
+    if: ${{ forgejo.event_name != 'issue_comment' || forgejo.event.issue.pull_request != null }}
     container:
       image: mcr.microsoft.com/playwright:v1.63.0-noble
     timeout-minutes: 90
@@ -41,5 +49,6 @@ jobs:
           JOBHUNTER_TOKEN: ${{ secrets.JOBHUNTER_TOKEN || secrets.GITHUB_TOKEN }}
           OPENCODE_MODEL: opencode-go/glm-5.3-flash
           OPENCODE_VARIANT: high
+          COMMENT_ISSUE: ${{ forgejo.event.issue.number }}
           WRITER_MODEL: opencode-go/kimi-k2.6
         run: node scripts/job-hunter.mjs
