@@ -2,7 +2,7 @@
   "slug": "envira-fullstack-engineer-2026",
   "locale": "da",
   "title": "Full-Stack Engineer",
-  "intro": "Hej, mit navn er Hans. Jeg er softwareingeniør med erfaring i at bygge, deploye og drive produktionsplatforme end-to-end. Hos TriVision ejede jeg en fullstack-applikation bygget i Python og TypeScript, der håndterer 420M+ inspektioner årligt. Jeg skar dashboard loadtider fra 10s til 0,1s, containeriserede stacken på AWS med Docker, og jeg var den, der fik opkaldet, når produktion gik ned. Jeg bruger AI-coding værktøjer dagligt, men reviewer outputtet og tager ansvar for det, jeg sender i produktion. Nu søger jeg en bred rolle i et lille hold, hvor ejerskab over cloud, backend og frontend er en del af jobbet.",
+  "intro": "Hej, mit navn er Hans. Jeg er softwareingeniør med erfaring i at bygge, deploye og drive produktionsplatforme end-to-end. Hos TriVision ejede jeg en fullstack-applikation bygget i Python og TypeScript, der håndterer 420M+ inspektioner årligt. Jeg skar dashboard loadtider fra 10s til 0,1s, containeriserede stacken på AWS med Docker, og jeg var den, der fik opkaldet, når produktion gik ned. Jeg bruger AI-coding værktøjer dagligt, men reviewer outputtet og tager ansvar for det, jeg sender i produktion. Jeg søger en bred rolle i et lille hold, hvor ejerskab over cloud, backend og frontend er en del af jobbet.",
   "skills": [
     "Python",
     "TypeScript",
@@ -29,7 +29,7 @@
           "year": "August 2025 - Maj 2026",
           "duration": "10 måneder",
           "location": "Odense",
-          "description": "Ansvar for Production Intelligence V4, en produktionsplatform i drift, der håndterer 420M+ inspektioner årligt. Byggede end-to-end features i Python og TypeScript, skar dashboard loadtider fra 10s til 0,1s via server-side rendering og caching. Containeriserede applikationen med Docker og hostede det på AWS. Ejer cloud-miljøet, herunder deployments, secrets og debugging af produktionsfejl. Arbejdede i et agilt setup med hyppige releases."
+          "description": "Ansvar for Production Intelligence V4, en produktionsplatform i drift, der håndterer 420M+ inspektioner årligt. Byggede end-to-end features i Python og TypeScript. Skar dashboard loadtider fra 10s til 0,1s via server-side rendering og caching. Containeriserede applikationen med Docker og hostede den på AWS. Ejede cloud-miljøet, herunder deployments, secrets og debugging af produktionsfejl. Arbejdede i et agilt setup med hyppige releases."
         },
         {
           "title": "Student Software Developer",
