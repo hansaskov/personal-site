@@ -3,7 +3,7 @@
   "locale": "da",
   "title": "Fullstack-udvikler",
   "intro": "Softwareingeniør med erfaring i at bygge og drive fullstack-løsninger. Hos TriVision udviklede og hostede jeg en produktionsplatform, der behandler 420 millioner inspektioner om året, hos dem skar jeg dashboard load tider fra 10 sekunder til 0,1 sekund. Min personlige stack er i TypeScript, med erfaring i C++ og Java. Med mit fokus vil det ikke tage lang tid at blive produktiv i C#. Jeg lærer nye sprog og frameworks hurtigt.",
-  "skills": ["Fullstack", "Backend", "TypeScript", "Python", "SQL", "Docker", "AWS", "C++", "Agile"],
+  "skills": ["Fullstack", "Backend", "TypeScript", "Python", "SQL", "Docker", "AWS", "C++", "Agile", "Fast Learner"],
   "experiances": [
     {
       "company": "TriVision A/S",
