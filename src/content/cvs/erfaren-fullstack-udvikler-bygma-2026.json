@@ -1,0 +1,85 @@
+{
+  "slug": "erfaren-fullstack-udvikler-bygma-2026",
+  "locale": "da",
+  "title": "Fullstack-udvikler",
+  "intro": "Jeg er softwareingeniør med erfaring i at bygge og drive fullstack-løsninger under reel last. Hos TriVision udviklede og hostede jeg en produktionsplatform, der behandler 420 millioner inspektioner om året, og jeg skar dashboard-loading fra 10 sekunder til 0,1 sekund. Min professionelle stack er Python og TypeScript, men mit fokus er stabile, vedligeholdelsesvenlige løsninger, der fungerer i drift. Jeg lærer nye sprog og frameworks hurtigt, og jeg har solid erfaring med C++ fra studiet og fra Novo Nordisk.",
+  "skills": ["Fullstack", "Backend", "TypeScript", "Python", "SQL", "Docker", "AWS", "C++", "Agile"],
+  "experiances": [
+    {
+      "company": "TriVision A/S",
+      "year": "februar 2024 - maj 2026",
+      "duration": "2 år 4 måneder",
+      "img": "../../media/trivision_logo.jpg",
+      "roles": [
+        {
+          "title": "Softwareingeniør",
+          "year": "august 2025 - maj 2026",
+          "duration": "10 måneder",
+          "location": "Odense",
+          "description": "Leverede Production Intelligence V4, en fullstack platform der behandler 420M+ machine vision inspektioner om året. Reducerede dashboard loading fra 10s til 0,1s ved at rykke renderingen til serveren. Containeriserede applikationen og hostede den på AWS med Docker. Arbejdede end-to-end med både nye funktioner, bugs og drift."
+        },
+        {
+          "title": "Studerende softwareudvikler",
+          "year": "februar 2024 - august 2025",
+          "duration": "1 år 7 måneder",
+          "location": "Odense",
+          "description": "Designede data pipelinen bag Production Intelligence V4 og evaluerede kolonnebaserede lagringsformater, der senere reducerede lagringsomkostninger med 92%. Arbejdede med backend, API'er og SQL i et produktionsmiljø og omsatte viden fra distribuerede systemer til robust kode."
+        }
+      ]
+    },
+    {
+      "company": "Novo Nordisk A/S",
+      "year": "september 2022 - februar 2023",
+      "duration": "6 måneder",
+      "img": "../../media/novo_nordisk_logo.jpg",
+      "roles": [
+        {
+          "title": "Studerende softwareudvikler",
+          "year": "september 2022 - februar 2023",
+          "duration": "6 måneder",
+          "location": "Hillerød",
+          "description": "Byggede en C++-baseret pipeline, der renderer syntetiske billeder til at træne to deep learning-modeller til objektdetektion og 6DoF pose estimation. Udgivet som open source-projektet BlenderBin."
+        }
+      ]
+    },
+    {
+      "company": "EFFIMAT",
+      "year": "februar 2022 - februar 2023",
+      "duration": "1 år 1 måned",
+      "img": "../../media/effimat_logo.jpg",
+      "roles": [
+        {
+          "title": "Softwareudvikler",
+          "year": "februar 2022 - februar 2023",
+          "duration": "1 år 1 måned",
+          "location": "Odense",
+          "description": "Indsamlede og analyserede data fra distribuerede IoT-enheder. Byggede en webapplikation, der viser dataene i realtid, så teamet og kunderne kunne overvåge produkterne."
+        }
+      ]
+    }
+  ],
+  "educations": [
+    {
+      "company": "Syddansk Universitet",
+      "year": "2019 - 2025",
+      "duration": "5 år 5 måneder",
+      "img": "../../media/sdu_logo.jpg",
+      "roles": [
+        {
+          "title": "Kandidat i softwareudvikling",
+          "year": "2023 - 2025",
+          "duration": "2 år",
+          "location": "Odense",
+          "description": "Specialiserede mig i distribuerede systemer og backend-udvikling med valgfag i cybersikkerhed og biometrisk sikkerhed."
+        },
+        {
+          "title": "Diplomingeniør i robotsystemer",
+          "year": "2019 - 2023",
+          "duration": "3 år 5 måneder",
+          "location": "Odense",
+          "description": "Fandt min kærlighed til software og matematik gennem reguleringsteknik, computer vision og maskinlæring. Programmerede en UR5-robotarm i C++ til at detektere, gribe og kaste objekter med kollisionsbevidst bevægelsesplanlægning."
+        }
+      ]
+    }
+  ]
+}
