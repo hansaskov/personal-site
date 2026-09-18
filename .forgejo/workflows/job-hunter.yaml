@@ -40,6 +40,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Fails the run before spending agent tokens if the job sites moved
+      # (returns 1 when every source fails); also warns on slow/blocked sources.
+      - name: Smoke test job site helper
+        run: node scripts/job-sites.mjs "udvikler" --limit 5
+
       - name: Install opencode
         run: npm install -g opencode-ai@latest
 

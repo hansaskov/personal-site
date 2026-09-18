@@ -22,13 +22,20 @@ NOT run git commit, push, or any API calls — the orchestrator handles that.
 
 1. Search for current job postings related to fullstack or backend development
    (also other software development roles) in Odense and Copenhagen.
-   Try these sources, following links and pagination when they work:
-   - https://www.jobindex.dk/job/it/udvikling (filter by region/town)
-   - https://www.it-jobbank.dk/job/ledige-it-stillinger
-   - https://jobnet.dk/find-work
-   - https://thehub.io/jobs (Danish startup jobs)
-   If a site blocks fetches or returns junk, move on and try the others. Use
-   websearch as fallback. Read a posting's own page before including it.
+   Primary sources are jobindex.dk and it-jobbank.dk, fetched through the helper
+   (plain HTTP, no login or credentials):
+   `node scripts/job-sites.mjs "<search words>" --region <region> --limit 20`
+   Run it for Odense, Copenhagen (`--region koebenhavn`), and (optionally) all of
+   Denmark (omit `--region`), with your chosen search words. The output lists
+   title, company, location, dates, a snippet, and the direct posting URL per
+   site, plus per-source hit counts. The helper exits 1 only if every source
+   failed (site layout changed) — report that and fall back to websearch and
+   webfetch. A single source failing or returning zero is normal; just use the
+   other source.
+   Secondary sources: https://thehub.io/jobs (Danish startup jobs, fetch it
+   directly with webfetch). jobnet.dk now has a login wall — skip it.
+   Fetch the posting URL of anything you consider including and read it before
+   ranking; the helper's snippet is not enough on its own.
 2. Filter out anything already applied to or already suggested: read every file
    in `src/content/application-letters/`, `src/content/cvs/`, and `job-scans/`
    and match on company + role, not just slug.
