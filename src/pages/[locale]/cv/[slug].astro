@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/PageHeader.astro"
 import TimeLine from "@components/TimeLine.astro";
 import { getLocalized, localeToggle, pageUrl } from "@lib/i18n";
 import { localeSlugStaticPaths } from "@lib/i18n";
@@ -27,7 +28,7 @@ const sections = [
   t={layout}
   path={path}
   localeToggle={toggle}
-  title={title}
+  title={`${personalInfo.name} - ${title}`}
   description={intro}
   prefetchUrls={prefetchUrls}
   download_button={download_button}
@@ -37,10 +38,9 @@ const sections = [
   aboutMe={layout.cv.aboutMe}
   shouldIndex={false}
 >
-  <header class="space-y-3">
-    <h1 class="text-balance">{title}</h1>
-    <p class="text-fg-muted">{intro}</p>
-  </header>
+    <PageHeader title={personalInfo.name} description={title} />
+    <p class="t-body mt-4 max-w-prose text-fg-muted">{intro}</p>
+
   {sections.map(({ heading, items }) => (
     <div class="mt-section space-y-2">
         <h2 class="pb-2">{heading}</h2>
