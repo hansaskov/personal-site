@@ -37,13 +37,13 @@ const sections = [
   aboutMe={layout.cv.aboutMe}
   shouldIndex={false}
 >
-  <header class="space-y-3.5">
+  <header class="space-y-3">
     <h1 class="text-balance">{title}</h1>
     <p class="text-fg-muted">{intro}</p>
   </header>
   {sections.map(({ heading, items }) => (
     <div class="mt-section space-y-2">
-      <h2>{heading}</h2>
+        <h2 class="pb-2">{heading}</h2>
       <TimeLine experiances={items} />
     </div>
   ))}
