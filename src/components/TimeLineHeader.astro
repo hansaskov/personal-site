@@ -10,15 +10,15 @@ type Props = Experiance | Education;
 
 const { img, company, duration } = Astro.props;
 
-const width = 48;
-const height = 48;
+const width = 96;
+const height = 96;
 
 const hero = await getImage({
   src: img,
   format: "webp",
   width: width,
   height: height,
-  quality: "mid",
+  quality: "low",
 });
 ---
 
