@@ -1,0 +1,85 @@
+{
+  "slug": "domain-architect-orifarm-2026",
+  "locale": "en",
+  "title": "Domain Architect",
+  "intro": "Hello, my name is Hans, a software engineer from Odense with experiance in production systems and platform ownership. At TriVision I owned the architecture for Production Intelligence V4 from prototype to operation, including current state, target state and the steps between. I work close to users and business stakeholders, and I turn their needs into solutions that are simple to run and maintain. I have worked in pharma at both Novo Nordisk and Coloplast. I have heard good things about the work culture of Orifarm, which is important to me as i work best with a motivated and dedicated team",
+  "skills": ["Backend", "C++", "Docker", "IoT", "AWS", "Azure", "PostgreSQL", "Python", "Typescript", "Architecture"],
+  "experiances": [
+    {
+      "company": "TriVision A/S",
+      "year": "February 2024 - May 2026",
+      "duration": "2 years 4 months",
+      "img": "../../media/trivision_logo.jpg",
+      "roles": [
+        {
+          "title": "Software Engineer, Platform Owner",
+          "year": "August 2025 - May 2026",
+          "duration": "10 months",
+          "location": "Odense",
+          "description": "Owned application and platform architecture for Production Intelligence V4, a production analytics platform that processes 420M+ inspections per year. Cut dashboard load from 10s to 0.1s with server-side rendering and caching. Containerized the stack with Docker and ran it on AWS with attention to cost, monitoring and handover. Reviewed designs with colleagues and set simple standards for APIs, data handling and deploys so the platform stays maintainable."
+        },
+        {
+          "title": "Student Software Developer",
+          "year": "February 2024 - August 2025",
+          "duration": "1 year 7 months",
+          "location": "Odense",
+          "description": "Designed the architecture and data pipeline behind Production Intelligence V4 and tested columnar storage formats that later cut storage costs by 92%. Helped consolidate reporting into one platform instead of scattered dashboards. Worked directly with production users to turn process needs into concrete application changes."
+        }
+      ]
+    },
+    {
+      "company": "Novo Nordisk A/S",
+      "year": "September 2022 - February 2023",
+      "duration": "6 months",
+      "img": "../../media/novo_nordisk_logo.jpg",
+      "roles": [
+        {
+          "title": "Student Software Developer",
+          "year": "September 2022 - February 2023",
+          "duration": "6 months",
+          "location": "Hillerod",
+          "description": "Built a Python pipeline that renders synthetic images to train models for object detection and 6DoF pose estimation. Worked inside a regulated pharma setup with requirements for traceability, documentation and review. Released as open source BlenderBin at github.com/hansaskov/BlenderBin."
+        }
+      ]
+    },
+    {
+      "company": "EFFIMAT",
+      "year": "February 2022 - February 2023",
+      "duration": "1 year 1 month",
+      "img": "../../media/effimat_logo.jpg",
+      "roles": [
+        {
+          "title": "Software Developer",
+          "year": "February 2022 - February 2023",
+          "duration": "1 year 1 month",
+          "location": "Odense",
+          "description": "Collected and analyzed data from distributed IoT devices and built a web app that shows live status for support and product follow-up. Learned how integration choices affect operations, since every new endpoint had to be monitored and kept alive."
+        }
+      ]
+    }
+  ],
+  "educations": [
+    {
+      "company": "Southern University of Denmark",
+      "year": "2019 - 2025",
+      "duration": "5 years 5 months",
+      "img": "../../media/sdu_logo.jpg",
+      "roles": [
+        {
+          "title": "MSc in Software Engineering",
+          "year": "2023 - 2025",
+          "duration": "2 years",
+          "location": "Odense",
+          "description": "Specialized in distributed systems and backend engineering with electives in cybersecurity and biometric security. Thesis work on scalable data handling in production. Used architecture methods in a practical way to describe decisions, tradeoffs and lifecycle."
+        },
+        {
+          "title": "BEng in Robotic Systems",
+          "year": "2019 - 2023",
+          "duration": "3 years 5 months",
+          "location": "Odense",
+          "description": "Built a base in control theory, computer vision and machine learning. Programmed a UR5 robot arm to detect, grasp and throw objects with collision-aware motion planning."
+        }
+      ]
+    }
+  ]
+}
