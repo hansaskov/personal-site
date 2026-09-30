@@ -24,7 +24,6 @@
     "aboutMe": "My hobbies include tinkering with homeservers and jogging along Odense River.",
     "ratingOutOf": "out of 4"
   },
-  "location": "Odense C, 5000, Denmark",
   "spokenLanguages": [
     { "name": "Danish", "rating": 4 },
     { "name": "English", "rating": 4 }

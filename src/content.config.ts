@@ -28,7 +28,6 @@ const layoutSchema = z.object({
     aboutMe: z.string(),
     ratingOutOf: z.string(),
   }),
-  location: z.string(),
   spokenLanguages: z.array(z.object({ name: z.string(), rating: z.number() })),
 });
 export type LayoutData = z.infer<typeof layoutSchema>;
