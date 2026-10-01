@@ -19,7 +19,7 @@ const lettersUrl = pageUrl(locale, "application-letters");
 const cvHref = (slug: string) => pageUrl(locale, `cv/${slug}`);
 const pdfHref = (slug: string) => `/hans-askov-cv-${slug}.pdf`;
 const items = (await getLocaleDocs("cvs", locale)).map((cv) => ({
-  title: cv.data.slug,
+  title: cv.data.title,
   href: cvHref(cv.data.slug),
   pdfUrl: pdfHref(cv.data.slug),
 }));

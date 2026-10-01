@@ -1,5 +1,5 @@
 ---
-slug: ai-platformsudvikler-aka-2026-v4
+slug: ai-platformsudvikler-aka-2026
 locale: da
 ---
 

@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "@components/Button.astro";
-import { getLocalized, localeToggle, pageUrl } from "@lib/i18n";
+import { getLocalized, getSite, localeToggle, pageUrl } from "@lib/i18n";
 
 const { data: layout } = await getLocalized("layout", "en");
 const { data: page } = await getLocalized("notFound", "en");
+const { email } = await getSite();
 
 const toggle = localeToggle("en");
 const homeUrl = pageUrl("en");
@@ -30,7 +31,7 @@ const prefetchUrls = [homeUrl];
       <Button variant="secondary" href={projectsUrl}>{page.browseProjects}</Button>
     </div>
     <p class="t-body-sm mt-6 text-fg-muted">
-      {page.or} <a class="link" href="mailto:hans@askov.dk">{page.sendEmail}</a>.
+      {page.or} <a class="link" href={`mailto:${email}`}>{page.sendEmail}</a>.
     </p>
   </div>
 </BaseLayout>

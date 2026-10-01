@@ -4,7 +4,7 @@
   "title": "Domain Architect",
   "intro": "Hello, my name is Hans, a software engineer from Odense with experiance in production systems and platform ownership. At TriVision I owned the architecture for Production Intelligence V4 from prototype to operation, including current state, target state and the steps between. I work close to users and business stakeholders, and I turn their needs into solutions that are simple to run and maintain. I have worked in pharma at both Novo Nordisk and Coloplast. I have heard good things about the work culture of Orifarm, which is important to me as i work best with a motivated and dedicated team",
   "skills": ["Backend", "C++", "Docker", "IoT", "AWS", "Azure", "PostgreSQL", "Python", "Typescript", "Architecture"],
-  "experiances": [
+  "experiences": [
     {
       "company": "TriVision A/S",
       "year": "February 2024 - May 2026",

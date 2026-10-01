@@ -3,10 +3,10 @@ import type { CollectionEntry } from "astro:content";
 import { getImage } from "astro:assets";
 
 type Cv = CollectionEntry<"cvs">["data"];
-type Experiance = Cv["experiances"][number];
+type Experience = Cv["experiences"][number];
 type Education = Cv["educations"][number];
 
-type Props = Experiance | Education;
+type Props = Experience | Education;
 
 const { img, company, duration } = Astro.props;
 

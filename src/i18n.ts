@@ -34,7 +34,7 @@ export const getSortedProjects = async (limit?: number) => {
 
 type DocCollection = "cvs" | "applicationLetters";
 
-export const getLocaleDocs = async (collection: DocCollection, locale: Locale, dir: "asc" | "desc" = "asc") => {
+export const getLocaleDocs = async <C extends DocCollection>(collection: C, locale: Locale, dir: "asc" | "desc" = "asc") => {
   const docs = (await getCollection(collection)).filter((doc) => doc.data.locale === locale);
   const factor = dir === "asc" ? 1 : -1;
   return docs.sort((a, b) => factor * a.data.slug.localeCompare(b.data.slug));
@@ -67,4 +67,14 @@ export async function getLocalized<C extends LocalizedCollection>(collection: C,
     throw new Error(`Missing '${locale}' entry in the '${collection}' collection`);
   }
   return entry;
+}
+
+// Personal details are the same in every locale, so the 'site' collection holds
+// a single entry instead of one per locale.
+export async function getSite() {
+  const [entry] = await getCollection("site");
+  if (!entry) {
+    throw new Error("Missing 'site.json' in the 'site' collection");
+  }
+  return entry.data;
 }

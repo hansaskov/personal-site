@@ -4,11 +4,11 @@ import TimeLineHeader from './TimeLineHeader.astro';
 import TimeLineBody from './TimeLineBody.astro';
 
 type Cv = CollectionEntry<"cvs">["data"];
-type Experiance = Cv["experiances"][number];
+type Experience = Cv["experiences"][number];
 type Education = Cv["educations"][number];
 
 interface Props {
-  experiances: (Experiance | Education)[]
+  experiences: (Experience | Education)[]
 }
 
 const props = Astro.props;
@@ -16,10 +16,10 @@ const props = Astro.props;
 
 <div class="space-y-8">
       {
-        props.experiances.map((experiance) => (
+        props.experiences.map((experience) => (
           <div class="space-y-2">
-            <TimeLineHeader {...experiance} />
-            {experiance.roles.map((role) => (
+            <TimeLineHeader {...experience} />
+            {experience.roles.map((role) => (
               <div class="flex gap-4 pl-4">
                 <div class="hidden md:block">
                   <span class="bg-fg mt-1.5 block size-3 rounded-full" />

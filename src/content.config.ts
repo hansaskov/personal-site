@@ -57,6 +57,19 @@ const home = defineCollection({
   schema: homeSchema,
 });
 
+const siteSchema = z.object({
+  name: z.string(),
+  email: z.email(),
+  phone: z.string(),
+});
+export type SiteData = z.infer<typeof siteSchema>;
+
+// Site-wide personal details. Not localized: one entry under src/content/site.
+const site = defineCollection({
+  loader: glob({ pattern: "*.json", base: "./src/content/site" }),
+  schema: siteSchema,
+});
+
 const projectsPage = defineCollection({
   loader: glob({ pattern: "*.json", base: "./src/content/projects-page" }),
   schema: z.object({
@@ -141,7 +154,7 @@ const cvs = defineCollection({
       title: z.string(),
       intro: z.string(),
       skills: z.array(z.string()),
-      experiances: z.array(timeline),
+      experiences: z.array(timeline),
       educations: z.array(timeline),
     });
   },
@@ -163,6 +176,7 @@ const projects = defineCollection({
 });
 
 export const collections = {
+  site,
   layout,
   home,
   projectsPage,

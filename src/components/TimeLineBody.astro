@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 
 type Cv = CollectionEntry<"cvs">["data"];
-type Role = Cv["experiances"][number]["roles"][number];
+type Role = Cv["experiences"][number]["roles"][number];
 
 export type Props = Role;
 

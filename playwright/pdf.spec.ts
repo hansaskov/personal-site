@@ -4,7 +4,7 @@ import path from "node:path";
 import sharp from "sharp";
 
 const distPath = path.resolve("dist");
-const PREVIEW_PATH = path.resolve("src", "media", "personal-site.webp");
+const PREVIEW_PATH = path.resolve("dist", "preview.webp");
 const FIXED_PDF_DATE = "D:20000101000000+00'00'";
 
 function requireDist() {
@@ -58,7 +58,7 @@ test("every PDF is a single page with deterministic metadata", async () => {
 
 test("preview image keeps its dimensions", async () => {
   requireDist();
-  expect(existsSync(PREVIEW_PATH), "preview image is missing").toBe(true);
+  expect(existsSync(PREVIEW_PATH), "preview image is missing from dist/").toBe(true);
 
   const metadata = await sharp(PREVIEW_PATH).metadata();
   expect(metadata.format).toBe("webp");

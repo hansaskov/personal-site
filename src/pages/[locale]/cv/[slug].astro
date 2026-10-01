@@ -2,13 +2,13 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PageHeader from "@components/PageHeader.astro"
 import TimeLine from "@components/TimeLine.astro";
-import { getLocalized, localeToggle, pageUrl } from "@lib/i18n";
+import { getLocalized, getSite, localeToggle, pageUrl } from "@lib/i18n";
 import { localeSlugStaticPaths } from "@lib/i18n";
 
 export const getStaticPaths = () => localeSlugStaticPaths("cvs");
 
 const { entry: CV } = Astro.props;
-const { locale, slug, title, intro, skills, experiances, educations } = CV.data;
+const { locale, slug, title, intro, skills, experiences, educations } = CV.data;
 const { data: layout } = await getLocalized("layout", locale);
 
 const path = pageUrl(locale, `cv/${slug}`);
@@ -16,10 +16,10 @@ const toggle = localeToggle(locale, "cv");
 const prefetchUrls = [pageUrl(locale), pageUrl(locale, "projects")];
 const pdfUrl = `/hans-askov-cv-${slug}.pdf`;
 
-const personalInfo = { name: "Hans Askov", email: "hans@askov.dk", phone: "+45 24 96 51 87" };
+const personalInfo = await getSite();
 const download_button = { title: layout.cv.download, url: pdfUrl };
 const sections = [
-  { heading: layout.cv.experience, items: experiances },
+  { heading: layout.cv.experience, items: experiences },
   { heading: layout.cv.education, items: educations },
 ];
 ---
@@ -44,7 +44,7 @@ const sections = [
   {sections.map(({ heading, items }) => (
     <div class="mt-section space-y-2">
         <h2 class="pb-2">{heading}</h2>
-      <TimeLine experiances={items} />
+      <TimeLine experiences={items} />
     </div>
   ))}
 </BaseLayout>

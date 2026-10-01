@@ -1,4 +1,6 @@
 ---
+import { getSite } from "@lib/i18n";
+
 interface Props {
     download_button?: {
         url: string;
@@ -6,6 +8,7 @@ interface Props {
     };
 }
 const { download_button } = Astro.props;
+const { email } = await getSite();
 ---
 
 <div
@@ -55,7 +58,7 @@ const { download_button } = Astro.props;
             >
         </a>
         <a
-            href="mailto:hans@askov.dk"
+            href={`mailto:${email}`}
             class="icon-btn"
             aria-label="Email"
             title="Send email"

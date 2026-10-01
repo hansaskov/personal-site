@@ -1,13 +1,15 @@
 ---
+import { getSite } from "@lib/i18n";
+
 const today = new Date();
-const email = "hans@askov.dk";
+const { name, email } = await getSite();
 ---
 
 <footer
     class="shrink-0 mt-auto border-t border-line px-gutter h-16 flex items-center justify-center"
 >
     <div class="t-caption text-fg-muted flex justify-center items-center gap-3">
-        <span>Hans Askov</span>
+        <span>{name}</span>
 
         <span class="text-fg-subtle select-none" aria-hidden="true">•</span>
 

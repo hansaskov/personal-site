@@ -10,7 +10,6 @@ import { serveStatic } from "./static-server.mjs";
 
 const PREVIEW_WIDTH = 1200;
 const PREVIEW_HEIGHT = 675;
-const PREVIEW_PATH = resolve("src", "media", "personal-site.webp");
 let PDF_CACHE_DIR;
 
 function listSlugs(dir) {
@@ -173,19 +172,17 @@ async function loadPage(page, url) {
   await page.evaluate(() => document.fonts.ready);
 }
 
+// The capture lands in the build output, not in src/media: nothing generated here
+// can be consumed by the build that is already finished, and dist/ is where
+// BaseHead points its OG image.
 async function capturePreview(getPage, logger, distDir, startedAt) {
   const homeHtmlPath = join(distDir, "index.html");
+  const previewPath = join(distDir, "preview.webp");
   const cachePath = join(PDF_CACHE_DIR, `preview-${await shortHash(homeHtmlPath)}.webp`);
 
   if (existsSync(cachePath)) {
-    const cached = await readFile(cachePath);
-    if (existsSync(PREVIEW_PATH) && (await readFile(PREVIEW_PATH)).equals(cached)) {
-      logArrow(logger, `${displayPath(PREVIEW_PATH)} ${dim("(unchanged)")}`, startedAt);
-      return;
-    }
-
-    await copyFile(cachePath, PREVIEW_PATH);
-    logArrow(logger, `${displayPath(PREVIEW_PATH)} ${dim("(reused cache entry)")}`, startedAt);
+    await copyFile(cachePath, previewPath);
+    logArrow(logger, `${displayPath(previewPath)} ${dim("(reused cache entry)")}`, startedAt);
     return;
   }
 
@@ -195,9 +192,9 @@ async function capturePreview(getPage, logger, distDir, startedAt) {
   const screenshot = await page.screenshot({ type: "png" });
   const preview = await sharp(screenshot).webp({ quality: 80 }).toBuffer();
 
-  await writeFile(PREVIEW_PATH, preview);
-  await storeInCache(PREVIEW_PATH, cachePath);
-  logArrow(logger, `${displayPath(PREVIEW_PATH)} ${dim("(picked up by the next build)")}`, startedAt);
+  await writeFile(previewPath, preview);
+  await storeInCache(previewPath, cachePath);
+  logArrow(logger, displayPath(previewPath), startedAt);
 }
 
 export async function postBuild(distDir, cacheDir, logger) {
