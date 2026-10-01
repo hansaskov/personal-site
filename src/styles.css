@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("/fonts/NunitoSans.woff2") format("woff2");
+}
+
 :root {
   --pr-paper-0: oklch(99.4% 0.002 85);
   --pr-paper-50: oklch(97.6% 0.005 80);
