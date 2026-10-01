@@ -1,9 +1,9 @@
 {
-  "slug": "softwareingenior",
+  "slug": "dataplatform-engineer-tv2-2026",
   "locale": "da",
-  "title": "Softwareingeniør",
-  "intro": "Softwareingeniør med fokus på backend og big data. Har udviklet intensive analytiske platforme som behanlder mere end 420M+ inspektioner om året. Hvor jeg var med til at reducere dashboard loading tider fra 10s til 0,1s samt reducere lageromkostninger med 92%. Vælg mig for en ambitiøs udvilker der ikke er bange for at tage initiativ",
-  "skills": ["AWS", "Backend", "Cybersikkerhed", "Datapipelines", "Docker", "IoT", "PostgreSQL", "Python", "Typescript"],
+  "title": "Dataplatform Engineer",
+  "intro": "Softwareudvikler med erfaring i at bygge og drive dataplatforme i proffesionelt. Hos TriVision leverede jeg Production Intelligence V4, der indsamler 420 millioner maskininspektionsbilleder om året, og fik dashboardet fra 10 sekunders loadtid til 0,1 sekund. Samtidig skar jeg lagringsomkostningerne 92 procent ved at sammenligne lagringsformater på rigtige data. Jeg bruger Python og SQL dagligt og brugte CI/CD til til at hoste applikationen i AWS med Docker.",
+  "skills": ["Python", "Data Pipelines", "AWS", "Docker", "SQL", "PostgreSQL", "Backend", "Cybersecurity", "C++", "Palumi", "Terraform"],
   "experiences": [
     {
       "company": "TriVision A/S",
@@ -16,14 +16,14 @@
           "year": "august 2025 - maj 2026",
           "duration": "10 måneder",
           "location": "Odense",
-          "description": "Leverede Production Intelligence V4, en platform der behandler 420M+ machine vision inspektioner om året. Reducerede dashboard loading fra 10s til 0,1s ved at skifte renderingen fra clienten til serveren. Containeriserede applikationen og hostede den på AWS med Docker."
+          "description": "Leverede Production Intelligence V4, en fullstack platform der behandler 420M+ machine vision inspektioner om året. Reducerede dashboard loading fra 10s til 0,1s ved at rykke renderingen til serveren. Containeriserede applikationen og hostede den på AWS med Docker. Arbejdede end-to-end med både nye funktionaliteter, bugs og drift."
         },
         {
           "title": "Studerende softwareudvikler",
           "year": "februar 2024 - august 2025",
           "duration": "1 år 7 måneder",
           "location": "Odense",
-          "description": "Designede data pipelinen bag Production Intelligence V4 og evaluerede kolonnebaserede lagringsformater, der senere reducerede lagringsomkostninger med 92%. Arbejdet med backend functionalitet i form af SQL i et rigtigt produktionsmiljø og omsatte viden fra distribuerede systemer til robust, skalerbar systemudvikling."
+          "description": "Designede data pipelinen bag Production Intelligence V4 og evaluerede kolonnebaserede lagringsformater, der senere reducerede lagringsomkostninger med 92%. Arbejdede med backend, API'er og SQL i et produktionsmiljø og omsatte viden fra distribuerede systemer til robust kode."
         }
       ]
     },
@@ -38,7 +38,7 @@
           "year": "september 2022 - februar 2023",
           "duration": "6 måneder",
           "location": "Hillerød",
-          "description": "Byggede en pipeline, der renderer syntetiske billeder til at træne to deep learning-modeller til objektdetektion og 6DoF pose estimation af dele i en beholder. Udgivet som open source-projektet BlenderBin."
+          "description": "Byggede en Python-baseret pipeline, der renderer syntetiske billeder til at træne to deep learning-modeller til objektdetektion og 6DoF pose estimation. Udgivet som open source-projektet BlenderBin."
         }
       ]
     },
@@ -53,7 +53,7 @@
           "year": "februar 2022 - februar 2023",
           "duration": "1 år 1 måned",
           "location": "Odense",
-          "description": "Indsamlede og analyserede data fra distribuerede IoT-enheder. Byggede en hjemmeside, der viser dataene i realtid, så teamet og deres kunder kunne overvåge deres produkter."
+          "description": "Indsamlede og analyserede data fra distribuerede IoT-enheder. Byggede en webapplikation, der viser dataene i realtid, så teamet og kunderne kunne overvåge produkterne."
         }
       ]
     }
@@ -77,7 +77,7 @@
           "year": "2019 - 2023",
           "duration": "3 år 5 måneder",
           "location": "Odense",
-          "description": "Fandt min kærlighed til software og matematik gennem reguleringsteknik, computer vision og maskinlæring. Programmerede en UR5-robotarm til at detektere, gribe og kaste objekter med kollisionsbevidst bevægelsesplanlægning."
+          "description": "Fandt min kærlighed til software og matematik gennem reguleringsteknik, computer vision og maskinlæring. Programmerede en UR5-robotarm i C++ til at detektere, gribe og kaste objekter med kollisionsbevidst bevægelsesplanlægning."
         }
       ]
     }
