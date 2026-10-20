@@ -26,6 +26,12 @@ To build the projcet, including generating the pdf files, simply run pnpm build.
 pnpm build
 ```
 
+To check that every internal link and asset in the build output resolves:
+
+```bash
+pnpm test
+```
+
 To preview the build locally:
 
 ```bash

@@ -3,7 +3,3 @@ services:
     build: .
     ports:
       - "4321:4321"
-
-  playwright:
-    build: .
-    command: pnpm exec playwright test

@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install -g pnpm@11.24.0
+          npm install -g pnpm@12.14.0
           pnpm install --frozen-lockfile
 
       - name: Build
