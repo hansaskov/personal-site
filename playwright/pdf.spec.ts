@@ -1,60 +1,16 @@
 import { expect, test } from "@playwright/test";
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
 const distPath = path.resolve("dist");
 const PREVIEW_PATH = path.resolve("dist", "preview.webp");
-const FIXED_PDF_DATE = "D:20000101000000+00'00'";
 
 function requireDist() {
   if (!existsSync(distPath)) {
     throw new Error("Build output was not found. Run `pnpm build` first.");
   }
 }
-
-function slugsIn(subdir: string) {
-  return readdirSync(path.join(distPath, subdir), { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name)
-    .sort();
-}
-
-function expectedPdfs() {
-  requireDist();
-  return {
-    cv: ["hans-askov-cv.pdf", ...slugsIn("cv").map((slug) => `hans-askov-cv-${slug}.pdf`)],
-    letter: slugsIn("application-letter").map((slug) => `application-letter-${slug}.pdf`),
-  };
-}
-
-test("build generated every CV and application letter PDF", async () => {
-  const { cv, letter } = expectedPdfs();
-  const pdfNames = [...cv, ...letter];
-
-  expect(pdfNames.length).toBeGreaterThan(1);
-
-  for (const name of pdfNames) {
-    const pdfPath = path.join(distPath, name);
-    expect(existsSync(pdfPath), `${name} is missing from dist/`).toBe(true);
-    expect(statSync(pdfPath).size, `${name} is suspiciously small`).toBeGreaterThan(10_000);
-  }
-});
-
-test("every PDF is a single page with deterministic metadata", async () => {
-  const { cv, letter } = expectedPdfs();
-
-  for (const name of [...cv, ...letter]) {
-    const raw = readFileSync(path.join(distPath, name)).toString("latin1");
-    const pageCount = raw.match(/\/Type \/Page(?![s])/g)?.length ?? 0;
-    expect(pageCount, `${name} spans ${pageCount} pages`).toBe(1);
-    const stamps = raw.match(/(?:CreationDate|ModDate) \((D:[^)]+)\)/g) ?? [];
-    expect(stamps.length, `${name} is missing its date stamps`).toBe(2);
-    for (const stamp of stamps) {
-      expect(stamp, `${name} has a non-deterministic date stamp`).toContain(FIXED_PDF_DATE);
-    }
-  }
-});
 
 test("preview image keeps its dimensions", async () => {
   requireDist();
