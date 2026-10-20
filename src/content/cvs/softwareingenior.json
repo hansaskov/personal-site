@@ -2,7 +2,7 @@
   "slug": "softwareingenior",
   "locale": "da",
   "title": "Softwareingeniør",
-  "intro": "Jeg kommer med energi, nysgerrighed og lyst til at tage fat. Gennem fem år på SDU og flere år i erhvervslivet har jeg lært, at de bedste resultater kommer, når man tør tage initiativ og samtidig hjælper hinanden. Jeg er softwareingeniør, og jeg er klar til mit næste kapitel.",
+  "intro": "Gennem fem år på SDU og flere år i erhvervslivet har jeg lært, at de bedste resultater kommer, når man tør tage initiativ og samtidig hjælper hinanden. ",
   "skills": ["AWS", "Microsoft Azure", "Docker", "SQL", "PostgreSQL", "Python", "Typescript", "DevOps", "CI/CD", "Scrum"],
   "experiences": [
     {

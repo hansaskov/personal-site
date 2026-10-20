@@ -54,7 +54,7 @@ export const localeSlugStaticPaths = async <C extends DocCollection>(collection:
 // Default CV shown by the `/cv` landing rewrite per locale. Single-sourced so
 // `src/pages/cv.astro` and `src/pages/[locale]/cv.astro` cannot drift apart.
 export const defaultCvSlug: Record<Locale, string> = {
-  en: "software-developer",
+  en: "software-engineer",
   da: "softwareingenior",
 };
 
