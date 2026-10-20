@@ -2,8 +2,20 @@
   "slug": "softwareingenior",
   "locale": "da",
   "title": "Softwareingeniør",
-  "intro": "Gennem fem år på SDU og flere år i erhvervslivet har jeg lært, at de bedste resultater kommer, når man tør tage initiativ og samtidig hjælper hinanden. ",
-  "skills": ["AWS", "Microsoft Azure", "Docker", "SQL", "PostgreSQL", "Python", "Typescript", "DevOps", "CI/CD", "Scrum"],
+  "intro": "Civilingeniør i softwareudvikling med erfaring i at bygge skalerbare dataplatforme i AWS og Microsoft Azure, fra datapipelines og databaseoptimering til CI/CD og drift. Jeg kombinerer initiativ med tæt samarbejde, lytter til kunder og kolleger, stiller de rigtige spørgsmål og leverer løsninger der skaber værdi for virksomheden.",
+  "skills": [
+    "AWS",
+    "Microsoft Azure",
+    "Docker",
+    "PostgreSQL",
+    "SQL",
+    "Python",
+    "TypeScript",
+    "CI/CD",
+    "DevOps",
+    "Scrum",
+    "Problemløsning"
+  ],
   "experiences": [
     {
       "company": "TriVision A/S",
@@ -16,14 +28,14 @@
           "year": "august 2025 - maj 2026",
           "duration": "10 måneder",
           "location": "Odense",
-          "description": "Leverede Production Intelligence V4, en platform der behandler 420M+ produkter om året. Opdateringen reducerede kunders loading tider fra 10s til 0,1s. På arbejdet fik jeg erfaring med Cloud infrastruktur, specifikt med AWS og Microsoft Azure. Arbejde tæt med kunder og interne stakeholders for at imødekomme alles behov."
+          "description": "Leverede Production Intelligence V4, en platform der behandler 420M+ produkter om året. Opdateringen reducerede kunders loadingtider fra 10 s til 0,1 s. Arbejdede med cloudinfrastruktur i AWS og Microsoft Azure og var et bindende led mellem kunder og interne stakeholders."
         },
         {
           "title": "Studerende softwareudvikler",
           "year": "februar 2024 - august 2025",
           "duration": "1 år 7 måneder",
           "location": "Odense",
-          "description": "Designede data pipelinen bag Production Intelligence V4 og evaluerede lagringsformater, der senere reducerede lagringsomkostninger med 92%. Arbejde med PostgreSQL hvor jeg optimirede SQL queries for at reducere belastningen af deres backend."
+          "description": "Designede data pipelinen bag Production Intelligence V4 og evaluerede lagringsformater, der senere reducerede lagringsomkostninger med 92%. Arbejdede med PostgreSQL, hvor jeg optimerede SQL queries for at reducere belastningen af deres backend."
         }
       ]
     },
@@ -38,7 +50,7 @@
           "year": "september 2022 - februar 2023",
           "duration": "6 måneder",
           "location": "Hillerød",
-          "description": "Udviklede med min studiekammerat et projekt til at generere syntetiske billeder, som derefter blev brugt til at træne to AI modeller for objektdetektion og 6DoF pose estimation af komponenter i en beholder. Projektet blev senere brugt af forskere på SDU til at forbedre deres interne AI modeller."
+          "description": "Udviklede i tæt samarbejde med en studiekammerat en pipeline til at generere syntetiske billeder, som blev brugt til at træne to AI-modeller til objektdetektion og 6DoF pose estimation af komponenter i en beholder. Vi koordinerede løbende med Novo Nordisk, og projektet blev senere brugt af forskere på SDU til at forbedre deres interne AI-modeller."
         }
       ]
     },
@@ -53,7 +65,7 @@
           "year": "februar 2022 - februar 2023",
           "duration": "1 år 1 måned",
           "location": "Odense",
-          "description": "Arbejdede i et større hold af udviklere, med ansvaret for at indsamle og analysere data fra distribuerede IoT-enheder. Brugte denne data til at byggee en hjemmeside så kundene kan overvåge deres produkter live."
+          "description": "Indgik i et større udviklerteam med ansvar for at indsamle og analysere data fra distribuerede IoT-enheder. Byggede på baggrund af data en webapplikation, hvor kunderne kan overvåge deres produkter live, og arbejdede tæt med kollegerne for at sikre sammenhæng på tværs af systemet."
         }
       ]
     }
@@ -66,18 +78,18 @@
       "img": "../../media/sdu_logo.jpg",
       "roles": [
         {
-          "title": "Civilingeniør i softwareudvikling, MSc Eng",
+          "title": "Civilingeniør i Software Engineering, MSc Eng",
           "year": "2023 - 2025",
           "duration": "2 år",
           "location": "Odense",
-          "description": "Igennem robotteknologi blev jeg introduceret til web udvikling og har ikke set tilbage siden. På software kandidaten har jeg lært Docker, Kubernetes, AWS, Microsoft Azure, Infrastructure as Code, DevOps, CI/CD, Cypersikkerhed, Datasikkerhed, Big Data."
+          "description": "Gennem robotteknologi blev jeg introduceret til webudvikling og har ikke set mig tilbage siden. På kandidaten arbejdede jeg med Docker, Kubernetes, AWS, Microsoft Azure, Infrastructure as Code, DevOps, CI/CD, cybersikkerhed, datasikkerhed og big data, primært i projektgrupper, hvor planlægning, vidensdeling og fælles ansvar var afgørende."
         },
         {
           "title": "Diplomingeniør i robotteknologi, BEng",
           "year": "2019 - 2023",
           "duration": "3 år 5 måneder",
           "location": "Odense",
-          "description": "Fandt min kærlighed til software og matematik gennem studiet. Programmerede en UR5-robotarm til at detektere, gribe og kaste objekter med kollisionsbevidst bevægelsesplanlægning."
+          "description": "Fandt min passion for software og matematik gennem studiet. Programmerede en UR5-robotarm til at detektere, gribe og kaste objekter med kollisionsbevidst bevægelsesplanlægning."
         }
       ]
     }

@@ -2,8 +2,20 @@
   "slug": "software-engineer",
   "locale": "en",
   "title": "Software Engineer",
-  "intro": "Through five years at SDU and several years in industry, I've learned that the best results come when you dare to take initiative while also helping each other.",
-  "skills": ["AWS", "Microsoft Azure", "Docker", "SQL", "PostgreSQL", "Python", "TypeScript", "DevOps", "CI/CD", "Scrum"],
+  "intro": "MSc in Software Engineering with experience building scalable data platforms in AWS and Microsoft Azure, from data pipelines and database optimization to CI/CD and operations. I combine initiative with close collaboration, listen to customers and colleagues, ask the right questions, and deliver solutions that create value for the business.",
+  "skills": [
+    "AWS",
+    "Microsoft Azure",
+    "Docker",
+    "PostgreSQL",
+    "SQL",
+    "Python",
+    "TypeScript",
+    "CI/CD",
+    "DevOps",
+    "Scrum",
+    "Problem Solving"
+  ],
   "experiences": [
     {
       "company": "TriVision A/S",
@@ -16,14 +28,14 @@
           "year": "August 2025 - May 2026",
           "duration": "10 months",
           "location": "Odense",
-          "description": "Delivered Production Intelligence V4, a platform that processes 420M+ products a year. The update cut customers' loading times from 10s to 0.1s. In the role I gained experience with cloud infrastructure, specifically AWS and Microsoft Azure. Worked closely with customers and internal stakeholders to meet everyone's needs."
+          "description": "Delivered Production Intelligence V4, a platform that processes 420M+ products a year. The update cut customers' loading times from 10s to 0.1s. Worked with cloud infrastructure in AWS and Microsoft Azure and served as the link between customers and internal stakeholders."
         },
         {
           "title": "Student Software Developer",
           "year": "February 2024 - August 2025",
           "duration": "1 year 7 months",
           "location": "Odense",
-          "description": "Designed the data pipeline behind Production Intelligence V4 and evaluated storage formats that later reduced storage costs by 92%. Worked with PostgreSQL, where I optimized SQL queries to reduce the load on their backend."
+          "description": "Designed the data pipeline behind Production Intelligence V4 and evaluated storage formats that later reduced storage costs by 92%. Worked with PostgreSQL, optimizing SQL queries to reduce the load on the backend."
         }
       ]
     },
@@ -38,7 +50,7 @@
           "year": "September 2022 - February 2023",
           "duration": "6 months",
           "location": "Hillerød",
-          "description": "With my study partner, I developed a project to generate synthetic images, which were then used to train two AI models for object detection and 6DoF pose estimation of components in a bin. The project was later used by researchers at SDU to improve their internal AI models."
+          "description": "In close collaboration with a fellow student, developed a pipeline to generate synthetic images, which were used to train two AI models for object detection and 6DoF pose estimation of components in a bin. We coordinated continuously with Novo Nordisk, and the project was later used by researchers at SDU to improve their internal AI models."
         }
       ]
     },
@@ -53,7 +65,7 @@
           "year": "February 2022 - February 2023",
           "duration": "1 year 1 month",
           "location": "Odense",
-          "description": "Worked in a larger team of developers, with responsibility for collecting and analyzing data from distributed IoT devices. Used this data to build a website so customers could monitor their products live."
+          "description": "Part of a larger development team, responsible for collecting and analyzing data from distributed IoT devices. Used this data to build a web application where customers can monitor their products live, and worked closely with colleagues to ensure consistency across the system."
         }
       ]
     }
@@ -70,14 +82,14 @@
           "year": "2023 - 2025",
           "duration": "2 years",
           "location": "Odense",
-          "description": "Through robotics I was introduced to web development and haven't looked back since. On the software master's I learned Docker, Kubernetes, AWS, Microsoft Azure, Infrastructure as Code, DevOps, CI/CD, Cybersecurity, Data Security, Big Data."
+          "description": "Through robotics I was introduced to web development and haven't looked back since. During my master's I worked with Docker, Kubernetes, AWS, Microsoft Azure, Infrastructure as Code, DevOps, CI/CD, cybersecurity, data security, and big data, mainly in project groups where planning, knowledge sharing, and shared responsibility were essential."
         },
         {
           "title": "BEng in Robotics",
           "year": "2019 - 2023",
           "duration": "3 years 5 months",
           "location": "Odense",
-          "description": "Found my love for software and mathematics through my studies. Programmed a UR5 robot arm to detect, grasp, and throw objects with collision-aware motion planning."
+          "description": "Found my passion for software and mathematics through my studies. Programmed a UR5 robot arm to detect, grasp, and throw objects with collision-aware motion planning."
         }
       ]
     }
