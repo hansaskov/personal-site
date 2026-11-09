@@ -1,0 +1,99 @@
+{
+  "slug": "devops-engineer",
+  "locale": "da",
+  "title": "DevOps Engineer",
+  "intro": "Civilingeniør i softwareudvikling med erfaring i at containerisere, deploye og drive skalerbare systemer i AWS og Microsoft Azure. Jeg er en holdspiller, der kombinerer initiativ med tæt samarbejde, deler gerne ud af min viden og brænder for at reducere kompleksitet.",
+  "skills": [
+    "Docker",
+    "Kubernetes",
+    "CI/CD",
+    "GitHub Actions",
+    "Terraform",
+    "Pulumi",
+    "AWS",
+    "Azure",
+    "Linux",
+    "Bash",
+    "Python",
+    "PostgreSQL",
+    "Grafana"
+  ],
+  "experiences": [
+    {
+      "company": "TriVision A/S",
+      "year": "februar 2024 - maj 2026",
+      "duration": "2 år 4 måneder",
+      "img": "../../media/trivision_logo.jpg",
+      "roles": [
+        {
+          "title": "Softwareingeniør",
+          "year": "august 2025 - maj 2026",
+          "duration": "10 måneder",
+          "location": "Odense",
+          "description": "Lead developer på Production Intelligence V4, en SaaS-platform der behandler 420M+ produkter om året og omsætter det til live dashboards for fabriksejere. Her containeriserede jeg hele stakken med Docker og hostede den i AWS, hvor CI/CD var centralt for udviklingsprocessen. Mit arbejde reducerede loadingtider med −95%, hvilket løste det største smertepunkt hos kunderne."
+        },
+        {
+          "title": "Studerende softwareudvikler",
+          "year": "februar 2024 - august 2025",
+          "duration": "1 år 7 måneder",
+          "location": "Odense",
+          "description": "Tog ejerskab over data pipelinen bag Production Intelligence V4. Her migrerede jeg det eksisterende produktionssystem til en ny arkitektur med højere throughput, hvilket gjorde det muligt at skalere til flere kunder og senere reducerede lagringsomkostningerne med 92%. Arbejdede yderligere med PostgreSQL, hvor jeg optimerede SQL queries for at reducere belastningen af deres backend."
+        }
+      ]
+    },
+    {
+      "company": "Novo Nordisk A/S",
+      "year": "september 2022 - februar 2023",
+      "duration": "6 måneder",
+      "img": "../../media/novo_nordisk_logo.jpg",
+      "roles": [
+        {
+          "title": "Bachelor Thesis",
+          "year": "september 2022 - februar 2023",
+          "duration": "6 måneder",
+          "location": "Hillerød",
+          "description": "Byggede sammen med en studiekammerat BlenderBin, et open source-værktøj i Python, der genererer syntetiske træningsdata til objektdetektion og 6DoF pose estimation. Her delte vi simulering og rendering op i separate processer forbundet via en kø, så de kan skaleres uafhængigt af hinanden. Vi koordinerede løbende med Novo Nordisk, hvor projektet senere blev brugt af forskere på SDU."
+        }
+      ]
+    },
+    {
+      "company": "EFFIMAT",
+      "year": "februar 2022 - februar 2023",
+      "duration": "1 år 1 måned",
+      "img": "../../media/effimat_logo.jpg",
+      "roles": [
+        {
+          "title": "Studerende softwareudvikler",
+          "year": "februar 2022 - februar 2023",
+          "duration": "1 år 1 måned",
+          "location": "Odense",
+          "description": "Indsamlede og analyserede data fra distribuerede IoT-enheder som del af et større udviklerteam. Byggede på baggrund af dataene en webapplikation til overvågning af deres produkter."
+        }
+      ]
+    }
+  ],
+  "educations": [
+    {
+      "company": "Syddansk Universitet",
+      "year": "2019 - 2025",
+      "duration": "5 år 5 måneder",
+      "img": "../../media/sdu_logo.jpg",
+      "roles": [
+        {
+          "title": "Civilingeniør i Software Engineering, MSc Eng",
+          "year": "2023 - 2025",
+          "duration": "2 år",
+          "location": "Odense",
+          "description": "På kandidaten arbejdede jeg med Docker, Kubernetes, Infrastructure as Code i Terraform og Pulumi, CI/CD i GitHub Actions, AWS, Microsoft Azure og systempålidelighed, primært i projektgrupper, hvor planlægning, vidensdeling og fælles ansvar var afgørende."
+        },
+        {
+          "title": "Diplomingeniør i robotteknologi, BEng",
+          "year": "2019 - 2023",
+          "duration": "3 år 5 måneder",
+          "location": "Odense",
+          "description": "Fandt min passion for software og matematik gennem fag som Software design i C++, Algoritmer og datastrukturer og Numeriske metoder. Programmerede en UR5-robotarm til at detektere, gribe og kaste objekter med kollisionsbevidst bevægelsesplanlægning."
+        }
+      ]
+    }
+  ]
+}
