@@ -1,0 +1,93 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+  project: CollectionEntry<"projects">["data"];
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+const { title, desc, img, url, year, target = "_blank" } = project;
+
+const isExternal = target === "_blank";
+const destination = new URL(url, Astro.site);
+const isGitHub = destination.hostname === "github.com";
+const destinationLabel = isGitHub ? destination.pathname.replace(/^\/|\/$/g, "") : destination.hostname.replace(/^www\./, "");
+
+const imageWidths = featured ? [560, 840, 1120] : [480, 720, 960];
+const imageSizes = featured
+  ? "(min-width: 80rem) 33rem, (min-width: 64rem) calc(100vw - 23rem), calc(100vw - 2.5rem)"
+  : "(min-width: 80rem) 27rem, (min-width: 64rem) calc(50vw - 11rem), (min-width: 48rem) calc(50vw - 2.5rem), calc(100vw - 2.5rem)";
+---
+
+<article
+  class:list={[
+    "group relative flex flex-col rounded-2xl border border-line bg-surface p-2 shadow-card",
+    "transition-[box-shadow,border-color,translate] duration-200 ease-out",
+    "hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lift",
+    "has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-(--ds-color-focus)",
+    featured && "@2xl:grid @2xl:grid-cols-[3fr_2fr] @2xl:items-center",
+  ]}
+>
+  <div class="aspect-video overflow-hidden rounded-[0.625rem] border border-line bg-subtle">
+    <Image
+      src={img}
+      alt=""
+      widths={imageWidths}
+      sizes={imageSizes}
+      format="webp"
+      loading={featured ? "eager" : "lazy"}
+      fetchpriority={featured ? "high" : "auto"}
+      class="size-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+    />
+  </div>
+
+  <div class:list={["flex grow flex-col px-3 pt-4 pb-3", featured && "@2xl:px-6 @2xl:py-5"]}>
+    <h2 class:list={["text-balance text-fg", !featured && "t-subheading"]}>
+      <a
+        href={url}
+        target={target}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        class="outline-none after:absolute after:inset-0 after:rounded-2xl after:content-['']"
+      >
+        {title}
+      </a>
+    </h2>
+
+    {year && <p class="t-caption mt-0.5 text-fg-subtle">{year}</p>}
+
+    <p class:list={["mt-2 text-fg-muted", featured ? "t-body" : "t-body-sm"]}>{desc}</p>
+
+    <p class="t-caption mt-auto flex min-w-0 items-center gap-1.5 pt-4 font-medium text-fg-subtle transition-colors group-hover:text-brand-text">
+      {isGitHub && (
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="shrink-0">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.6 9.6 0 0 1 2.496-.336 9.6 9.6 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2"
+          />
+        </svg>
+      )}
+      <span class="truncate">{destinationLabel}</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        class:list={[
+          "shrink-0 transition-transform duration-200 ease-out",
+          isExternal ? "group-hover:translate-x-0.5 group-hover:-translate-y-0.5" : "group-hover:translate-x-0.5",
+        ]}
+      >
+        {isExternal ? <path d="M7 17 17 7M8 7h9v9" /> : <path d="M5 12h14m-6-6 6 6-6 6" />}
+      </svg>
+    </p>
+  </div>
+</article>

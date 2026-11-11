@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import HorizontalCard from "@components/HorizontalCard.astro";
+import ProjectCard from "@components/ProjectCard.astro";
 import PageHeader from "@components/PageHeader.astro";
 import { getLocalized, getSortedProjects, hreflangUrls, localeStaticPaths, localeToggle, pageUrl, type Locale } from "@lib/i18n";
 
@@ -15,7 +15,7 @@ const toggle = localeToggle(locale, "projects");
 const hreflang = hreflangUrls("projects");
 const prefetchUrls = [pageUrl(locale), pageUrl(locale, "cv")];
 
-const projects = await getSortedProjects();
+const [featured, ...rest] = await getSortedProjects();
 ---
 
 <BaseLayout
@@ -26,9 +26,14 @@ const projects = await getSortedProjects();
   description={page.metaDescription}
   prefetchUrls={prefetchUrls}
   hreflang={hreflang}
+  wide
 >
   <PageHeader title={page.title} description={page.description} />
-  <div class="mt-8 space-y-4">
-    {projects.map((project) => <HorizontalCard {...project.data} />)}
+
+  <div class="@container mt-8 space-y-5">
+    {featured && <ProjectCard project={featured.data} featured />}
+    <div class="grid gap-5 @xl:grid-cols-2">
+      {rest.map((project) => <ProjectCard project={project.data} />)}
+    </div>
   </div>
 </BaseLayout>

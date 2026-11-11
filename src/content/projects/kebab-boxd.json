@@ -1,9 +1,9 @@
 {
-  "title": "Kebab-Boxd",
+  "title": "Kebab Boxd",
   "desc": "Social media app for reviewing shawarma, inspired by letterboxd. Review your locals, interact with your friends and stay connected. Made to work without javascript",
   "img": "../../media/kebab-boxd.png",
   "url": "https://kebab-boxd.com",
-  "badge": "Website",
+  "badge": "Web App",
   "year": "2026 - Now",
   "order": 0
 }
