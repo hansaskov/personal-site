@@ -27,3 +27,4 @@ pnpm-debug.log*
 /playwright/.auth/
 
 /screenshots/
+/src/diplomas

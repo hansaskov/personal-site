@@ -7,13 +7,16 @@
     "AWS",
     "Microsoft Azure",
     "Docker",
+    "Kubernetes",
+    "Terraform",
     "PostgreSQL",
     "SQL",
     "Python",
     "TypeScript",
+    "C++",
+    "PLC",
     "CI/CD",
     "DevOps",
-    "Scrum",
     "Problem Solving"
   ],
   "experiences": [
@@ -65,7 +68,7 @@
           "year": "February 2022 - February 2023",
           "duration": "1 year 1 month",
           "location": "Odense",
-          "description": "Part of a larger development team, responsible for collecting and analyzing data from distributed IoT devices. Used this data to build a web application where customers can monitor their products live, and worked closely with colleagues to ensure consistency across the system."
+          "description": "Part of a larger development team, responsible for collecting and analyzing data from distributed IoT devices. Used this data to build a web application where customers can monitor their products live. Also programmed PLCs in Structured Text and helped update the visualizations for the automation machines."
         }
       ]
     }

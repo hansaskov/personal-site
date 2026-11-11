@@ -7,6 +7,9 @@
     "AWS",
     "Microsoft Azure",
     "Docker",
+    "Kubernetes",
+    "IaC",
+    "Terraform",
     "PostgreSQL",
     "SQL",
     "Python",
@@ -65,7 +68,7 @@
           "year": "februar 2022 - februar 2023",
           "duration": "1 år 1 måned",
           "location": "Odense",
-          "description": "Indgik i et større udviklerteam med ansvar for at indsamle og analysere data fra distribuerede IoT-enheder. Byggede på baggrund af data en webapplikation, hvor kunderne kan overvåge deres produkter live, og arbejdede tæt med kollegerne for at sikre sammenhæng på tværs af systemet."
+          "description": "Indgik i et større udviklerteam med ansvar for at indsamle og analysere data fra distribuerede IoT-enheder. Byggede på baggrund af data en webapplikation, hvor kunderne kan overvåge deres produkter live. Programmerede desuden PLC'er i Structured Text og var med til at opdatere visualiseringerne til automationsmaskinerne."
         }
       ]
     }
