@@ -1,0 +1,23 @@
+---
+/**
+ * A row of short facts separated by middots. Lines only break between facts,
+ * and a separator that would start a wrapped line is clipped away: every item
+ * draws its dot in its own left padding, and the row is shifted left by that
+ * padding inside an overflow-hidden box.
+ */
+interface Props {
+  items: (string | undefined)[];
+  class?: string;
+}
+
+const { items, class: className } = Astro.props;
+const parts = items.filter(Boolean);
+---
+
+<div class:list={["t-caption overflow-hidden", className]}>
+  <p class="-ml-3 flex flex-wrap">
+    {parts.map((part) => (
+      <span class="relative pl-3 whitespace-nowrap before:absolute before:left-1 before:content-['·']">{part}</span>
+    ))}
+  </p>
+</div>

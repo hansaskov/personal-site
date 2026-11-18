@@ -1,6 +1,7 @@
 ---
+import MetaLine from "./MetaLine.astro";
+import TimeLineLogo from "./TimeLineLogo.astro";
 import type { CollectionEntry } from "astro:content";
-import { getImage } from "astro:assets";
 
 type Cv = CollectionEntry<"cvs">["data"];
 type Experience = Cv["experiences"][number];
@@ -8,36 +9,13 @@ type Education = Cv["educations"][number];
 
 type Props = Experience | Education;
 
-const { img, company, duration } = Astro.props;
-
-const width = 96;
-const height = 96;
-
-const hero = await getImage({
-  src: img,
-  format: "webp",
-  width: width,
-  height: height,
-  quality: "low",
-});
+const { img, company, year, duration } = Astro.props;
 ---
 
-<Fragment slot="head">
-  <link rel="preload" as="image" href={hero.src} fetchpriority="auto" />
-</Fragment>
-
-<div class="flex items-center gap-4">
-  <div class="rounded-full overflow-hidden w-12 h-12 shrink-0">
-      <img
-        src={hero.src}
-        width={width}
-        height={height}
-        alt={`${company}'s' Logo`}
-      />
+<header class="flex items-center gap-(--tl-gap)">
+  <TimeLineLogo img={img} company={company} />
+  <div class="min-w-0">
+    <h3 class="tl-heading">{company}</h3>
+    <MetaLine class="mt-0.5 text-fg-muted" items={[year, duration]} />
   </div>
-
-  <div>
-    <h3 class="t-body font-semibold">{company}</h3>
-    <span class="t-caption text-fg-muted">{duration}</span>
-  </div>
-</div>
+</header>

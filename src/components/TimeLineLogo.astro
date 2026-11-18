@@ -1,0 +1,28 @@
+---
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  img: ImageMetadata;
+  company: string;
+}
+
+const { img, company } = Astro.props;
+const size = 96;
+
+const logo = await getImage({
+  src: img,
+  format: "webp",
+  width: size,
+  height: size,
+  quality: "low",
+});
+---
+
+<img
+  src={logo.src}
+  width={size}
+  height={size}
+  alt={`${company} logo`}
+  class="tl-logo size-(--tl-logo) shrink-0 rounded-full object-cover"
+/>

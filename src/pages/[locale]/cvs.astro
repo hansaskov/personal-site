@@ -36,7 +36,7 @@ const items = (await getLocaleDocs("cvs", locale)).map((cv) => ({
 >
   <PageHeader title={page.title} description={page.description} />
   <DocumentList items={items} downloadLabel={page.download} />
-  <div class="mt-6 flex justify-end">
+  <div class="mt-8 flex justify-end">
     <Button href={lettersUrl} variant="secondary">{page.viewLetters}</Button>
   </div>
 </BaseLayout>

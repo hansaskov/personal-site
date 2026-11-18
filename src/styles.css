@@ -310,7 +310,7 @@
     color: var(--ds-color-fg-muted);
     font-size: var(--pr-fs-300);
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.125rem;
     white-space: nowrap;
   }
 
@@ -348,6 +348,15 @@
       background: var(--ds-color-bg-subtle);
       border-right: 1px solid var(--ds-color-border-subtle);
     }
+  }
+
+  /* Reserve the scrollbar gutter on both edges so sidebar content stays
+     centred whether or not the panel overflows. */
+  .nav-panel-scroll {
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--ds-color-fg-default) 18%, transparent) transparent;
   }
 }
 

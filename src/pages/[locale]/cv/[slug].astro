@@ -38,13 +38,15 @@ const sections = [
   aboutMe={layout.cv.aboutMe}
   shouldIndex={false}
 >
-    <PageHeader title={personalInfo.name} description={title} />
-    <p class="t-body mt-4 max-w-prose text-fg-muted">{intro}</p>
+  <PageHeader title={personalInfo.name} description={title} />
+  <p class="t-body mt-3 text-pretty text-fg-muted">{intro}</p>
 
   {sections.map(({ heading, items }) => (
-    <div class="mt-section space-y-2">
-        <h2 class="pb-2">{heading}</h2>
-      <TimeLine experiences={items} />
-    </div>
+    <section class="mt-12 md:mt-14">
+      <h2>{heading}</h2>
+      <div class="mt-5">
+        <TimeLine experiences={items} />
+      </div>
+    </section>
   ))}
 </BaseLayout>

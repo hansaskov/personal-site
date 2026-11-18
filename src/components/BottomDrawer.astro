@@ -37,7 +37,7 @@ const { t, id = "bottom-drawer", title } = Astro.props;
     border: 1px solid var(--ds-color-border-subtle);
     border-bottom: 0;
     border-radius: 1rem 1rem 0 0;
-    padding-block: 0.875rem calc(0.5rem + env(safe-area-inset-bottom));
+    padding-block: 0.875rem calc(1.5rem + env(safe-area-inset-bottom));
     padding-inline: 0.75rem;
     box-shadow: var(--ds-shadow-panel);
     max-height: 85dvh;
@@ -75,12 +75,8 @@ const { t, id = "bottom-drawer", title } = Astro.props;
     display: block;
     width: 2.5rem;
     height: 0.3rem;
-    margin: 0 auto 0.875rem;
+    margin: 0 auto 1.25rem;
     border-radius: 999px;
     background: color-mix(in oklab, var(--ds-color-fg-default) 25%, transparent);
-  }
-
-  .drawer-panel :global(nav ul) {
-    gap: 0.5rem;
   }
 </style>

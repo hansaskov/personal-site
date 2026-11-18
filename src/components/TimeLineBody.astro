@@ -1,4 +1,5 @@
 ---
+import MetaLine from "./MetaLine.astro";
 import type { CollectionEntry } from "astro:content";
 
 type Cv = CollectionEntry<"cvs">["data"];
@@ -9,10 +10,6 @@ export type Props = Role;
 const { title, year, description, duration, location } = Astro.props;
 ---
 
-<h4 class="t-body-sm font-semibold text-balance">
-  {title} - {location}
-</h4>
-<span class="t-caption block text-fg-subtle">
-  {year} • {duration}
-</span>
-<div class="t-body-sm mt-1 text-pretty text-fg-muted">{description}</div>
+<h4 class="t-body leading-normal font-semibold text-balance">{title} - {location}</h4>
+<MetaLine class="mt-0.5 text-fg-subtle" items={[year, duration]} />
+<p class="t-body-sm mt-2 text-pretty text-fg-muted">{description}</p>

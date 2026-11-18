@@ -1,36 +1,126 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import TimeLineHeader from './TimeLineHeader.astro';
-import TimeLineBody from './TimeLineBody.astro';
+import TimeLineHeader from "./TimeLineHeader.astro";
+import TimeLineBody from "./TimeLineBody.astro";
 
 type Cv = CollectionEntry<"cvs">["data"];
 type Experience = Cv["experiences"][number];
 type Education = Cv["educations"][number];
 
 interface Props {
-  experiences: (Experience | Education)[]
+  experiences: (Experience | Education)[];
 }
 
-const props = Astro.props;
+const { experiences } = Astro.props;
 ---
 
-<div class="space-y-8">
-      {
-        props.experiences.map((experience) => (
-          <div class="space-y-2">
-            <TimeLineHeader {...experience} />
-            {experience.roles.map((role) => (
-              <div class="flex gap-4 pl-4">
-                <div class="hidden md:block">
-                  <span class="bg-fg mt-1.5 block size-3 rounded-full" />
-                  <span class="bg-fg block h-full w-0.5 translate-x-1.25" />
-                </div>
-                <div>
-                  <TimeLineBody {...role} />
-                </div>
-              </div>
-            ))}
-          </div>
-        ))
-      }
-    </div>
+<div class="timeline">
+  {
+    experiences.map((experience) => (
+      <article class="tl-entry">
+        <TimeLineHeader {...experience} />
+        <ol class="tl-roles space-y-6">
+          {experience.roles.map((role) => (
+            <li class="tl-role">
+              <TimeLineBody {...role} />
+            </li>
+          ))}
+        </ol>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  /*
+   * Each company has its own rail, running from its logo down to the end of
+   * its last role's text.
+   * Every horizontal position is derived from these tokens, so the rail, the
+   * dots and the logos share one centre line and the role text lines up with
+   * the company name above it.
+   */
+  .timeline {
+    --tl-logo: 2.5rem;
+    --tl-gap: 0.75rem;
+    --tl-entry-gap: 1.25rem; /* half the space between two companies */
+    --tl-dot: 0.625rem;
+    --tl-rail: 2px;
+    --tl-head-gap: 1rem; /* header -> first role */
+    --tl-title-line: calc(var(--pr-fs-500) * 1.5); /* role title line box */
+    --tl-dot-top: calc((var(--tl-title-line) - var(--tl-dot)) / 2);
+    --tl-rail-x: calc(var(--tl-logo) / 2 - var(--tl-rail) / 2);
+    --tl-rail-color: color-mix(in oklab, var(--ds-color-fg-default) 22%, var(--ds-color-bg-page));
+  }
+  @media (min-width: 48rem) {
+    .timeline {
+      --tl-logo: 3rem;
+      --tl-gap: 1rem;
+      --tl-entry-gap: 1.5rem;
+    }
+  }
+
+  .tl-entry {
+    --tl-pad-top: var(--tl-entry-gap);
+    --tl-pad-bottom: var(--tl-entry-gap);
+    position: relative;
+    padding-block: var(--tl-pad-top) var(--tl-pad-bottom);
+  }
+  .tl-entry:first-child {
+    --tl-pad-top: 0px;
+  }
+  .tl-entry:last-child {
+    --tl-pad-bottom: 0px;
+  }
+
+  /*
+   * The company's rail: from its logo's centre down to the last line of text,
+   * minus that line's half-leading so it stops level with the text itself.
+   */
+  .tl-entry::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--tl-pad-top) + var(--tl-logo) / 2);
+    bottom: calc(var(--tl-pad-bottom) + var(--pr-fs-400) * (1.6 - 1) / 2);
+    left: var(--tl-rail-x);
+    width: var(--tl-rail);
+    background: var(--tl-rail-color);
+  }
+
+  /* Logos sit on top of the rail, so it appears to pass through them. */
+  .timeline :global(.tl-logo) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline :global(.tl-heading) {
+    font-size: var(--pr-fs-600);
+    line-height: 1.375;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .tl-roles {
+    margin-top: var(--tl-head-gap);
+    padding-left: calc(var(--tl-logo) + var(--tl-gap));
+  }
+
+  .tl-role {
+    position: relative;
+  }
+
+  /* Dot, centred on the rail and on the role title's first line. */
+  .tl-role::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: var(--tl-dot-top);
+    left: calc(-1 * (var(--tl-gap) + var(--tl-logo) / 2) - var(--tl-dot) / 2);
+    width: var(--tl-dot);
+    height: var(--tl-dot);
+    border-radius: 999px;
+    background: var(--ds-color-fg-default);
+    box-shadow: 0 0 0 3px var(--ds-color-bg-page);
+  }
+
+</style>

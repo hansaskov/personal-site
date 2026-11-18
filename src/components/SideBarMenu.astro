@@ -48,10 +48,11 @@ const {
 const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
 const pathname = normalize(path ?? Astro.url.pathname);
 const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
+const hasInfo = Boolean(personalInfo || languages || skills || aboutMe);
 
 ---
 
-<nav class="py-2 lg:py-4 flex-1">
+<nav>
     <ul class="flex flex-col gap-1" aria-label={t.nav.main}>
         {
             pages.map(({ name, url: rawUrl }) => {
@@ -64,7 +65,7 @@ const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
                     <li>
                         <a
                             class:list={[
-                                "t-body-sm block rounded-lg px-4 py-2.5 font-medium transition-colors hover:bg-active",
+                                "t-body-sm flex h-11 items-center rounded-lg px-4 font-medium leading-5 transition-colors hover:bg-active lg:h-10",
                                 active && "bg-brand-subtle font-semibold text-brand-text",
                             ]}
                             aria-current={active ? "page" : undefined}
@@ -78,11 +79,13 @@ const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
         }
     </ul>
 
-    <div class="mt-10 space-y-8 px-4">
+    {hasInfo && (
+    <div class="mt-8 space-y-8 border-t border-line px-4 pt-8">
         {personalInfo && (
-            <div class="space-y-2.5">
-                <h2 class="t-overline">{t.sections.contact}</h2>
-                <div class="t-body-sm flex items-center gap-2 leading-snug text-fg-muted">
+            <div>
+                <h2 class="t-overline leading-4">{t.sections.contact}</h2>
+                <ul class="t-body-sm mt-3 space-y-2 leading-5 text-fg-muted">
+                <li class="flex items-center gap-2">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -105,12 +108,12 @@ const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
                         ></path>
                     </svg>
                     {personalInfo.name}
-                </div>
-                <div>
+                </li>
+                <li>
                     <a
                         href={`mailto:${personalInfo.email}`}
                         title={personalInfo.email}
-                        class="t-body-sm inline-flex items-center gap-2 leading-snug text-fg-muted transition-colors hover:text-fg"
+                        class="flex w-fit max-w-full items-center gap-2 transition-colors hover:text-fg"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -131,10 +134,8 @@ const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
                         </svg>
                         {personalInfo.email}
                     </a>
-                </div>
-
-                <div>
-                    <span class="t-body-sm inline-flex items-center gap-2 leading-snug text-fg-muted">
+                </li>
+                <li class="flex items-center gap-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="14"
@@ -153,19 +154,20 @@ const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
                             ></path>
                         </svg>
                         {personalInfo.phone}
-                    </span>
-                </div>
+                </li>
+                </ul>
             </div>
         )}
 
         {languages && (
-            <div class="space-y-2.5">
-                <h2 class="t-overline">{t.sections.languages}</h2>
+            <div>
+                <h2 class="t-overline leading-4">{t.sections.languages}</h2>
+                <ul class="mt-3 space-y-2">
                 {languages.map((language) => (
-                    <div class="t-body-sm flex items-center justify-between gap-4 text-fg-muted">
+                    <li class="t-body-sm flex items-center justify-between gap-4 leading-5 text-fg-muted">
                         <span>{language.name}</span>
                         <div
-                            class="flex items-center gap-1"
+                            class="flex items-center gap-1.5"
                             role="img"
                             aria-label={`${language.name}: ${language.rating} ${t.cv.ratingOutOf}`}
                         >
@@ -173,20 +175,21 @@ const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
                                 <span
                                     class:list={[
                                         "rounded-full",
-                                        star <= language.rating ? "size-3 bg-fg" : "size-3 bg-line-strong",
+                                        star <= language.rating ? "size-2.5 bg-fg" : "size-2.5 bg-line-strong",
                                     ]}
                                 />
                             ))}
                         </div>
-                    </div>
+                    </li>
                 ))}
+                </ul>
             </div>
         )}
 
         {skills && (
-            <div class="space-y-2.5">
-                <h2 class="t-overline">{t.sections.skills}</h2>
-                <div class="flex flex-wrap gap-1.5">
+            <div>
+                <h2 class="t-overline leading-4">{t.sections.skills}</h2>
+                <div class="mt-3 flex flex-wrap gap-2">
                     {
                         skills.map((skill) => (
                             <span class="tag">{skill}</span>
@@ -197,12 +200,13 @@ const homeUrl = normalize(getRelativeLocaleUrl(t.locale));
         )}
 
         {aboutMe && (
-            <div class="space-y-2.5">
-                <h2 class="t-overline">{t.sections.aboutMe}</h2>
-                <p class="t-body-sm text-fg-muted">
+            <div>
+                <h2 class="t-overline leading-4">{t.sections.aboutMe}</h2>
+                <p class="t-body-sm mt-3 text-pretty text-fg-muted">
                     {aboutMe}
                 </p>
             </div>
         )}
     </div>
+    )}
 </nav>
